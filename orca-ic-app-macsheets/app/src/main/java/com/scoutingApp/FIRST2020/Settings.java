@@ -150,7 +150,11 @@ public class Settings extends AppCompatActivity {
                 displaySet(stringMe(getData().perCacheData.get(getSpace().getSettingsDisplayNum())));
             }
         }
-        else if (isLocal()) {makeADialog("You still need to code this!! (local)", "noMoreData");}
+        else if (isLocal()) {
+            if (getSpace().getSettingsDisplayNum() < getData().perSubData.size()) {
+                displaySet("Submit? Match number " + getData().perSubData.get(getSpace().getSettingsDisplayNum()).getMatchNumber());
+            }
+        }
         else if (isHelp()) {makeADialog("This function is not available for this attribute.", "notAvailable");}
         else {makeADialog("Please select an attribute.", "noSelect");}
     }
@@ -160,7 +164,7 @@ public class Settings extends AppCompatActivity {
     }
     public void submitButtonThree(View view) {
         if (!isLocal()) { makeADialog("Unable to submit data in this category.", "noSubmit"); }
-        else {
+        else if (!getData().perSubData.isEmpty()){
             getData().getSheet().setValues(getData().perSubData.get(getSpace().getSettingsDisplayNum()).setValues());
             if (!getData().sender()) {
                 makeADialog("no connection!", "noConnect");

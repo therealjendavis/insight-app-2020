@@ -40,7 +40,13 @@ public class SheetsAccess implements Serializable {
     }
 
     private List<List<Object>> sheetValue(String range) throws ExecutionException, InterruptedException {
-        return (new fetchSheet().execute("1UMDg9Evrj74S3p0fz49Dq6qFVPcSfEqSbPCyL3hJohc", range)).get();
+        if ((new fetchSheet().execute("1gz3ZkNAZ0rtq6hBiLIRO6hiUAkN3Dhu_UQ-Nc11aW0E", range)).get() != null) {
+            return (new fetchSheet().execute("1gz3ZkNAZ0rtq6hBiLIRO6hiUAkN3Dhu_UQ-Nc11aW0E", range)).get();
+        }
+        else {
+            setSheetID("default");
+            return null;
+        }
     }
 
     String nameValue(int row) { return getSheetPage().get(row).get(0).toString();}
