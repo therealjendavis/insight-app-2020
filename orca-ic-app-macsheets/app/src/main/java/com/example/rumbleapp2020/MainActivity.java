@@ -373,13 +373,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             getSpace().infoSet("Set", 0, "Please", "Tablet Number");
-            try {
-                getData().getSheet().setSheetPage();
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
         }
-
         infoTop();
     }
 }

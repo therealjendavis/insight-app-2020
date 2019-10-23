@@ -174,7 +174,7 @@ public class Settings extends AppCompatActivity {
         Intent back2 = new Intent(this, MainActivity.class);
         back2.putExtra("game6", getSpace());
         back2.putExtra("data6", getData());
-        if (tabletNumber != 0 && (getData().getSheet().getSheetPage() == null)){
+        if ((tabletNumber != 0) && (getData().getSheet().getSheetPage() == null)){
             getData().setPerAlliance(allianceColor);
             getData().getSheet().setSheetID("tab" + tabletNumber);
             try {

@@ -27,7 +27,7 @@ public class PersistentData implements Serializable {
         this.rowNumber = rowNumber;
     }
 
-    public String subRange = getSheet().getSheetID() + "!" + (rowNumber + 1) + ":" + (rowNumber + 1);
+    public String subRange = getSheet().getSheetID() + "!" + (rowNumber + 2) + ":" + (rowNumber + 2);
 
     public boolean sender() {
         try {

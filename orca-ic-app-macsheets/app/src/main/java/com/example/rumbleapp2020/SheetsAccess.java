@@ -38,7 +38,7 @@ public class SheetsAccess implements Serializable {
 
     public static String API_KEY = "AIzaSyCPbCdf6Qmt4VMXbGhPFhFJ6qmDIKQt2RY";
     private String sheetID = "default";
-    private List<List<Object>> sheetPage;
+    private List<List<Object>> sheetPage = null;
     private static List<List<Object>> values;
 
     public String getSheetID() {
