@@ -1,4 +1,4 @@
-package com.example.rumbleapp2020;
+package com.scoutingApp.FIRST2020;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

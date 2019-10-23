@@ -1,4 +1,4 @@
-package com.example.rumbleapp2020;
+package com.scoutingApp.FIRST2020;
 
 import android.content.Intent;
 import android.os.Bundle;

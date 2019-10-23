@@ -1,10 +1,9 @@
-package com.example.rumbleapp2020;
+package com.scoutingApp.FIRST2020;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -14,13 +13,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -341,19 +336,15 @@ public class MainActivity extends AppCompatActivity {
     public void checkData() {
         if (getIntent().hasExtra("data5")) {
             setData((PersistentData) getIntent().getSerializableExtra("data5"));
-            makeADialog("workin data5 (addInfo)", "workin2");
         }
         else if (getIntent().hasExtra("data4")) {
             setData((PersistentData) getIntent().getSerializableExtra("data4"));
-            makeADialog("workin data4 (addInfo)", "workin2");
         }
         else if (getIntent().hasExtra("data6")) {
             setData((PersistentData) getIntent().getSerializableExtra("data6"));
-            makeADialog("workin data6 (settings)", "workin3");
         }
         else {
             setData(new PersistentData());
-            makeADialog("new data", "noData");
         }
     }
 

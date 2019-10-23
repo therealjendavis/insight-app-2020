@@ -1,4 +1,4 @@
-package com.example.rumbleapp2020;
+package com.scoutingApp.FIRST2020;
 
 import java.io.Serializable;
 import java.util.Arrays;

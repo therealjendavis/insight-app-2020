@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.rumbleapp2020">
+    package="com.scoutingApp.FIRST2020">
 
     <application
         android:allowBackup="true"
@@ -12,22 +12,22 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".PostSubmit"
+            android:name="com.scoutingApp.FIRST2020.PostSubmit"
             android:label="@string/title_activity_page2"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="com.scoutingApp.FIRST2020.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.rumbleapp2020.MainActivity" />
+                android:value="com.scoutingApp.FIRST2020.MainActivity" />
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.scoutingApp.FIRST2020.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Settings" />
-        <activity android:name=".AdditionalInfo" />
+        <activity android:name="com.scoutingApp.FIRST2020.Settings" />
+        <activity android:name="com.scoutingApp.FIRST2020.AdditionalInfo" />
 
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
