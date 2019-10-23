@@ -74,10 +74,12 @@ public class PostSubmit extends AppCompatActivity {
         getSpace().setMainMatch(newString(R.id.match));
         getSpace().setMainAlliance(newString(R.id.alliance));
         toSubmission();
-        //send to sheet
-        getData().perSubData.add(getSub());
+        getData().getSheet().setValues(getSub().setValues());
+        if (!getData().sender()) {
+            getData().perSubData.add(getSub());
+        }
         getData().perCacheData.add(getSpace().getInfo());
-
+        getData().setRowNumber(getData().getRowNumber() + 1);
         Intent back = new Intent(this, MainActivity.class);
         back.putExtra("data4", getData());
         startActivity(back);

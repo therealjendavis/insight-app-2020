@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class Settings extends AppCompatActivity {
 
@@ -130,7 +131,7 @@ public class Settings extends AppCompatActivity {
     public void localButton(View view) {
         getSpace().setSettingsDisplayNum(0);
         if (!getData().perSubData.isEmpty()) {
-            displaySet(getData().perSubData.get(getSpace().getSettingsDisplayNum()).toString());
+            displaySet("Submit? Match number " + getData().perSubData.get(getSpace().getSettingsDisplayNum()).getMatchNumber());
         }
         clickedMe();
         setLocal(true);
@@ -160,7 +161,11 @@ public class Settings extends AppCompatActivity {
     public void submitButtonThree(View view) {
         if (!isLocal()) { makeADialog("Unable to submit data in this category.", "noSubmit"); }
         else {
-            //submit formula here
+            getData().getSheet().setValues(getData().perSubData.get(getSpace().getSettingsDisplayNum()).setValues());
+            if (!getData().sender()) {
+                makeADialog("no connection!", "noConnect");
+            }
+            else {getData().perSubData.remove(getSpace().getSettingsDisplayNum());}
             getSpace().setSettingsDisplay("");
             updateTextView(getSpace().getSettingsDisplay(), R.id.settingsDisplay);
         }
@@ -169,9 +174,14 @@ public class Settings extends AppCompatActivity {
         Intent back2 = new Intent(this, MainActivity.class);
         back2.putExtra("game6", getSpace());
         back2.putExtra("data6", getData());
-        if (tabletNumber != 0){
+        if (tabletNumber != 0 && (getData().getSheet().getSheetPage() == null)){
             getData().setPerAlliance(allianceColor);
             getData().getSheet().setSheetID("tab" + tabletNumber);
+            try {
+                getData().getSheet().setSheetPage();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         startActivity(back2);
     }

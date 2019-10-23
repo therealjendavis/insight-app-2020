@@ -2,6 +2,7 @@ package com.example.rumbleapp2020;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class PersistentData implements Serializable {
     ArrayList<SubmittedData> perSubData = new ArrayList<>();
@@ -24,5 +25,17 @@ public class PersistentData implements Serializable {
     }
     public void setRowNumber(int rowNumber) {
         this.rowNumber = rowNumber;
+    }
+
+    public String subRange = getSheet().getSheetID() + "!" + (rowNumber + 1) + ":" + (rowNumber + 1);
+
+    public boolean sender() {
+        try {
+            new SheetsAccess.sendToSheet().execute("SpreadsheetID", subRange).get();
+            return true;
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

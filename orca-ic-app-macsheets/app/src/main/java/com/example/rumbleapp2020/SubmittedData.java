@@ -1,6 +1,8 @@
 package com.example.rumbleapp2020;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 public class SubmittedData implements Serializable {
     
@@ -49,6 +51,55 @@ public class SubmittedData implements Serializable {
     private int totalCargo = CSFC + CSSC + CSFCSS + CSSCSS + R1C + R2C + R3C + R1CSS + R2CSS + R3CSS;
     private int totalHatch = CSFH + CSSH + CSFHSS + CSSHSS + R1H + R2H + R3H + R1HSS + R2HSS + R3HSS;
 
+
+
+    List<List<Object>> setValues() {
+        List<List<Object>> values = Arrays.asList(
+                Arrays.asList(
+                        ((Object) mainStartPosition),
+                        mainDefense,
+                        mainBlockedScores,
+                        mainEndgame,
+                        extrasRedCard,
+                        extrasYellowCard,
+                        noShow,
+                        movement,
+                        extrasFinalScore,
+                        team,
+                        match,
+                        name,
+                        alliance,
+                        notes,
+                        CSFH,
+                        CSFC,
+                        CSSH,
+                        CSSC,
+                        CSFHSS,
+                        CSFCSS,
+                        CSSHSS,
+                        CSSCSS,
+                        R1H,
+                        R1C,
+                        R2H,
+                        R2C,
+                        R3H,
+                        R3C,
+                        R1HSS,
+                        R1CSS,
+                        R2HSS,
+                        R2CSS,
+                        R3HSS,
+                        R3CSS,
+                        totalSS,
+                        cargoShipTotal,
+                        rocketShipTotal,
+                        totalCargo,
+                        totalHatch
+                )
+        );
+        return values;
+    }
+
     public void setNotes(String notes) {this.notes = notes;}
     public void setMainStartPosition(int mainStartPosition) {this.mainStartPosition = mainStartPosition;}
     public void setMainDefense(boolean mainDefense) {this.mainDefense = mainDefense;}
@@ -84,7 +135,7 @@ public class SubmittedData implements Serializable {
     public void setR3HSS(int r3HSS) {R3HSS = r3HSS;}
     public void setR3CSS(int r3CSS) {R3CSS = r3CSS;}
 
-    public int getMainStartPosition() {return mainStartPosition;}
+    public String getMatchNumber() {return match;}
     public int getTotalSS() {return totalSS;}
     public int getCargoShipTotal() {return cargoShipTotal;}
     public int getRocketShipTotal() {return rocketShipTotal;}
