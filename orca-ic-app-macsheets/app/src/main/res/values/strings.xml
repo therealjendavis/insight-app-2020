@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Scouting App</string>
+    <string name="title_activity_page2">page2</string>
+    <string name="one">1</string>
+    <string name="additional_information">Additional Information</string>
+
+    <string name="psname">%s</string>
+    <string name="alliance">%s</string>
+    <string name="hatch">Hatch</string>
+    <string name="okiedokes">Okay!</string>
+    <string name="front">Front</string>
+    <string name="_3">3</string>
+    <string name="setview">%s</string>
+    <string name="tablet">tablet number?</string>
+
+    <string name="start">START</string>
+    <string name="cargo">Cargo</string>
+    <string name="side">Side</string>
+    <string name="textview">TextView</string>
+    <string name="_2">2</string>
+    <string name="defense">Defense</string>
+    <string name="blocked_score">Blocked Score</string>
+    <string name="info">info</string>
+    <string name="settings">settings</string>
+    <string name="submit">submit</string>
+    <string name="submitme">Are you sure?</string>
+    <string name="alliance_score">Alliance Score</string>
+    <string name="team">Team:</string>
+    <string name="match">Match:</string>
+    <string name="alliance_">Alliance:</string>
+    <string name="name">Name:</string>
+    <string name="name2">%s</string>
+    <string name="type_score_here">Type Score Here</string>
+    <string name="namehint">%s</string>
+    <string name="teamhint">%s</string>
+    <string name="matchnumber">%s</string>
+    <string name="cache_data">Cache Data</string>
+    <string name="local_data">Local Data</string>
+    <string name="help">help</string>
+    <string name="next">next</string>
+    <string name="clear">clear</string>
+    <string name="red_card">red card?</string>
+    <string name="no_show">no show?</string>
+    <string name="yellow_card">yellow card?</string>
+    <string name="did_they_move">did they move?</string>
+    <string name="any_notes">Any notes?</string>
+    <string name="password">password?</string>
+    <string name="tablet_number">tablet number?</string>
+</resources>
