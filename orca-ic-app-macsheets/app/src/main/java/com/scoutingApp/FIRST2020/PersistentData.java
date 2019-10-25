@@ -14,6 +14,14 @@ public class PersistentData implements Serializable {
     }
     private String perAlliance;
     private int rowNumber = 0;
+    String tokenKeyThingy;
+
+    public String getTokenKeyThingy() {
+        return tokenKeyThingy;
+    }
+    public void setTokenKeyThingy(String tokenKeyThingy) {
+        this.tokenKeyThingy = tokenKeyThingy;
+    }
     public String getPerAlliance() {
         return perAlliance;
     }
@@ -29,9 +37,9 @@ public class PersistentData implements Serializable {
 
     public String subRange = getSheet().getSheetID() + "!" + (rowNumber + 2) + ":" + (rowNumber + 2);
 
-    public boolean sender() {
+    public boolean sender(String key) {
         try {
-            String x = new SheetsAccess.sendToSheet().execute("1IrT8fskl1MCdMyxous8OO5YRCJo3Y4AoXHS_zusYrYc", subRange).get();
+            String x = new SheetsAccess.sendToSheet().execute("1IrT8fskl1MCdMyxous8OO5YRCJo3Y4AoXHS_zusYrYc", subRange, key).get();
             return x.equals("yup");
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();

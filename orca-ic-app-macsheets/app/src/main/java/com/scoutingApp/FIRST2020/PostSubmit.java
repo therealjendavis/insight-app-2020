@@ -22,6 +22,7 @@ public class PostSubmit extends AppCompatActivity {
     public PersistentData getData() {
         return (PersistentData) getIntent().getSerializableExtra("data2");
     }
+    GoogleSignInClient googleClient;
     public SubmittedData sub = new SubmittedData();
     public SubmittedData getSub() { return this.sub; }
     private void updateTextView(String content, int id){
@@ -85,7 +86,7 @@ public class PostSubmit extends AppCompatActivity {
         getData().getSheet().setValues(getSub().setValues());
         Intent signInIntent = googleClient.getSignInIntent();
         startActivityForResult(signInIntent, 1);
-        if (!getData().sender()) {
+        if (!getData().sender(getData().getTokenKeyThingy())) {
             getData().perSubData.add(getSub());
         }
         getData().perCacheData.add(getSpace().getInfo());
@@ -103,8 +104,8 @@ public class PostSubmit extends AppCompatActivity {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(SheetsScopes.SPREADSHEETS_READONLY))
                 .requestScopes(new Scope(SheetsScopes.SPREADSHEETS))
-                .requestIdToken("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
-                .requestServerAuthCode("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
+                .requestIdToken("224522353747-mhs92us52qh4kttmpt62h26vskfdq0no.apps.googleusercontent.com")
+                .requestServerAuthCode("224522353747-mhs92us52qh4kttmpt62h26vskfdq0no.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         googleClient = GoogleSignIn.getClient(this, gso);
@@ -125,7 +126,7 @@ public class PostSubmit extends AppCompatActivity {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            getData().getSheet().handleSignInResult(task);
+            getData().setTokenKeyThingy(getData().getSheet().handleSignInResult(task));
         }
     }
 }

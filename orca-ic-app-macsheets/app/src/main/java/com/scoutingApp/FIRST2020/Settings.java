@@ -166,7 +166,7 @@ public class Settings extends AppCompatActivity {
         if (!isLocal()) { makeADialog("Unable to submit data in this category.", "noSubmit"); }
         else if (!getData().perSubData.isEmpty()){
             getData().getSheet().setValues(getData().perSubData.get(getSpace().getSettingsDisplayNum()).setValues());
-            if (!getData().sender()) {
+            if (!getData().sender(getData().getTokenKeyThingy())) {
                 makeADialog("no connection!", "noConnect");
             }
             else {getData().perSubData.remove(getSpace().getSettingsDisplayNum());}
