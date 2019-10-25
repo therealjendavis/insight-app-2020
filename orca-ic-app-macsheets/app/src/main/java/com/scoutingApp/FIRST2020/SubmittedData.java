@@ -54,7 +54,7 @@ public class SubmittedData implements Serializable {
 
 
     List<List<Object>> setValues() {
-        List<List<Object>> values = Arrays.asList(
+        return Arrays.asList(
                 Arrays.asList(
                         ((Object) mainStartPosition),
                         mainDefense,
@@ -97,48 +97,42 @@ public class SubmittedData implements Serializable {
                         totalHatch
                 )
         );
-        return values;
     }
 
-    public void setNotes(String notes) {this.notes = notes;}
-    public void setMainStartPosition(int mainStartPosition) {this.mainStartPosition = mainStartPosition;}
-    public void setMainDefense(boolean mainDefense) {this.mainDefense = mainDefense;}
-    public void setMainBlockedScores(int mainBlockedScores) {this.mainBlockedScores = mainBlockedScores;}
-    public void setMainEndgame(int mainEndgame) {this.mainEndgame = mainEndgame;}
-    public void setExtrasRedCard(boolean extrasRedCard) {this.extrasRedCard = extrasRedCard;}
-    public void setExtrasYellowCard(boolean extrasYellowCard) {this.extrasYellowCard = extrasYellowCard;}
-    public void setNoShow(boolean noShow) {this.noShow = noShow;}
-    public void setMovement(boolean movement) {this.movement = movement;}
-    public void setExtrasFinalScore(int extrasFinalScore) {this.extrasFinalScore = extrasFinalScore;}
-    public void setTeam(int team) {this.team = team;}
-    public void setMatch(String match) {this.match = match;}
+    void setNotes(String notes) {this.notes = notes;}
+    void setMainStartPosition(int mainStartPosition) {this.mainStartPosition = mainStartPosition;}
+    void setMainDefense(boolean mainDefense) {this.mainDefense = mainDefense;}
+    void setMainBlockedScores(int mainBlockedScores) {this.mainBlockedScores = mainBlockedScores;}
+    void setMainEndgame(int mainEndgame) {this.mainEndgame = mainEndgame;}
+    void setExtrasRedCard(boolean extrasRedCard) {this.extrasRedCard = extrasRedCard;}
+    void setExtrasYellowCard(boolean extrasYellowCard) {this.extrasYellowCard = extrasYellowCard;}
+    void setNoShow(boolean noShow) {this.noShow = noShow;}
+    void setMovement(boolean movement) {this.movement = movement;}
+    void setExtrasFinalScore(int extrasFinalScore) {this.extrasFinalScore = extrasFinalScore;}
+    void setTeam(int team) {this.team = team;}
+    void setMatch(String match) {this.match = match;}
     public void setName(String name) {this.name = name;}
-    public void setAlliance(String alliance) {this.alliance = alliance;}
-    public void setCSFH(int CSFH) {this.CSFH = CSFH;}
-    public void setCSFC(int CSFC) {this.CSFC = CSFC;}
-    public void setCSSH(int CSSH) {this.CSSH = CSSH;}
-    public void setCSSC(int CSSC) {this.CSSC = CSSC;}
-    public void setCSFHSS(int CSFHSS) {this.CSFHSS = CSFHSS;}
-    public void setCSFCSS(int CSFCSS) {this.CSFCSS = CSFCSS;}
-    public void setCSSHSS(int CSSHSS) {this.CSSHSS = CSSHSS;}
-    public void setCSSCSS(int CSSCSS) {this.CSSCSS = CSSCSS;}
-    public void setR1H(int r1H) {R1H = r1H;}
-    public void setR1C(int r1C) {R1C = r1C;}
-    public void setR2H(int r2H) {R2H = r2H;}
-    public void setR2C(int r2C) {R2C = r2C;}
-    public void setR3H(int r3H) {R3H = r3H;}
-    public void setR3C(int r3C) {R3C = r3C;}
-    public void setR1HSS(int r1HSS) {R1HSS = r1HSS;}
-    public void setR1CSS(int r1CSS) {R1CSS = r1CSS;}
-    public void setR2HSS(int r2HSS) {R2HSS = r2HSS;}
-    public void setR2CSS(int r2CSS) {R2CSS = r2CSS;}
-    public void setR3HSS(int r3HSS) {R3HSS = r3HSS;}
-    public void setR3CSS(int r3CSS) {R3CSS = r3CSS;}
+    void setAlliance(String alliance) {this.alliance = alliance;}
+    void setCSFH(int CSFH) {this.CSFH = CSFH;}
+    void setCSFC(int CSFC) {this.CSFC = CSFC;}
+    void setCSSH(int CSSH) {this.CSSH = CSSH;}
+    void setCSSC(int CSSC) {this.CSSC = CSSC;}
+    void setCSFHSS(int CSFHSS) {this.CSFHSS = CSFHSS;}
+    void setCSFCSS(int CSFCSS) {this.CSFCSS = CSFCSS;}
+    void setCSSHSS(int CSSHSS) {this.CSSHSS = CSSHSS;}
+    void setCSSCSS(int CSSCSS) {this.CSSCSS = CSSCSS;}
+    void setR1H(int r1H) {R1H = r1H;}
+    void setR1C(int r1C) {R1C = r1C;}
+    void setR2H(int r2H) {R2H = r2H;}
+    void setR2C(int r2C) {R2C = r2C;}
+    void setR3H(int r3H) {R3H = r3H;}
+    void setR3C(int r3C) {R3C = r3C;}
+    void setR1HSS(int r1HSS) {R1HSS = r1HSS;}
+    void setR1CSS(int r1CSS) {R1CSS = r1CSS;}
+    void setR2HSS(int r2HSS) {R2HSS = r2HSS;}
+    void setR2CSS(int r2CSS) {R2CSS = r2CSS;}
+    void setR3HSS(int r3HSS) {R3HSS = r3HSS;}
+    void setR3CSS(int r3CSS) {R3CSS = r3CSS;}
 
-    public String getMatchNumber() {return match;}
-    public int getTotalSS() {return totalSS;}
-    public int getCargoShipTotal() {return cargoShipTotal;}
-    public int getRocketShipTotal() {return rocketShipTotal;}
-    public int getTotalCargo() {return totalCargo;}
-    public int getTotalHatch() {return totalHatch;}
+    String getMatchNumber() {return match;}
 }
