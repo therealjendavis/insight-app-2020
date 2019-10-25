@@ -7,6 +7,14 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.tasks.Task;
+import com.google.api.services.sheets.v4.SheetsScopes;
+
 public class PostSubmit extends AppCompatActivity {
     public DeepSpace getSpace() {
         return (DeepSpace) getIntent().getSerializableExtra("Game2");
@@ -75,6 +83,8 @@ public class PostSubmit extends AppCompatActivity {
         getSpace().setMainAlliance(newString(R.id.alliance));
         toSubmission();
         getData().getSheet().setValues(getSub().setValues());
+        Intent signInIntent = googleClient.getSignInIntent();
+        startActivityForResult(signInIntent, 1);
         if (!getData().sender()) {
             getData().perSubData.add(getSub());
         }
@@ -90,5 +100,32 @@ public class PostSubmit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_submit);
         info();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestScopes(new Scope(SheetsScopes.SPREADSHEETS_READONLY))
+                .requestScopes(new Scope(SheetsScopes.SPREADSHEETS))
+                .requestIdToken("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
+                .requestServerAuthCode("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+        googleClient = GoogleSignIn.getClient(this, gso);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getData().getSheet().setAccount(GoogleSignIn.getLastSignedInAccount(this));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == 1) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            getData().getSheet().handleSignInResult(task);
+        }
     }
 }
