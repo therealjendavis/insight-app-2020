@@ -35,11 +35,11 @@ public class PersistentData implements Serializable {
         this.rowNumber = rowNumber;
     }
 
-    public String subRange = getSheet().getSheetID() + "!" + (rowNumber + 2) + ":" + (rowNumber + 2);
+    public String setSubRange() { return getSheet().getSheetID() + "!" + (rowNumber + 2) + ":" + (rowNumber + 2);}
 
     public boolean sender(String key) {
         try {
-            String x = new SheetsAccess.sendToSheet().execute("1IrT8fskl1MCdMyxous8OO5YRCJo3Y4AoXHS_zusYrYc", subRange, key).get();
+            String x = new SheetsAccess.sendToSheet().execute("1IrT8fskl1MCdMyxous8OO5YRCJo3Y4AoXHS_zusYrYc", setSubRange(), key).get();
             return x.equals("yup");
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();

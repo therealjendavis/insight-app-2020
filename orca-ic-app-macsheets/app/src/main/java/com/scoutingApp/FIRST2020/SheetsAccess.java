@@ -43,8 +43,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class SheetsAccess implements Serializable {
-
-    static GoogleSignInAccount account;
+    private GoogleSignInAccount account;
     public static String API_KEY = "AIzaSyAAwkxoRODxyIyMpJv-ss7fPOdmyv8KfQI";
     private String sheetID = "default";
     private List<List<Object>> sheetPage = null;
@@ -54,8 +53,8 @@ public class SheetsAccess implements Serializable {
         this.googleUser = googleUser;
     }
 
-    public static void setAccount(GoogleSignInAccount account) {
-        SheetsAccess.account = account;
+    public void setAccount(GoogleSignInAccount account) {
+        this.account = account;
     }
     public String getSheetID() {
         return sheetID;
@@ -89,32 +88,28 @@ public class SheetsAccess implements Serializable {
     String teamValue(int row) { return getSheetPage().get(row).get(1).toString();}
     String matchValue(int row) { return getSheetPage().get(row).get(2).toString();}
 
-    void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+    String handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             account = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-            Log.i("SETTINGS", account.toString());
-            getAuthCode(account.getIdToken());
+            assert account != null;
+            return getAuthCode(account);
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("SETTINGS", "signInResult:failed code=" + e.getStatusCode());
-
+            e.printStackTrace();
+            return null;
         }
     }
 
-    private void getAuthCode(String id)
-    {
+    private String getAuthCode(GoogleSignInAccount acct) {
+        final String[] returnMe = new String[1];
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormEncodingBuilder()
                 .add("grant_type", "authorization_code")
-                .add("client_id", "782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
-                .add("client_secret", "vlGO8-L2b8-of6b7wXkPkMWT")
+                .add("client_id", "224522353747-mhs92us52qh4kttmpt62h26vskfdq0no.apps.googleusercontent.com ")
+                .add("client_secret", "V4R7tmkg5Gzji-5Bn1pijliw")
                 .add("redirect_uri","")
-                .add("code", account.getServerAuthCode())
+                .add("code", acct.getServerAuthCode())
                 .add("access_type", "offline")
-                .add("id_token", account.getIdToken())
+                .add("id_token", acct.getIdToken())
                 .build();
         final Request request = new Request.Builder()
                 .url("https://www.googleapis.com/oauth2/v4/token")
@@ -123,21 +118,21 @@ public class SheetsAccess implements Serializable {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(final Request request, final IOException e) {
-                Log.e("SETTINGS", e.toString());
+                returnMe[0] = null;
             }
 
             @Override
             public void onResponse(Response response) throws IOException {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    final String message = jsonObject.get("access_token").toString();
-
-                    Log.i("SETTINGS", message);
+                    returnMe[0] = jsonObject.get("access_token").toString();
                 } catch (JSONException e) {
+                    returnMe[0] = null;
                     e.printStackTrace();
                 }
             }
         });
+        return returnMe[0];
     }
 
     protected static class fetchSheet extends AsyncTask<String, Void, List<List<Object>>> {
@@ -175,14 +170,9 @@ public class SheetsAccess implements Serializable {
             HttpTransport transport = AndroidHttp.newCompatibleTransport();
             JsonFactory factory = JacksonFactory.getDefaultInstance();
 
-            Sheets service = null;
-            try {
-                service = new Sheets.Builder(transport, factory, )
+            Sheets service = new Sheets.Builder(transport, factory, null)
                         .setApplicationName("scouting-app-2020")
                         .build();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
             ValueRange body = new ValueRange()
                     .setValues(values)
@@ -192,7 +182,7 @@ public class SheetsAccess implements Serializable {
                         service.spreadsheets().values()
                                 .append(strings[0], strings[1], body)
                                 .setValueInputOption("RAW")
-                                .setKey(API_KEY)
+                                .setAccessToken(strings[2])
                                 .execute();
                         returner = "yup";
             } catch (IOException e) {
