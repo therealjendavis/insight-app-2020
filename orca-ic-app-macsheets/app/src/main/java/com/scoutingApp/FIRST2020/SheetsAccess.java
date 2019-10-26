@@ -43,19 +43,12 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class SheetsAccess implements Serializable {
-    private GoogleSignInAccount account;
+
     public static String API_KEY = "AIzaSyAAwkxoRODxyIyMpJv-ss7fPOdmyv8KfQI";
     private String sheetID = "default";
     private List<List<Object>> sheetPage = null;
     private static List<List<Object>> values;
-    private GoogleSignInAccount googleUser;
-    public void setGoogleUser(GoogleSignInAccount googleUser) {
-        this.googleUser = googleUser;
-    }
 
-    public void setAccount(GoogleSignInAccount account) {
-        this.account = account;
-    }
     public String getSheetID() {
         return sheetID;
     }
@@ -90,7 +83,7 @@ public class SheetsAccess implements Serializable {
 
     String handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            account = completedTask.getResult(ApiException.class);
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             assert account != null;
             return getAuthCode(account);
         } catch (ApiException e) {
@@ -104,8 +97,8 @@ public class SheetsAccess implements Serializable {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormEncodingBuilder()
                 .add("grant_type", "authorization_code")
-                .add("client_id", "224522353747-mhs92us52qh4kttmpt62h26vskfdq0no.apps.googleusercontent.com ")
-                .add("client_secret", "V4R7tmkg5Gzji-5Bn1pijliw")
+                .add("client_id", "782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com ")
+                .add("client_secret", "vlGO8-L2b8-of6b7wXkPkMWT")
                 .add("redirect_uri","")
                 .add("code", acct.getServerAuthCode())
                 .add("access_type", "offline")
