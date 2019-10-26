@@ -21,20 +21,10 @@
             android:id="@+id/settings"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:backgroundTint="#000000"
             android:onClick="settingsButton"
-            android:text="@string/settings" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:onClick="submitButton"
-            android:text="@string/submit" />
+            android:text="@string/settings"
+            android:textColor="#FFFFFF" />
 
         <Space
             android:layout_width="wrap_content"
@@ -47,6 +37,19 @@
             android:layout_height="match_parent"
             android:onClick="addInfoButton"
             android:text="@string/additional_information" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="#D3424AE6"
+            android:onClick="submitButton"
+            android:text="@string/submit" />
 
 
     </LinearLayout>

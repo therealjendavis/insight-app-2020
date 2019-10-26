@@ -81,52 +81,7 @@ public class SheetsAccess implements Serializable {
     String teamValue(int row) { return getSheetPage().get(row).get(1).toString();}
     String matchValue(int row) { return getSheetPage().get(row).get(2).toString();}
 
-    String handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            assert account != null;
-            return getAuthCode(account);
-        } catch (ApiException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
-    private String getAuthCode(GoogleSignInAccount acct) {
-        final String[] returnMe = new String[1];
-        OkHttpClient client = new OkHttpClient();
-        RequestBody requestBody = new FormEncodingBuilder()
-                .add("grant_type", "authorization_code")
-                .add("client_id", "782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com ")
-                .add("client_secret", "vlGO8-L2b8-of6b7wXkPkMWT")
-                .add("redirect_uri","")
-                .add("code", acct.getServerAuthCode())
-                .add("access_type", "offline")
-                .add("id_token", acct.getIdToken())
-                .build();
-        final Request request = new Request.Builder()
-                .url("https://www.googleapis.com/oauth2/v4/token")
-                .post(requestBody)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(final Request request, final IOException e) {
-                returnMe[0] = null;
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body().string());
-                    returnMe[0] = jsonObject.get("access_token").toString();
-                } catch (JSONException e) {
-                    returnMe[0] = null;
-                    e.printStackTrace();
-                }
-            }
-        });
-        return returnMe[0];
-    }
 
     protected static class fetchSheet extends AsyncTask<String, Void, List<List<Object>>> {
         @Override
@@ -169,7 +124,7 @@ public class SheetsAccess implements Serializable {
 
             ValueRange body = new ValueRange()
                     .setValues(values)
-                    .setMajorDimension("COLUMNS");
+                    .setMajorDimension("ROWS");
             try {
                         //sheetID, range, body
                         service.spreadsheets().values()
