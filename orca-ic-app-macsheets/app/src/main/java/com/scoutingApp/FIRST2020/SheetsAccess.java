@@ -14,7 +14,6 @@ import java.util.concurrent.ExecutionException;
 
 class SheetsAccess implements Serializable {
 
-    private static String API_KEY = "AIzaSyAAwkxoRODxyIyMpJv-ss7fPOdmyv8KfQI";
     private String sheetID = "default";
     private List<List<Object>> sheetPage = null;
     private static List<List<Object>> values;
@@ -66,6 +65,7 @@ class SheetsAccess implements Serializable {
 
             ValueRange response = null;
             try {
+                String API_KEY = "AIzaSyAAwkxoRODxyIyMpJv-ss7fPOdmyv8KfQI";
                 response = service.spreadsheets().values()
                         .get(strings[0], strings[1])
                         .setKey(API_KEY)

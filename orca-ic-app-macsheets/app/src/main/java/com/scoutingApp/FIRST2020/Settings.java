@@ -244,8 +244,9 @@ public class Settings extends AppCompatActivity {
             //         getData().getSheet().setGoogleUser(account);
 
             // Signed in successfully, show authenticated UI.
-            Log.i("SETTINGS", account.toString());
-            getAuthCode(account);
+            if (account != null) {
+                getAuthCode(account);
+            }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -262,9 +263,9 @@ public class Settings extends AppCompatActivity {
                 .add("client_id", "782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
                 .add("client_secret", "vlGO8-L2b8-of6b7wXkPkMWT")
                 .add("redirect_uri","")
-                .add("code", acct.getServerAuthCode())
+                .add("code", Objects.requireNonNull(acct.getServerAuthCode()))
                 .add("access_type", "offline")
-                .add("id_token", acct.getIdToken())
+                .add("id_token", Objects.requireNonNull(acct.getIdToken()))
                 .build();
         final Request request = new Request.Builder()
                 .url("https://www.googleapis.com/oauth2/v4/token")

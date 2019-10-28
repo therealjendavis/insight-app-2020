@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class PersistentData implements Serializable {
+class PersistentData implements Serializable {
     ArrayList<SubmittedData> perSubData = new ArrayList<>();
     ArrayList<Info> perCacheData = new ArrayList<>();
     //load data sheet here?
@@ -27,9 +27,9 @@ public class PersistentData implements Serializable {
         this.rowNumber = rowNumber;
     }
 
-    public String setSubRange() { return "dataFromApp!" + (rowNumber + 2) + ":" + (rowNumber + 2);}
+    private String setSubRange() { return "dataFromApp!" + (rowNumber + 2) + ":" + (rowNumber + 2);}
 
-    public boolean sender(String key) {
+    boolean sender(String key) {
         try {
             String x = new SheetsAccess.sendToSheet().execute("1IrT8fskl1MCdMyxous8OO5YRCJo3Y4AoXHS_zusYrYc", setSubRange(), key).get();
             return x.equals("yup");

@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class PostSubmit extends AppCompatActivity {
     public DeepSpace getSpace() {
@@ -117,12 +118,6 @@ public class PostSubmit extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        GoogleSignInAccount account = (GoogleSignIn.getLastSignedInAccount(this));
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -145,13 +140,13 @@ public class PostSubmit extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            Log.i("SETTINGS", account.toString());
-            getAuthCode(account);
+            if (account != null) {
+                getAuthCode(account);
+            }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             getData().perSubData.add(getSub());
-            Log.w("SETTINGS", "signInResult:failed code=" + e.getStatusCode());
 
         }
     }
@@ -164,9 +159,9 @@ public class PostSubmit extends AppCompatActivity {
                 .add("client_id", "782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
                 .add("client_secret", "vlGO8-L2b8-of6b7wXkPkMWT")
                 .add("redirect_uri","")
-                .add("code", acct.getServerAuthCode())
+                .add("code", Objects.requireNonNull(acct.getServerAuthCode()))
                 .add("access_type", "offline")
-                .add("id_token", acct.getIdToken())
+                .add("id_token", Objects.requireNonNull(acct.getIdToken()))
                 .build();
         final Request request = new Request.Builder()
                 .url("https://www.googleapis.com/oauth2/v4/token")

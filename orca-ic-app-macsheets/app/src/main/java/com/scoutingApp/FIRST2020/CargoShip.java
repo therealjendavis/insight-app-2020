@@ -2,7 +2,7 @@ package com.scoutingApp.FIRST2020;
 
 import java.io.Serializable;
 
-public class CargoShip implements Serializable {
+class CargoShip implements Serializable {
     private int mainCSFH = 0;
     private int mainCSFC = 0;
     private int mainCSSH = 0;
@@ -14,67 +14,67 @@ public class CargoShip implements Serializable {
 
 
 
-    public int getMainCSFH() {
+    int getMainCSFH() {
         return mainCSFH;
     }
 
-    public void setMainCSFH(int mainCSFH) {
+    void setMainCSFH(int mainCSFH) {
         this.mainCSFH = mainCSFH;
     }
 
-    public int getMainCSFC() {
+    int getMainCSFC() {
         return mainCSFC;
     }
 
-    public void setMainCSFC(int mainCSFC) {
+    void setMainCSFC(int mainCSFC) {
         this.mainCSFC = mainCSFC;
     }
 
-    public int getMainCSSH() {
+    int getMainCSSH() {
         return mainCSSH;
     }
 
-    public void setMainCSSH(int mainCSSH) {
+    void setMainCSSH(int mainCSSH) {
         this.mainCSSH = mainCSSH;
     }
 
-    public int getMainCSSC() {
+    int getMainCSSC() {
         return mainCSSC;
     }
 
-    public void setMainCSSC(int mainCSSC) {
+    void setMainCSSC(int mainCSSC) {
         this.mainCSSC = mainCSSC;
     }
 
-    public int getMainCSFHSS() {
+    int getMainCSFHSS() {
         return mainCSFHSS;
     }
 
-    public void setMainCSFHSS(int mainCSFHSS) {
+    void setMainCSFHSS(int mainCSFHSS) {
         this.mainCSFHSS = mainCSFHSS;
     }
 
-    public int getMainCSFCSS() {
+    int getMainCSFCSS() {
         return mainCSFCSS;
     }
 
-    public void setMainCSFCSS(int mainCSFCSS) {
+    void setMainCSFCSS(int mainCSFCSS) {
         this.mainCSFCSS = mainCSFCSS;
     }
 
-    public int getMainCSSHSS() {
+    int getMainCSSHSS() {
         return mainCSSHSS;
     }
 
-    public void setMainCSSHSS(int mainCSSHSS) {
+    void setMainCSSHSS(int mainCSSHSS) {
         this.mainCSSHSS = mainCSSHSS;
     }
 
-    public int getMainCSSCSS() {
+    int getMainCSSCSS() {
         return mainCSSCSS;
     }
 
-    public void setMainCSSCSS(int mainCSSCSS) {
+    void setMainCSSCSS(int mainCSSCSS) {
         this.mainCSSCSS = mainCSSCSS;
     }
 

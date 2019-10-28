@@ -13,18 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity
-            android:name="com.scoutingApp.FIRST2020.PostSubmit"
-            android:label="@string/title_activity_page2"
-            android:parentActivityName="com.scoutingApp.FIRST2020.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.scoutingApp.FIRST2020.MainActivity" />
-        </activity>
+        <activity android:name="com.scoutingApp.FIRST2020.PostSubmit"/>
         <activity android:name="com.scoutingApp.FIRST2020.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

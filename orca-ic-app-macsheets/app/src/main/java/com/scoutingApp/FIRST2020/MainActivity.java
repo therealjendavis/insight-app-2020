@@ -258,8 +258,8 @@ public class MainActivity extends AppCompatActivity {
         if (getSpace().getMainStartPosition() != 0){
             if(!getSpace().isMainStart()) {
                 getSpace().setMainStart(true);
-                findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolRed));
-                ((Button) findViewById(R.id.start)).setText(R.string.stop);
+                findViewById(R.id.start3).setBackgroundColor(getResources().getColor(R.color.coolRed));
+                ((Button) findViewById(R.id.start3)).setText(R.string.stop);
                 if (getTimerPause() == 0) { stormDelay(15);}
                 else if (getTimerPause() <= 14) {
                     getSpace().setSandStorm(true);
@@ -267,8 +267,8 @@ public class MainActivity extends AppCompatActivity {
             }
             else {
                 getSpace().setMainStart(false);
-                findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolGreen));
-                ((Button) findViewById(R.id.start)).setText(R.string.start);
+                findViewById(R.id.start3).setBackgroundColor(getResources().getColor(R.color.coolGreen));
+                ((Button) findViewById(R.id.start3)).setText(R.string.start);
                 getSpace().setSandStorm(false);
             }
         }
@@ -341,6 +341,7 @@ public class MainActivity extends AppCompatActivity {
         if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
         else getSpace().setMainBlockedScores(getSpace().getMainBlockedScores() + 1);
     }
+    public void timerCheck(View view) {updateTextView(Integer.toString(getTimerPause()), R.id.timer);}
 
     // method for setting object value (called on create)
 
@@ -388,5 +389,10 @@ public class MainActivity extends AppCompatActivity {
             getSpace().infoSet("Set", 0, "Please", "Tablet Number");
         }
         infoTop();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 }
