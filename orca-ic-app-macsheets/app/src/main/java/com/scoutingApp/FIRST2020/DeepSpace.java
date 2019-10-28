@@ -2,7 +2,7 @@ package com.scoutingApp.FIRST2020;
 
 import java.io.Serializable;
 
-public class DeepSpace implements Serializable {
+class DeepSpace implements Serializable {
     private CargoShip cargo = new CargoShip();
     private RocketShip rocket = new RocketShip();
     private Info info = new Info();
@@ -17,7 +17,6 @@ public class DeepSpace implements Serializable {
     private boolean mainStart = false;
     private boolean mainDefense = false;
     private int mainBlockedScores = 0;
-    private String mainHelpInfo = "Help Text";
     private int mainEndgame = 0;
 
     private boolean extrasRedCard = false;
@@ -28,7 +27,6 @@ public class DeepSpace implements Serializable {
 
     private  String settingsDisplay = " ";
     private  int settingsDisplayNum = 0;
-    private  String settingsAlliance = "Unknown!";
     private  String settingsHelpInfo = "Press the 'cache' button to view all data since last offload" +
             System.lineSeparator() + "Press the 'local' button to view all unsent data." +
             System.lineSeparator() + "Press the 'next' button to view the next submission in that category." +
@@ -39,143 +37,131 @@ public class DeepSpace implements Serializable {
 
     //getters & setters
 
-
-    public String getMainMatch() {
-        return info.match;
-    }
-
-    public void setMainMatch(String mainMatch) {
+    void setMainMatch(String mainMatch) {
         this.info.match = mainMatch;
     }
-
-    public String getSettingsAlliance() {
-        return settingsAlliance;
-    }
-    public boolean isNoShow() {
+    boolean isNoShow() {
         return noShow;
     }
-    public void setNoShow(boolean noShow) {
+    void setNoShow(boolean noShow) {
         this.noShow = noShow;
     }
-    public boolean isMovement() {
+    boolean isMovement() {
         return movement;
     }
-    public void setMovement(boolean movement) {
+    void setMovement(boolean movement) {
         this.movement = movement;
     }
-    public void setSettingsAlliance(String settingsAlliance) {
-        this.settingsAlliance = settingsAlliance;
-    }
-    public CargoShip getCargo() {
+    CargoShip getCargo() {
         return cargo;
     }
-    public RocketShip getRocket() {
+    RocketShip getRocket() {
         return rocket;
     }
-    public boolean isSandStorm() {
+    boolean isSandStorm() {
         return sandStorm;
     }
-    public void setSandStorm(boolean sandStorm) {
+    void setSandStorm(boolean sandStorm) {
         this.sandStorm = sandStorm;
     }
-    public int getMainStartPosition() {
+    int getMainStartPosition() {
         return mainStartPosition;
     }
-    public void setMainStartPosition(int mainStartPosition) {
+    void setMainStartPosition(int mainStartPosition) {
         this.mainStartPosition = mainStartPosition;
     }
-    public boolean isMainStart() {
+    boolean isMainStart() {
         return mainStart;
     }
-    public void setMainStart(boolean mainStart) {
+    void setMainStart(boolean mainStart) {
         this.mainStart = mainStart;
     }
-    public boolean isMainDefense() {
+    boolean isMainDefense() {
         return mainDefense;
     }
-    public void setMainDefense(boolean mainDefense) {
+    void setMainDefense(boolean mainDefense) {
         this.mainDefense = mainDefense;
     }
-    public int getMainBlockedScores() {
+    int getMainBlockedScores() {
         return mainBlockedScores;
     }
-    public void setMainBlockedScores(int mainBlockedScores) {
+    void setMainBlockedScores(int mainBlockedScores) {
         this.mainBlockedScores = mainBlockedScores;
     }
-    public String getMainName() {
+    String getMainName() {
         return info.getName();
     }
-    public void setMainName(String mainName) {
+    void setMainName(String mainName) {
         this.info.name = mainName;
     }
-    public int getMainTeam() {
+    int getMainTeam() {
         return info.getTeam();
     }
-    public void setMainTeam(int mainTeam) {
+    void setMainTeam(int mainTeam) {
         this.info.team = mainTeam;
     }
-    public String getMainHelpInfo() {
-        return mainHelpInfo;
+    String getMainHelpInfo() {
+        return "Creators:" + System.lineSeparator() +
+                "    Concept:" + System.lineSeparator() +
+                "        Madelyn Zamecnik of Torch" + System.lineSeparator() +
+                "    Program:" + System.lineSeparator() +
+                "        Cassidy Schiller, Henry Morris, and MacGregor Fraser of ORCA" +
+                "    Layout and Design:" + System.lineSeparator() +
+                "        Cassidy Schiller, Em Brown, Khai Little, and Jackie Lawton of ORCA" + System.lineSeparator() + System.lineSeparator() +
+                "Want to see your name here? Contact Cassidy Schiller or your team's collective representative to find out how!";
     }
-    public void setMainHelpInfo(String mainHelpInfo) {
-        this.mainHelpInfo = mainHelpInfo;
-    }
-    public int getMainEndgame() {
+    int getMainEndgame() {
         return mainEndgame;
     }
-    public void setMainEndgame(int mainEndgame) {
+    void setMainEndgame(int mainEndgame) {
         this.mainEndgame = mainEndgame;
     }
-    public String getMainAlliance() {
+    String getMainAlliance() {
         return info.getAlliance();
     }
-    public void setMainAlliance(String mainAlliance) {
+    void setMainAlliance(String mainAlliance) {
         this.info.alliance = mainAlliance;
     }
-    public boolean isExtrasRedCard() {
+    boolean isExtrasRedCard() {
         return extrasRedCard;
     }
-    public void setExtrasRedCard(boolean extrasRedCard) {
+    void setExtrasRedCard(boolean extrasRedCard) {
         this.extrasRedCard = extrasRedCard;
     }
-    public boolean isExtrasYellowCard() {
+    boolean isExtrasYellowCard() {
         return extrasYellowCard;
     }
-    public void setExtrasYellowCard(boolean extrasYellowCard) {
+    void setExtrasYellowCard(boolean extrasYellowCard) {
         this.extrasYellowCard = extrasYellowCard;
     }
-    public int getExtrasFinalScore() {
+    int getExtrasFinalScore() {
         return extrasFinalScore;
     }
-    public void setExtrasFinalScore(int extrasFinalScore) {
+    void setExtrasFinalScore(int extrasFinalScore) {
         this.extrasFinalScore = extrasFinalScore;
     }
-    public String getExtrasNotes() {
+    String getExtrasNotes() {
         return info.getNotes();
     }
-    public void setExtrasNotes(String extrasNotes) {
+    void setExtrasNotes(String extrasNotes) {
         this.info.notes = extrasNotes;
     }
-    public String getSettingsDisplay() {
+    String getSettingsDisplay() {
         return settingsDisplay;
     }
-    public void setSettingsDisplay(String settingsDisplay) {
+    void setSettingsDisplay(String settingsDisplay) {
         this.settingsDisplay = settingsDisplay;
     }
-    public int getSettingsDisplayNum() {
+    int getSettingsDisplayNum() {
         return settingsDisplayNum;
     }
-    public void setSettingsDisplayNum(int settingsDisplayNum) {
+    void setSettingsDisplayNum(int settingsDisplayNum) {
         this.settingsDisplayNum = settingsDisplayNum;
     }
-    public String getSettingsHelpInfo() {
+    String getSettingsHelpInfo() {
         return settingsHelpInfo;
     }
-
-    public Info getInfo() {
+    Info getInfo() {
         return info;
-    }
-    public void setInfo(Info info) {
-        this.info = info;
     }
 }

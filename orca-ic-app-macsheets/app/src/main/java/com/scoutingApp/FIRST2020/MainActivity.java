@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -112,9 +113,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public void stormDelay(int seconds) {
         Timer timer = new Timer();
-        timer.schedule(new RemindTask(), seconds);
-            Timer pauseHelp = new Timer();
-            pauseHelp.scheduleAtFixedRate(new RemindTask2(), 1000, 1000);
+        timer.schedule(new RemindTask(), seconds * 1000);
+        if (getTimerPause() == 0) {
+            Timer pauser = new Timer();
+            pauser.scheduleAtFixedRate(new RemindTask2(), 1000, 1000);
+        }
     }
     class RemindTask extends TimerTask {
         public void run() {
@@ -127,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
                 setTimerPause(timerPause + 1);
                 if (getTimerPause() == 155) {
                     getSpace().setMainStart(false);
+                    findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolGreen));
+                    ((Button) findViewById(R.id.start)).setText(R.string.start);
                 }
             }
         }
@@ -222,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
         nametext.setText(content);
     }
 
-    // method to set the info on top of page called on create)
+    // method to set the info on top of page (called on create)
 
     public void infoTop() {
         updateTextView(getSpace().getInfo().getName(), R.id.infoName);
@@ -244,18 +249,22 @@ public class MainActivity extends AppCompatActivity {
         addInfo.putExtra("data4", getData());
         startActivity(addInfo);
     }
-    public void helpButton(View view) {makeADialog(getSpace().getMainHelpInfo(), "help");
-    }
+    public void helpButton(View view) {makeADialog(getSpace().getMainHelpInfo(), "help"); }
     public void startButton(View view) {
         if(!getSpace().isMainStart()) {
             getSpace().setMainStart(true);
             findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolRed));
+            ((Button) findViewById(R.id.start)).setText(R.string.stop);
             if (getTimerPause() == 0) { stormDelay(15);}
-            else { stormDelay(15 - getTimerPause());}
+            else if (getTimerPause() <= 14) {
+                getSpace().setSandStorm(true);
+                stormDelay(15 - getTimerPause());}
         }
         else {
             getSpace().setMainStart(false);
             findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolGreen));
+            ((Button) findViewById(R.id.start)).setText(R.string.start);
+            getSpace().setSandStorm(false);
         }
     }
     public void submitButton(View view) {
@@ -282,8 +291,7 @@ public class MainActivity extends AppCompatActivity {
     public void css(View view) {
         setCargoLoc('c');
     }
-    public void rl1(View view) {setRocketLevel(1);
-    }
+    public void rl1(View view) {setRocketLevel(1); }
     public void rl2(View view) {
         setRocketLevel(2);
     }
@@ -297,8 +305,7 @@ public class MainActivity extends AppCompatActivity {
     public void start1(View view) {
         getSpace().setMainStartPosition(1);
     }
-    public void start2(View view) {getSpace().setMainStartPosition(1);
-    }
+    public void start2(View view) {getSpace().setMainStartPosition(2); }
     public void end1(View view) {
         if (getSpace().isMainStart()) {
             getSpace().setMainEndgame(1);

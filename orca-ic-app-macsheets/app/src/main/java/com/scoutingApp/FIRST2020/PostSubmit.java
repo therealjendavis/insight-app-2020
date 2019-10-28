@@ -40,7 +40,6 @@ public class PostSubmit extends AppCompatActivity {
     public SubmittedData getSub() { return this.sub; }
     private void updateTextView(String content, int id){
         TextView nametext = findViewById(id);
-        nametext.setHint(content);
         nametext.setText(content);
     }
 
@@ -95,11 +94,11 @@ public class PostSubmit extends AppCompatActivity {
         getSpace().setMainTeam(Integer.valueOf(newString(R.id.team)));
         getSpace().setMainMatch(newString(R.id.match));
         getSpace().setMainAlliance(newString(R.id.alliance));
+        getSpace().setExtrasFinalScore(Integer.valueOf(newString(R.id.typescorehere)));
         toSubmission();
         getData().getSheet().setValues(getSub().setValues());
         Intent signInIntent = googleClient.getSignInIntent();
         startActivityForResult(signInIntent, 1);
-
     }
 
     @Override
@@ -132,7 +131,6 @@ public class PostSubmit extends AppCompatActivity {
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-          //  getData().setTokenKeyThingy(getData().getSheet().handleSignInResult(task));
 
             getData().perCacheData.add(getSpace().getInfo());
             getData().setRowNumber(getData().getRowNumber() + 1);
@@ -145,7 +143,6 @@ public class PostSubmit extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            //         getData().getSheet().setGoogleUser(account);
 
             // Signed in successfully, show authenticated UI.
             Log.i("SETTINGS", account.toString());
@@ -159,8 +156,7 @@ public class PostSubmit extends AppCompatActivity {
         }
     }
 
-    private void getAuthCode(GoogleSignInAccount acct)
-    {
+    private void getAuthCode(GoogleSignInAccount acct) {
 
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormEncodingBuilder()
@@ -200,8 +196,4 @@ public class PostSubmit extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 }

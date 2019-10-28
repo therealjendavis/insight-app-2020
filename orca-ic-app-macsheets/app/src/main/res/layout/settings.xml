@@ -1,11 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:theme="@style/AppTheme.NoActionBar"
     tools:context=".Settings">
+
+    <LinearLayout
+
+        android:id="@+id/linearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044">
+
+        <ImageButton
+            android:id="@+id/backSettings"
+            style="@android:style/Widget.Holo.ImageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:adjustViewBounds="false"
+            android:background="@android:drawable/btn_default"
+            android:backgroundTint="#000000"
+            android:backgroundTintMode="src_over"
+            android:cropToPadding="false"
+            android:fadingEdge="horizontal|vertical"
+            android:onClick="backHome2"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_name"
+            android:tint="#FFFFFF"
+            tools:ignore="ContentDescription" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.2" />
+
+        <ImageButton
+            android:id="@+id/tabSet"
+            style="@android:style/Widget.Holo.ImageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:adjustViewBounds="false"
+            android:background="@android:drawable/btn_default"
+            android:backgroundTint="#000000"
+            android:backgroundTintMode="src_over"
+            android:cropToPadding="false"
+            android:fadingEdge="horizontal|vertical"
+            android:onClick="allianceChoose"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_help"
+            android:tint="#FFFFFF"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"
@@ -23,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:backgroundTint="#94E28B"
             android:onClick="localButton"
             android:text="@string/local_data"
             android:textSize="20sp" />
@@ -37,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:backgroundTint="#F3C586"
             android:onClick="cacheButton"
             android:text="@string/cache_data"
             android:textSize="20sp" />
@@ -51,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:backgroundTint="#C398DD"
             android:onClick="helpButtonTwo"
             android:text="@string/help"
             android:textSize="20sp" />
@@ -58,7 +119,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
@@ -92,6 +153,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:backgroundTint="#FFFFFF"
             android:onClick="clearButton"
             android:text="@string/clear"
             android:textSize="20sp" />
@@ -106,6 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:backgroundTint="#8BA5DD"
             android:onClick="nextButton"
             android:text="@string/next"
             android:textSize="20sp" />
@@ -120,64 +183,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:backgroundTint="#DF76D4"
             android:onClick="submitButtonThree"
             android:text="@string/submit"
             android:textSize="20sp" />
     </LinearLayout>
 
-
-    <TextView
+    <ScrollView
         android:id="@+id/settingsDisplay"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fadingEdge="horizontal|vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:scrollbarSize="8dp"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbars="vertical"
-        android:text="@string/any_notes"
-        android:textSize="30sp"
+        android:scrollbarSize="10dp"
+        android:scrollbarStyle="insideInset"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+        <TextView
+        android:id="@+id/settingsDisplayText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:onClick="backHome2"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.012"
-        app:srcCompat="@drawable/ic_action_name" />
+        android:text="@string/nothing_to_show"
+        android:textSize="30sp"
+        android:textColor="#000000" />
+    </ScrollView>
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        style="@android:style/Widget.Holo.ImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="false"
-        android:background="@android:drawable/btn_default"
-        android:backgroundTint="#000000"
-        android:backgroundTintMode="src_atop"
-        android:cropToPadding="false"
-        android:fadingEdge="horizontal|vertical"
-        android:onClick="allianceChoose"
-        android:scaleType="fitEnd"
-        android:src="@android:drawable/ic_menu_help"
-        android:tint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
 </androidx.constraintlayout.widget.ConstraintLayout>

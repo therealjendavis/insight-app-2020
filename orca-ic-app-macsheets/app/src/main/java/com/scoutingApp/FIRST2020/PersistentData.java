@@ -14,14 +14,6 @@ public class PersistentData implements Serializable {
     }
     private String perAlliance;
     private int rowNumber = 0;
-    String tokenKeyThingy;
-
-    public String getTokenKeyThingy() {
-        return tokenKeyThingy;
-    }
-    public void setTokenKeyThingy(String tokenKeyThingy) {
-        this.tokenKeyThingy = tokenKeyThingy;
-    }
     public String getPerAlliance() {
         return perAlliance;
     }
@@ -35,7 +27,7 @@ public class PersistentData implements Serializable {
         this.rowNumber = rowNumber;
     }
 
-    public String setSubRange() { return getSheet().getSheetID() + "!" + (rowNumber + 2) + ":" + (rowNumber + 2);}
+    public String setSubRange() { return "dataFromApp!" + (rowNumber + 2) + ":" + (rowNumber + 2);}
 
     public boolean sender(String key) {
         try {

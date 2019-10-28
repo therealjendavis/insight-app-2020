@@ -212,8 +212,7 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.settings);
     }
 
-    private void getConnected()
-    {
+    private void getConnected() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(SheetsScopes.SPREADSHEETS_READONLY))
                 .requestScopes(new Scope(SheetsScopes.SPREADSHEETS))
@@ -224,7 +223,6 @@ public class Settings extends AppCompatActivity {
         googleClient = GoogleSignIn.getClient(this, gso);
         Intent signInIntent = googleClient.getSignInIntent();
         startActivityForResult(signInIntent, 1);
-
     }
 
     @Override
@@ -253,12 +251,10 @@ public class Settings extends AppCompatActivity {
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("SETTINGS", "signInResult:failed code=" + e.getStatusCode());
             makeADialog("no connection!", "noConnect");
-
         }
     }
 
-    private void getAuthCode(GoogleSignInAccount acct)
-    {
+    private void getAuthCode(GoogleSignInAccount acct) {
 
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormEncodingBuilder()
