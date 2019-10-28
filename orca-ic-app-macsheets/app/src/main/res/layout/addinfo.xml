@@ -26,8 +26,8 @@
 
     <Switch
         android:id="@+id/redCard"
-        android:layout_width="140dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:checked="false"
         android:onClick="redSwitch"
         android:text="@string/red_card"
@@ -41,22 +41,22 @@
 
     <Switch
         android:id="@+id/noShow"
-        android:layout_width="140dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="noShowSwitch"
         android:splitTrack="false"
         android:text="@string/no_show"
         android:thumbTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/noMove"
+        app:layout_constraintEnd_toStartOf="@+id/noMove"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.267" />
+        app:layout_constraintVertical_bias="0.265" />
 
     <Switch
         android:id="@+id/yellowCard"
-        android:layout_width="140dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="yellowSwitch"
         android:text="@string/yellow_card"
         android:thumbTint="#AFB42B"
@@ -69,15 +69,16 @@
 
     <Switch
         android:id="@+id/noMove"
-        android:layout_width="140dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:checked="true"
         android:onClick="moveSwitch"
         android:text="@string/did_they_move"
         android:thumbTint="#0288D1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/noShow"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/noShow"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.267"
         tools:checked="true" />
@@ -111,10 +112,10 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029"
+        app:layout_constraintTop_toBottomOf="@+id/notes"
+        app:layout_constraintVertical_bias="0.397"
         app:srcCompat="@drawable/ic_action_name"
         tools:ignore="ContentDescription" />
 

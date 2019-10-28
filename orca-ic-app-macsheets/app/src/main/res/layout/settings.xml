@@ -190,7 +190,7 @@
     </LinearLayout>
 
     <ScrollView
-        android:id="@+id/settingsDisplay"
+        android:id="@+id/settingsDisplayText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -201,7 +201,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
         <TextView
-        android:id="@+id/settingsDisplayText"
+        android:id="@+id/settingsDisplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/nothing_to_show"

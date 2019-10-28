@@ -1,66 +1,36 @@
 package com.scoutingApp.FIRST2020;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
-
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
-import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-public class SheetsAccess implements Serializable {
+class SheetsAccess implements Serializable {
 
-    public static String API_KEY = "AIzaSyAAwkxoRODxyIyMpJv-ss7fPOdmyv8KfQI";
+    private static String API_KEY = "AIzaSyAAwkxoRODxyIyMpJv-ss7fPOdmyv8KfQI";
     private String sheetID = "default";
     private List<List<Object>> sheetPage = null;
     private static List<List<Object>> values;
 
-    public String getSheetID() {
+    String getSheetID() {
         return sheetID;
     }
-    public void setSheetID(String sheetID) {
+    void setSheetID(String sheetID) {
         this.sheetID = sheetID;
     }
-    public void setSheetPage() throws ExecutionException, InterruptedException {
+    void setSheetPage() throws ExecutionException, InterruptedException {
         if (!getSheetID().equals("default")) {
             String rangeTotal = getSheetID() + "!A:C";
             this.sheetPage = sheetValue(rangeTotal);}
     }
-    public List<List<Object>> getSheetPage() {
+    List<List<Object>> getSheetPage() {
         return this.sheetPage;
     }
     void setValues(List<List<Object>> values) {

@@ -9,21 +9,21 @@ public class PersistentData implements Serializable {
     ArrayList<Info> perCacheData = new ArrayList<>();
     //load data sheet here?
     private SheetsAccess sheet = new SheetsAccess();
-    public SheetsAccess getSheet() {
+    SheetsAccess getSheet() {
         return sheet;
     }
     private String perAlliance;
     private int rowNumber = 0;
-    public String getPerAlliance() {
+    String getPerAlliance() {
         return perAlliance;
     }
-    public void setPerAlliance(String perAlliance) {
+    void setPerAlliance(String perAlliance) {
         this.perAlliance = perAlliance;
     }
-    public int getRowNumber() {
+    int getRowNumber() {
         return rowNumber;
     }
-    public void setRowNumber(int rowNumber) {
+    void setRowNumber(int rowNumber) {
         this.rowNumber = rowNumber;
     }
 

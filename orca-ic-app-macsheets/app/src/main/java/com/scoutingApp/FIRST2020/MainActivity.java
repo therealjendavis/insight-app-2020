@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
                     game.getRocket().setMainR1C(game.getRocket().getMainR1C() + 1);
                 }
             }
+            setRocketLevel(0);
         }
         else if (level == 2) {
             if (type == DeepSpace.HATCH) {
@@ -169,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                     game.getRocket().setMainR2C(game.getRocket().getMainR2C() + 1);
                 }
             }
+            setRocketLevel(0);
         }
         else if (level == 3) {
             if (type == DeepSpace.HATCH) {
@@ -185,9 +187,9 @@ public class MainActivity extends AppCompatActivity {
                     game.getRocket().setMainR3C(game.getRocket().getMainR3C() + 1);
                 }
             }
+            setRocketLevel(0);
         }
         else makeADialog("You need to pick a level!", "level");
-
         setRocketLevel(0);
     }
     public void cargoShipSet(DeepSpace game, char location, int type) {
@@ -205,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else game.getCargo().setMainCSFC(game.getCargo().getMainCSFC() + 1);
             }
+            setCargoLoc(' ');
         }
         else if (location == 'c') {
             if (type == DeepSpace.HATCH) {
@@ -219,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else game.getCargo().setMainCSSC(game.getCargo().getMainCSSC() + 1);
             }
+            setCargoLoc(' ');
         }
         else makeADialog("You need to pick front or side!", "cargoship");
     }
@@ -251,21 +255,24 @@ public class MainActivity extends AppCompatActivity {
     }
     public void helpButton(View view) {makeADialog(getSpace().getMainHelpInfo(), "help"); }
     public void startButton(View view) {
-        if(!getSpace().isMainStart()) {
-            getSpace().setMainStart(true);
-            findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolRed));
-            ((Button) findViewById(R.id.start)).setText(R.string.stop);
-            if (getTimerPause() == 0) { stormDelay(15);}
-            else if (getTimerPause() <= 14) {
-                getSpace().setSandStorm(true);
-                stormDelay(15 - getTimerPause());}
+        if (getSpace().getMainStartPosition() != 0){
+            if(!getSpace().isMainStart()) {
+                getSpace().setMainStart(true);
+                findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolRed));
+                ((Button) findViewById(R.id.start)).setText(R.string.stop);
+                if (getTimerPause() == 0) { stormDelay(15);}
+                else if (getTimerPause() <= 14) {
+                    getSpace().setSandStorm(true);
+                    stormDelay(15 - getTimerPause());}
+            }
+            else {
+                getSpace().setMainStart(false);
+                findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolGreen));
+                ((Button) findViewById(R.id.start)).setText(R.string.start);
+                getSpace().setSandStorm(false);
+            }
         }
-        else {
-            getSpace().setMainStart(false);
-            findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolGreen));
-            ((Button) findViewById(R.id.start)).setText(R.string.start);
-            getSpace().setSandStorm(false);
-        }
+        else { makeADialog("You need to press choose a start location!", "startLoc"); }
     }
     public void submitButton(View view) {
         Intent psPage = new Intent(this, PostSubmit.class);
@@ -286,17 +293,24 @@ public class MainActivity extends AppCompatActivity {
         cargoShipSet(getSpace(), getCargoLoc(), DeepSpace.HATCH);
     }
     public void csf(View view) {
-        setCargoLoc('f');
+        if (getSpace().isMainStart()) {setCargoLoc('f');}
+        else { makeADialog("You need to press start!", "setscore"); }
     }
     public void css(View view) {
-        setCargoLoc('c');
+        if (getSpace().isMainStart()) {setCargoLoc('c');}
+        else { makeADialog("You need to press start!", "setscore"); }
     }
-    public void rl1(View view) {setRocketLevel(1); }
+    public void rl1(View view) {
+        if (getSpace().isMainStart()) {setRocketLevel(1);}
+        else { makeADialog("You need to press start!", "setscore"); }
+    }
     public void rl2(View view) {
-        setRocketLevel(2);
+        if (getSpace().isMainStart()) {setRocketLevel(2);}
+        else { makeADialog("You need to press start!", "setscore"); }
     }
     public void rl3(View view) {
-        setRocketLevel(3);
+        if (getSpace().isMainStart()) {setRocketLevel(3);}
+        else { makeADialog("You need to press start!", "setscore"); }
     }
     public void defense(View view) {
         if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
@@ -305,7 +319,8 @@ public class MainActivity extends AppCompatActivity {
     public void start1(View view) {
         getSpace().setMainStartPosition(1);
     }
-    public void start2(View view) {getSpace().setMainStartPosition(2); }
+    public void start2(View view) {
+        getSpace().setMainStartPosition(2);}
     public void end1(View view) {
         if (getSpace().isMainStart()) {
             getSpace().setMainEndgame(1);
