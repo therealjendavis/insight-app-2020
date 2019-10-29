@@ -8,15 +8,14 @@
 
     <Button
         android:id="@+id/start3"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#5C18FF22"
         android:onClick="startButton"
         android:text="@string/start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/start1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -49,6 +48,7 @@
             android:id="@+id/addInfo"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:backgroundTint="#D78DF1"
             android:onClick="addInfoButton"
             android:text="@string/additional_information" />
 
@@ -76,12 +76,10 @@
         android:onClick="rc"
         android:text="@string/cargo"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.31"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.374" />
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@id/RH"
+        app:layout_constraintEnd_toStartOf="@+id/spaceyboi"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     <Button
         android:id="@+id/RH"
@@ -91,11 +89,10 @@
         android:onClick="rh"
         android:text="@string/hatch"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
         app:layout_constraintVertical_bias="0.374" />
 
     <Button
@@ -106,12 +103,10 @@
         android:onClick="csh"
         android:text="@string/hatch"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.69"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.374" />
+        app:layout_constraintEnd_toStartOf="@id/button11"
+        app:layout_constraintStart_toEndOf="@+id/spaceyboi"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"/>
 
     <Button
         android:id="@+id/button11"
@@ -121,11 +116,10 @@
         android:onClick="csc"
         android:text="@string/cargo"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
         app:layout_constraintVertical_bias="0.374" />
 
     <Button
@@ -135,12 +129,11 @@
         android:background="@color/colorPrimary"
         android:onClick="end3"
         android:text="@string/_3"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.54" />
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toEndOf="@+id/hab2"
+        app:layout_constraintTop_toBottomOf="@+id/Hatchcsf" />
 
     <Button
         android:id="@+id/hab2"
@@ -149,12 +142,11 @@
         android:background="@color/colorPrimary"
         android:onClick="end2"
         android:text="@string/_2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RC"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.54" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/hab1"
@@ -163,25 +155,23 @@
         android:background="@color/colorPrimary"
         android:onClick="end1"
         android:text="@string/one"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
+        app:layout_constraintEnd_toStartOf="@+id/hab2"
+        app:layout_constraintHorizontal_bias="0.648"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.54" />
+        app:layout_constraintTop_toBottomOf="@+id/RC" />
 
     <Button
         android:id="@+id/timer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#00FFFFFF"
         android:onClick="timerCheck"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/check_timer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintStart_toEndOf="@+id/start2"
+        app:layout_constraintTop_toBottomOf="@+id/start3" />
 
     <Button
         android:id="@+id/start1"
@@ -204,19 +194,13 @@
         android:background="@color/colorPrimaryDark"
         android:onClick="start2"
         android:text="@string/_2"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.661"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_constraintTop_toBottomOf="@+id/start1" />
 
     <LinearLayout
+        android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -224,12 +208,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75">
+        app:layout_constraintVertical_bias="0.72">
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/blockedScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#A3E62CCD"
             android:onClick="blockedScore"
             android:text="@string/blocked_score" />
 
@@ -239,9 +224,10 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/defenseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#614E12F3"
             android:onClick="defense"
             android:text="@string/defense" />
 
@@ -263,23 +249,16 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2829">
-
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/linearLayout6"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/spaceyboi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2829">
 
             <Button
                 android:id="@+id/rl1"
@@ -315,16 +294,26 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.182" />
+            <Space
+                android:id="@+id/spaceyboi"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cargos"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.2829"/>
 
         <LinearLayout
+            android:id="@+id/cargos"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spaceyboi"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2829">
 
             <Button
                 android:id="@+id/cargoshipfront"
@@ -348,7 +337,6 @@
                 android:textSize="18sp"
                 tools:ignore="ButtonStyle" />
         </LinearLayout>
-    </LinearLayout>
 
     <TableLayout
         android:layout_width="200dp"
@@ -428,5 +416,48 @@
         </TableRow>
 
     </TableLayout>
+
+    <TextView
+        android:id="@+id/rocketShip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cargo_ship"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cargoShip" />
+
+    <TextView
+        android:id="@+id/cargoShip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rocket_ship"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintEnd_toStartOf="@+id/rocketShip"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/endgametext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/endgame"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/hab2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

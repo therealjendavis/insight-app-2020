@@ -52,4 +52,8 @@
     <string name="hintmatch">Match?</string>
     <string name="hintalliance">Alliance?</string>
     <string name="stop">STOP</string>
+    <string name="check_timer">check timer</string>
+    <string name="endgame">EndGame</string>
+    <string name="cargo_ship">Cargo Ship</string>
+    <string name="rocket_ship">Rocket Ship</string>
 </resources>

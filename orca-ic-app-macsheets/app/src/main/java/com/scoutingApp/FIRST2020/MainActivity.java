@@ -130,8 +130,6 @@ public class MainActivity extends AppCompatActivity {
                 setTimerPause(timerPause + 1);
                 if (getTimerPause() == 155) {
                     getSpace().setMainStart(false);
-                    findViewById(R.id.start).setBackgroundColor(getResources().getColor(R.color.coolGreen));
-                    ((Button) findViewById(R.id.start)).setText(R.string.start);
                 }
             }
         }
@@ -238,6 +236,13 @@ public class MainActivity extends AppCompatActivity {
         updateTextView(getSpace().getInfo().getAlliance(), R.id.infoAlliance);
         updateTextView(getSpace().getInfo().getTeam().toString(), R.id.infoTeam);
         updateTextView(getSpace().getInfo().getMatch(), R.id.infoMatch);
+    }
+    public void dialogCheck() {
+        if (!getData().perSubData.isEmpty()) {
+            if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0)))) {
+                makeADialog("Please give tablet to " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
+            }
+        }
     }
 
     // button methods
@@ -386,9 +391,10 @@ public class MainActivity extends AppCompatActivity {
             );
         }
         else {
-            getSpace().infoSet("Set", 0, "Please", "Tablet Number");
+            getSpace().infoSet(" ", 0, " ", " ");
         }
         infoTop();
+        dialogCheck();
     }
 
     @Override

@@ -44,14 +44,12 @@ public class SubmittedData implements Serializable {
     private int R2CSS;
     private int R3HSS;
     private int R3CSS;
-    
-    private int totalSS = CSFHSS + CSFCSS + CSSCSS + CSSHSS + R1HSS + R1CSS + R2HSS + R2CSS + R3CSS + R3HSS;
-    private int cargoShipTotal = CSFH + CSFC + CSSH + CSSC + CSFHSS + CSFCSS + CSSHSS + CSSCSS;
-    private int rocketShipTotal = R1H + R1C + R2H + R2C + R3H + R3C + R1HSS + R1CSS + R2HSS + R2CSS + R3HSS + R3CSS;
-    private int totalCargo = CSFC + CSSC + CSFCSS + CSSCSS + R1C + R2C + R3C + R1CSS + R2CSS + R3CSS;
-    private int totalHatch = CSFH + CSSH + CSFHSS + CSSHSS + R1H + R2H + R3H + R1HSS + R2HSS + R3HSS;
 
-
+    public int getTotalSS() { return CSFHSS + CSFCSS + CSSCSS + CSSHSS + R1HSS + R1CSS + R2HSS + R2CSS + R3CSS + R3HSS; }
+    public int getCargoShipTotal() { return CSFH + CSFC + CSSH + CSSC + CSFHSS + CSFCSS + CSSHSS + CSSCSS; }
+    public int getRocketShipTotal() { return R1H + R1C + R2H + R2C + R3H + R3C + R1HSS + R1CSS + R2HSS + R2CSS + R3HSS + R3CSS; }
+    public int getTotalCargo() { return CSFC + CSSC + CSFCSS + CSSCSS + R1C + R2C + R3C + R1CSS + R2CSS + R3CSS; }
+    public int getTotalHatch() { return CSFH + CSSH + CSFHSS + CSSHSS + R1H + R2H + R3H + R1HSS + R2HSS + R3HSS; }
 
     List<List<Object>> setValues() {
         return Arrays.asList(
@@ -90,11 +88,11 @@ public class SubmittedData implements Serializable {
                         R2CSS,
                         R3HSS,
                         R3CSS,
-                        totalSS,
-                        cargoShipTotal,
-                        rocketShipTotal,
-                        totalCargo,
-                        totalHatch
+                        getTotalSS(),
+                        getCargoShipTotal(),
+                        getRocketShipTotal(),
+                        getTotalCargo(),
+                        getTotalHatch()
                 )
         );
     }

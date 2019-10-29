@@ -101,17 +101,17 @@ class DeepSpace implements Serializable {
         this.info.team = mainTeam;
     }
     String getMainHelpInfo() {
-        return "Meet This Year's Developers!" + System.lineSeparator() +
-                "    Programming:" + System.lineSeparator() +
-                "        Cassidy Schiller" + System.lineSeparator() +
-                "        Mac Fraser" + System.lineSeparator() +
-                "        Henry Morris" + System.lineSeparator() +
-                "    Layout and Design:" + System.lineSeparator() +
-                "        Cassidy Schiller" + System.lineSeparator() +
-                "        Sam Slopey" + System.lineSeparator() +
-                "        Em Brown" + System.lineSeparator() +
-                "        Khai Little" + System.lineSeparator() +
-                "        Jackie Lawton" + System.lineSeparator() + System.lineSeparator() +
+        return "MEET THIS YEAR'S DEVELOPERS!" + System.lineSeparator() +
+                "      PROGRAMMING:" + System.lineSeparator() +
+                "            Cassidy Schiller" + System.lineSeparator() +
+                "            Mac Fraser" + System.lineSeparator() +
+                "            Henry Morris" + System.lineSeparator() +
+                "      Layout and Design:" + System.lineSeparator() +
+                "            Cassidy Schiller" + System.lineSeparator() +
+                "            Sam Slopey" + System.lineSeparator() +
+                "            Em Brown" + System.lineSeparator() +
+                "            Khai Little" + System.lineSeparator() +
+                "            Jackie Lawton" + System.lineSeparator() +
                 "Want to see your name here? Contact your team's collective representative to find out how to get involved with app development!";
     }
     int getMainEndgame() {
