@@ -1,12 +1,16 @@
 package com.scoutingApp.FIRST2020;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -50,6 +54,20 @@ public class PostSubmit extends AppCompatActivity {
         updateTextView(Integer.toString(getSpace().getInfo().getTeam()), R.id.team);
         updateTextView((getSpace().getInfo().getMatch()), R.id.match);
     }
+    public static class Dialogs4 extends DialogFragment {
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder name = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+            name.setMessage("Please add the final alliance score or a \"0\" placeholder!")
+                    .setNegativeButton(R.string.okiedokes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Objects.requireNonNull(PostSubmit.Dialogs4.this.getDialog()).dismiss();
+                        }
+                    });
+            return name.create();
+        }
+    }
     public String newString(int id) {
         TextView text = findViewById(id);
         return text.getText().toString();
@@ -91,15 +109,19 @@ public class PostSubmit extends AppCompatActivity {
         getSub().setR3CSS(getSpace().getRocket().getMainR3CSS());
     }
     public void submitButtonPageTwo(View view) {
-        getSpace().setMainName(newString(R.id.name));
-        getSpace().setMainTeam(Integer.valueOf(newString(R.id.team)));
-        getSpace().setMainMatch(newString(R.id.match));
-        getSpace().setMainAlliance(newString(R.id.alliance));
-        getSpace().setExtrasFinalScore(Integer.valueOf(newString(R.id.typescorehere)));
-        toSubmission();
-        getData().getSheet().setValues(getSub().setValues());
-        Intent signInIntent = googleClient.getSignInIntent();
-        startActivityForResult(signInIntent, 1);
+        if (!newString(R.id.typescorehere).equals("")) {
+            getSpace().setMainName(newString(R.id.name));
+            getSpace().setMainTeam(Integer.valueOf(newString(R.id.team)));
+            getSpace().setMainMatch(newString(R.id.match));
+            getSpace().setMainAlliance(newString(R.id.alliance));
+            getSpace().setExtrasFinalScore(Integer.valueOf(newString(R.id.typescorehere)));
+            toSubmission();
+            getData().getSheet().setValues(getSub().setValues());
+            Intent signInIntent = googleClient.getSignInIntent();
+            startActivityForResult(signInIntent, 1);
+        }
+        else {DialogFragment newFragment = new Dialogs4();
+            newFragment.show(getSupportFragmentManager(), "STOP");}
     }
 
     @Override
@@ -115,6 +137,12 @@ public class PostSubmit extends AppCompatActivity {
                 .requestEmail()
                 .build();
         googleClient = GoogleSignIn.getClient(this, gso);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
     }
 
     @Override
@@ -144,10 +172,8 @@ public class PostSubmit extends AppCompatActivity {
                 getAuthCode(account);
             }
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
             getData().perSubData.add(getSub());
-
+            getSpace().getInfo().setNotes("no acct!" + e.getStatusCode());
         }
     }
 
@@ -170,23 +196,20 @@ public class PostSubmit extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(final Request request, final IOException e) {
-                Log.e("SETTINGS", e.toString());
+                getSpace().getInfo().setNotes("onfail fuckup");
                 getData().perSubData.add(getSub());
             }
-
             @Override
             public void onResponse(Response response) throws IOException {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     final String token = jsonObject.get("access_token").toString();
-
-                    Log.i("SETTINGS", token);
                     if (!getData().sender(token)) {
+                        getSpace().getInfo().setNotes("!get fuckup");
                         getData().perSubData.add(getSub());
                     }
-
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    getSpace().getInfo().setNotes("onresponse fuckup");
                 }
             }
         });

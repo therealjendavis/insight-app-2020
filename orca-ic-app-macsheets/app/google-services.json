@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "782050499682-sabf3cn1eoppengo1cio7a7ps02ii6e8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scoutingApp.FIRST2020",
+            "certificate_hash": "95e52d449a045f431896be94c51c0c8db3922db2"
+          }
+        },
+        {
+          "client_id": "782050499682-vddoo7naotmpldpbgiudpsrpfgq0lcnb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scoutingApp.FIRST2020",
+            "certificate_hash": "bd26bf466ba1c88d6599d3d081b16a4c4efd5ec9"
+          }
+        },
+        {
           "client_id": "782050499682-87ar34mlmfmsp75ijsrt3f4sbpc5k5r3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

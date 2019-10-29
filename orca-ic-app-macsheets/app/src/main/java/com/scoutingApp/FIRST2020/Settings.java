@@ -233,8 +233,9 @@ public class Settings extends AppCompatActivity {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-            //  getData().setTokenKeyThingy(getData().getSheet().handleSignInResult(task));
+            try {handleSignInResult(task);} catch (Exception e) {
+                makeADialog("no connection", "oops");
+            }
         }
     }
 
@@ -250,7 +251,6 @@ public class Settings extends AppCompatActivity {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("SETTINGS", "signInResult:failed code=" + e.getStatusCode());
             makeADialog("no connection!", "noConnect");
         }
     }
