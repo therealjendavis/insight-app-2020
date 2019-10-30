@@ -242,7 +242,9 @@ public class MainActivity extends AppCompatActivity {
             if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0)))) {
                 makeADialog("Please give the tablet to " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
             }
-            if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(2).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(2)))) {
+            int x = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(2).toString()); //current match number
+            int y = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(2).toString()); //last match number
+            if (y != x - 1){
                 makeADialog("Please give the tablet to the scouting coordinator!", "handoff");
             }
         }
