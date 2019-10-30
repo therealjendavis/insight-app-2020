@@ -70,57 +70,53 @@
 
     <Button
         android:id="@+id/RC"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#FF983D"
         android:onClick="rc"
         android:text="@string/cargo"
         android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/spaceyboi"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/RH"
-        app:layout_constraintEnd_toStartOf="@+id/spaceyboi"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     <Button
         android:id="@+id/RH"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#FFEB3B"
         android:onClick="rh"
         android:text="@string/hatch"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toStartOf="@+id/RC"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        app:layout_constraintVertical_bias="0.374" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     <Button
         android:id="@+id/Hatchcsf"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#FFEB3B"
         android:onClick="csh"
         android:text="@string/hatch"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@id/button11"
-        app:layout_constraintStart_toEndOf="@+id/spaceyboi"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"/>
+        app:layout_constraintStart_toEndOf="@+id/spaceyboi"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     <Button
         android:id="@+id/button11"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#FF983D"
         android:onClick="csc"
         android:text="@string/cargo"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        app:layout_constraintVertical_bias="0.374" />
+        app:layout_constraintStart_toEndOf="@+id/Hatchcsf"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     <Button
         android:id="@+id/hab3"

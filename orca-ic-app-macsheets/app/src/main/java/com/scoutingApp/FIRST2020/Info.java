@@ -15,28 +15,28 @@ public class Info implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public Integer getTeam() {
+    Integer getTeam() {
         return team;
     }
-    public void setTeam(Integer team) {
+    void setTeam(Integer team) {
         this.team = team;
     }
-    public String getMatch() {
+    String getMatch() {
         return match;
     }
-    public void setMatch(String match) {
+    void setMatch(String match) {
         this.match = match;
     }
-    public String getAlliance() {
+    String getAlliance() {
         return alliance;
     }
-    public void setAlliance(String alliance) {
+    void setAlliance(String alliance) {
         this.alliance = alliance;
     }
-    public String getNotes() {
+    String getNotes() {
         return notes;
     }
-    public void setNotes(String notes) {
+    void setNotes(String notes) {
         this.notes = notes;
     }
 
