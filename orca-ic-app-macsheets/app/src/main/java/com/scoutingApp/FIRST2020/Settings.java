@@ -106,7 +106,8 @@ public class Settings extends AppCompatActivity {
             builder.setMessage(dialogMessage)
                 .setPositiveButton("yup!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Settings.tabletNumber = Integer.parseInt(((TextView) Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById(R.id.tabnum)).getText().toString());
+                        try {Settings.tabletNumber = Integer.parseInt(((TextView) Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById(R.id.tabnum)).getText().toString());}
+                        catch (Exception e) {Settings.tabletNumber = 0;}
                         if (tabletNumber <= 3) {
                             allianceColor = "Red";
                         } else {

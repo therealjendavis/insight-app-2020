@@ -240,7 +240,10 @@ public class MainActivity extends AppCompatActivity {
     public void dialogCheck() {
         if (!getData().perSubData.isEmpty()) {
             if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0)))) {
-                makeADialog("Please give tablet to " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
+                makeADialog("Please give the tablet to " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
+            }
+            if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(2).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(2)))) {
+                makeADialog("Please give the tablet to the scouting coordinator!", "handoff");
             }
         }
     }
@@ -450,11 +453,11 @@ public class MainActivity extends AppCompatActivity {
             getSpace().infoSet(" ", 0, " ", " ");
         }
         infoTop();
-        dialogCheck();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        dialogCheck();
     }
 }
