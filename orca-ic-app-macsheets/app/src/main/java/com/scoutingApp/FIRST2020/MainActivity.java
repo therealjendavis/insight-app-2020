@@ -244,6 +244,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    public void colorSet(int id, int color) {
+        findViewById(id).setBackgroundColor(getResources().getColor(color));
+    }
 
     // button methods
 
@@ -287,59 +290,112 @@ public class MainActivity extends AppCompatActivity {
     }
     public void rc(View view) {
         rocketSet(getSpace(), getRocketLevel(), DeepSpace.CARGO);
+        colorSet(R.id.rl1, R.color.colorAccent);
+        colorSet(R.id.rl2, R.color.colorAccent);
+        colorSet(R.id.rl3, R.color.colorAccent);
     }
     public void rh(View view) {
         rocketSet(getSpace(), getRocketLevel(), DeepSpace.HATCH);
+        colorSet(R.id.rl1, R.color.colorAccent);
+        colorSet(R.id.rl2, R.color.colorAccent);
+        colorSet(R.id.rl3, R.color.colorAccent);
     }
     public void csc(View view) {
         cargoShipSet(getSpace(), getCargoLoc(), DeepSpace.CARGO);
+        colorSet(R.id.cargoshipfront, R.color.colorAccent);
+        colorSet(R.id.cargoshipfront3, R.color.colorAccent);
     }
     public void csh(View view) {
         cargoShipSet(getSpace(), getCargoLoc(), DeepSpace.HATCH);
+        colorSet(R.id.cargoshipfront, R.color.colorAccent);
+        colorSet(R.id.cargoshipfront3, R.color.colorAccent);
     }
     public void csf(View view) {
-        if (getSpace().isMainStart()) {setCargoLoc('f');}
+        if (getSpace().isMainStart()) {
+            setCargoLoc('f');
+            colorSet(R.id.cargoshipfront, R.color.coolWhite);
+            colorSet(R.id.cargoshipfront3, R.color.colorAccent);
+        }
         else { makeADialog("You need to press start!", "setscore"); }
     }
     public void css(View view) {
-        if (getSpace().isMainStart()) {setCargoLoc('c');}
+        if (getSpace().isMainStart()) {
+            setCargoLoc('c');
+            colorSet(R.id.cargoshipfront3, R.color.coolWhite);
+            colorSet(R.id.cargoshipfront, R.color.colorAccent);
+        }
         else { makeADialog("You need to press start!", "setscore"); }
     }
     public void rl1(View view) {
-        if (getSpace().isMainStart()) {setRocketLevel(1);}
+        if (getSpace().isMainStart()) {
+            setRocketLevel(1);
+            colorSet(R.id.rl1, R.color.colorAccent);
+            colorSet(R.id.rl2, R.color.colorAccent);
+            colorSet(R.id.rl3, R.color.colorAccent);
+            colorSet(R.id.rl1, R.color.coolWhite);
+        }
         else { makeADialog("You need to press start!", "setscore"); }
     }
     public void rl2(View view) {
-        if (getSpace().isMainStart()) {setRocketLevel(2);}
+        if (getSpace().isMainStart()) {
+            setRocketLevel(2);
+            colorSet(R.id.rl1, R.color.colorAccent);
+            colorSet(R.id.rl2, R.color.colorAccent);
+            colorSet(R.id.rl3, R.color.colorAccent);
+            colorSet(R.id.rl2, R.color.coolWhite);
+        }
         else { makeADialog("You need to press start!", "setscore"); }
     }
     public void rl3(View view) {
-        if (getSpace().isMainStart()) {setRocketLevel(3);}
+        if (getSpace().isMainStart()) {
+            colorSet(R.id.rl1, R.color.colorAccent);
+            colorSet(R.id.rl2, R.color.colorAccent);
+            colorSet(R.id.rl3, R.color.colorAccent);
+            colorSet(R.id.rl3, R.color.coolWhite);
+            setRocketLevel(3);
+        }
         else { makeADialog("You need to press start!", "setscore"); }
     }
     public void defense(View view) {
         if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
-        else getSpace().setMainDefense(true);
+        else {getSpace().setMainDefense(true); colorSet(R.id.defenseButton, R.color.coolWhite);}
     }
     public void start1(View view) {
         getSpace().setMainStartPosition(1);
+        colorSet(R.id.start2, R.color.colorPrimaryDark);
+        colorSet(R.id.start1, R.color.colorPrimary);
     }
     public void start2(View view) {
-        getSpace().setMainStartPosition(2);}
+        getSpace().setMainStartPosition(2);
+        colorSet(R.id.start1, R.color.colorPrimaryDark);
+        colorSet(R.id.start2, R.color.colorPrimary);}
     public void end1(View view) {
         if (getSpace().isMainStart()) {
             getSpace().setMainEndgame(1);
+            colorSet(R.id.hab1, R.color.colorPrimary);
+            colorSet(R.id.hab2, R.color.colorPrimary);
+            colorSet(R.id.hab3, R.color.colorPrimary);
+            colorSet(R.id.hab1, R.color.colorPrimaryDark);
         }
         else makeADialog("You need to press start!", "setscore");
     }
     public void end2(View view) {
         if (getSpace().isMainStart()) {
             getSpace().setMainEndgame(2);
+            colorSet(R.id.hab1, R.color.colorPrimary);
+            colorSet(R.id.hab2, R.color.colorPrimary);
+            colorSet(R.id.hab3, R.color.colorPrimary);
+            colorSet(R.id.hab2, R.color.colorPrimaryDark);
         }
         else makeADialog("You need to press start!", "setscore");
     }
     public void end3(View view) {
-        if (getSpace().isMainStart()) { getSpace().setMainEndgame(3); }
+        if (getSpace().isMainStart()) {
+            getSpace().setMainEndgame(3);
+            colorSet(R.id.hab1, R.color.colorPrimary);
+            colorSet(R.id.hab2, R.color.colorPrimary);
+            colorSet(R.id.hab3, R.color.colorPrimary);
+            colorSet(R.id.hab3, R.color.colorPrimaryDark);}
         else { makeADialog("You need to press start!", "setscore"); }
     }
     public void blockedScore(View view){
