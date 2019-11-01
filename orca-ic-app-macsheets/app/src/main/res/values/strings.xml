@@ -56,4 +56,40 @@
     <string name="endgame">EndGame</string>
     <string name="cargo_ship">Cargo Ship</string>
     <string name="rocket_ship">Rocket Ship</string>
+    <string-array name="CargoCargo">
+        <item>Cargo (1)</item>
+        <item>Cargo (2)</item>
+        <item>Cargo (3)</item>
+        <item>Cargo (4)</item>
+        <item>Cargo (5)</item>
+        <item>Cargo (6)</item>
+        <item>Cargo (7)</item>
+        <item>Cargo (8)</item>
+    </string-array>
+    <string-array name="CargoRocket">
+        <item>Cargo (1)</item>
+        <item>Cargo (2)</item>
+        <item>Cargo (3)</item>
+        <item>Cargo (4)</item>
+        <item>Cargo (5)</item>
+        <item>Cargo (6)</item>
+    </string-array>
+    <string-array name="CargoHatch">
+        <item>Hatch (1)</item>
+        <item>Hatch (2)</item>
+        <item>Hatch (3)</item>
+        <item>Hatch (4)</item>
+        <item>Hatch (5)</item>
+        <item>Hatch (6)</item>
+        <item>Hatch (7)</item>
+        <item>Hatch (8)</item>
+    </string-array>
+    <string-array name="RocketHatch">
+        <item>Hatch (1)</item>
+        <item>Hatch (2)</item>
+        <item>Hatch (3)</item>
+        <item>Hatch (4)</item>
+        <item>Hatch (5)</item>
+        <item>Hatch (6)</item>
+    </string-array>
 </resources>

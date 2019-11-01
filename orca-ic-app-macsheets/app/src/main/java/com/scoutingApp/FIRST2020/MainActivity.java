@@ -29,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private char cargoLoc = ' ';
     private int timerPause = 0;
     static Intent settings;
+    private int cargoCarArr = 0;
+    private int cargoHatArr = 0;
+    private int rockCarArr = 0;
+    private int rockHatArr = 0;
 
     // getters and setters
 
@@ -68,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
     // methods to set or change variables, set ss timer, etc
 
+    public void scores(int id, int score, int array) {
+        TextView text = findViewById(id);
+        String[] res = getResources().getStringArray(array);
+        text.setText(res[score]);
+    }
     public static class Dialogs extends DialogFragment {
         @NonNull
         @Override
@@ -187,8 +196,15 @@ public class MainActivity extends AppCompatActivity {
             }
             setRocketLevel(0);
         }
-        else makeADialog("You need to pick a level!", "level");
-        setRocketLevel(0);
+        else {makeADialog("You need to pick a level!", "level");}
+        if (type == DeepSpace.HATCH && game.isMainStart()) {
+            scores(R.id.RH, rockHatArr, R.array.RocketHatch);
+            rockHatArr = rockHatArr + 1;
+        }
+        else if (type == DeepSpace.CARGO && game.isMainStart()) {
+            scores(R.id.RC, rockCarArr, R.array.CargoRocket);
+            rockCarArr = rockCarArr + 1;
+        }
     }
     public void cargoShipSet(DeepSpace game, char location, int type) {
         if (!game.isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
@@ -222,7 +238,15 @@ public class MainActivity extends AppCompatActivity {
             }
             setCargoLoc(' ');
         }
-        else makeADialog("You need to pick front or side!", "cargoship");
+        else {makeADialog("You need to pick front or side!", "cargoship");}
+        if (type == DeepSpace.HATCH && game.isMainStart()) {
+            scores(R.id.Hatchcsf, cargoHatArr, R.array.CargoHatch);
+            cargoHatArr = cargoHatArr + 1;
+        }
+        else if (type == DeepSpace.CARGO && game.isMainStart()) {
+            scores(R.id.button11, cargoCarArr, R.array.CargoCargo);
+            cargoCarArr = cargoCarArr + 1;
+        }
     }
     public void updateTextView(String content, int id){
         TextView nametext = findViewById(id);
@@ -238,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
         updateTextView(getSpace().getInfo().getMatch(), R.id.infoMatch);
     }
     public void dialogCheck() {
-        if (!getData().perSubData.isEmpty()) {
+        if (!getData().perSubData.isEmpty() && !getData().getSheet().getSheetPage().isEmpty()) {
             if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0)))) {
                 makeADialog("Please give the tablet to " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
             }
