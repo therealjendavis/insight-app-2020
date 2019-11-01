@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -261,17 +262,25 @@ public class MainActivity extends AppCompatActivity {
         updateTextView(getSpace().getInfo().getTeam().toString(), R.id.infoTeam);
         updateTextView(getSpace().getInfo().getMatch(), R.id.infoMatch);
     }
-    public void dialogCheck() {
-        if (!getData().perSubData.isEmpty() && !getData().getSheet().getSheetPage().isEmpty()) {
-            if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0)))) {
-                makeADialog("Please give the tablet to " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
-            }
-            int x = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(2).toString()); //current match number
-            int y = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(2).toString()); //last match number
-            if (y != x - 1){
-                makeADialog("Please give the tablet to the scouting coordinator!", "handoff");
+    class HenryThread implements Runnable {
+        @Override
+        public void run() {
+            if (!getData().perSubData.isEmpty()) {
+                if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0)))) {
+                    makeADialog("Please give the tablet to " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
+                }
+                int x = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(2).toString()); //current match number
+                int y = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(2).toString()); //last match number
+                if (y != x - 1){
+                    makeADialog("Please give the tablet to the scouting coordinator!", "handoff");
+                }
             }
         }
+    }
+    public void dialogCheck() {
+        HenryThread thread = new HenryThread();
+        Thread threadStart = new Thread(thread);
+        threadStart.start();
     }
     public void colorSet(int id, int color) {
         findViewById(id).setBackgroundColor(getResources().getColor(color));
@@ -386,8 +395,15 @@ public class MainActivity extends AppCompatActivity {
         else { makeADialog("You need to press start!", "setscore"); }
     }
     public void defense(View view) {
-        if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
-        else {getSpace().setMainDefense(true); colorSet(R.id.defenseButton, R.color.coolWhite);}
+        if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");
+        ((CheckBox)view).setChecked(false);}
+        else {
+            if (!getSpace().isMainDefense()) {
+                    getSpace().setMainDefense(true);
+                }
+            else {getSpace().setMainDefense(false);}
+        }
+
     }
     public void start1(View view) {
         getSpace().setMainStartPosition(1);
