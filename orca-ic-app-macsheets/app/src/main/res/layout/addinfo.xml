@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/AppTheme.NoActionBar"
     tools:context=".AdditionalInfo">
 
     <TextView
@@ -94,12 +93,9 @@
         android:layout_marginBottom="80dp"
         android:hint="@string/any_notes"
         android:inputType="textPersonName"
-        android:singleLine="false"
-        android:textAlignment="textStart"
         android:textAllCaps="false"
-        android:textColor="#000000"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textColorHint="#000000"
-        android:textDirection="firstStrongRtl"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

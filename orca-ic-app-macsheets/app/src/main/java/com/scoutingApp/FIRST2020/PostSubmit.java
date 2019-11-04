@@ -12,25 +12,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.tasks.Task;
-import com.google.api.services.sheets.v4.SheetsScopes;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.Objects;
 
 public class PostSubmit extends AppCompatActivity {
@@ -40,7 +21,6 @@ public class PostSubmit extends AppCompatActivity {
     public PersistentData getData() {
         return (PersistentData) getIntent().getSerializableExtra("data2");
     }
-    GoogleSignInClient googleClient;
     public SubmittedData sub = new SubmittedData();
     public SubmittedData getSub() { return this.sub; }
     private void updateTextView(String content, int id){
@@ -71,6 +51,12 @@ public class PostSubmit extends AppCompatActivity {
     public String newString(int id) {
         TextView text = findViewById(id);
         return text.getText().toString();
+    }
+
+    public void goHome() {
+        Intent main = new Intent(this, MainActivity.class);
+        main.putExtra("data4", getData());
+        startActivity(main);
     }
     public void toSubmission() {
         getSub().setMainStartPosition(getSpace().getMainStartPosition());
@@ -116,9 +102,10 @@ public class PostSubmit extends AppCompatActivity {
             getSpace().setMainAlliance(newString(R.id.alliance));
             getSpace().setExtrasFinalScore(Integer.valueOf(newString(R.id.typescorehere)));
             toSubmission();
-            getData().getSheet().setValues(getSub().setValues());
-            Intent signInIntent = googleClient.getSignInIntent();
-            startActivityForResult(signInIntent, 1);
+            getData().perSubData.add(getSub());
+            getData().perCacheData.add(getSpace().getInfo());
+            getData().setRowNumber(getData().getRowNumber() + 1);
+            goHome();
         }
         else {DialogFragment newFragment = new Dialogs4();
             newFragment.show(getSupportFragmentManager(), "STOP");}
@@ -129,89 +116,5 @@ public class PostSubmit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_submit);
         info();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestScopes(new Scope(SheetsScopes.SPREADSHEETS_READONLY))
-                .requestScopes(new Scope(SheetsScopes.SPREADSHEETS))
-                .requestIdToken("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
-                .requestServerAuthCode("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
-        googleClient = GoogleSignIn.getClient(this, gso);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == 1) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-
-            getData().perCacheData.add(getSpace().getInfo());
-            getData().setRowNumber(getData().getRowNumber() + 1);
-            Intent back = new Intent(this, MainActivity.class);
-            back.putExtra("data4", getData());
-            startActivity(back);
-        }
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-            if (account != null) {
-                getAuthCode(account);
-            }
-        } catch (ApiException e) {
-            getData().perSubData.add(getSub());
-            getSpace().getInfo().setNotes("no acct!" + e.getStatusCode());
-        }
-    }
-
-    private void getAuthCode(GoogleSignInAccount acct) {
-
-        OkHttpClient client = new OkHttpClient();
-        RequestBody requestBody = new FormEncodingBuilder()
-                .add("grant_type", "authorization_code")
-                .add("client_id", "782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
-                .add("client_secret", "vlGO8-L2b8-of6b7wXkPkMWT")
-                .add("redirect_uri","")
-                .add("code", Objects.requireNonNull(acct.getServerAuthCode()))
-                .add("access_type", "offline")
-                .add("id_token", Objects.requireNonNull(acct.getIdToken()))
-                .build();
-        final Request request = new Request.Builder()
-                .url("https://www.googleapis.com/oauth2/v4/token")
-                .post(requestBody)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(final Request request, final IOException e) {
-                getSpace().getInfo().setNotes("onfail fuckup");
-                getData().perSubData.add(getSub());
-            }
-            @Override
-            public void onResponse(Response response) throws IOException {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body().string());
-                    final String token = jsonObject.get("access_token").toString();
-                    if (!getData().sender(token)) {
-                        getSpace().getInfo().setNotes("!get fuckup");
-                        getData().perSubData.add(getSub());
-                    }
-                } catch (JSONException e) {
-                    getSpace().getInfo().setNotes("onresponse fuckup");
-                }
-            }
-        });
     }
 }

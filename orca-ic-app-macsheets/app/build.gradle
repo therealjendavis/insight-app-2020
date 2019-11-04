@@ -7,8 +7,8 @@ android {
         applicationId "com.scoutingApp.FIRST2020"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 9
-        versionName "2.5.0"
+        versionCode 10
+        versionName "2.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -46,6 +46,9 @@ dependencies {
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
     implementation 'com.google.apis:google-api-services-sheets:v4-rev516-1.23.0'
     implementation 'com.squareup.okhttp:okhttp:2.6.0'
+    implementation 'com.google.firebase:firebase-perf:19.0.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 }
-
+apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'com.google.gms.google-services'

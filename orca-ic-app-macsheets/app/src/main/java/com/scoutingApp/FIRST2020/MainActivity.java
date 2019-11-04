@@ -1,13 +1,14 @@
 package com.scoutingApp.FIRST2020;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -198,11 +199,11 @@ public class MainActivity extends AppCompatActivity {
             setRocketLevel(0);
         }
         else {makeADialog("You need to pick a level!", "level");}
-        if (type == DeepSpace.HATCH && game.isMainStart()) {
+        if (type == DeepSpace.HATCH && game.isMainStart() &&  rockHatArr <= 8 && (level != 0)) {
             scores(R.id.RH, rockHatArr, R.array.RocketHatch);
             rockHatArr = rockHatArr + 1;
         }
-        else if (type == DeepSpace.CARGO && game.isMainStart()) {
+        else if (type == DeepSpace.CARGO && game.isMainStart() &&  rockCarArr <= 8 && (level != 0)) {
             scores(R.id.RC, rockCarArr, R.array.CargoRocket);
             rockCarArr = rockCarArr + 1;
         }
@@ -240,11 +241,11 @@ public class MainActivity extends AppCompatActivity {
             setCargoLoc(' ');
         }
         else {makeADialog("You need to pick front or side!", "cargoship");}
-        if (type == DeepSpace.HATCH && game.isMainStart()) {
+        if (type == DeepSpace.HATCH && game.isMainStart() && cargoHatArr < 8 && (location != ' ')) {
             scores(R.id.Hatchcsf, cargoHatArr, R.array.CargoHatch);
             cargoHatArr = cargoHatArr + 1;
         }
-        else if (type == DeepSpace.CARGO && game.isMainStart()) {
+        else if (type == DeepSpace.CARGO && game.isMainStart() &&  cargoCarArr < 8 && (location != ' ')) {
             scores(R.id.button11, cargoCarArr, R.array.CargoCargo);
             cargoCarArr = cargoCarArr + 1;
         }
@@ -254,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         nametext.setText(content);
     }
 
-    // method to set the info on top of page (called on create)
+    // methods called on create
 
     public void infoTop() {
         updateTextView(getSpace().getInfo().getName(), R.id.infoName);
@@ -262,42 +263,103 @@ public class MainActivity extends AppCompatActivity {
         updateTextView(getSpace().getInfo().getTeam().toString(), R.id.infoTeam);
         updateTextView(getSpace().getInfo().getMatch(), R.id.infoMatch);
     }
-    class HenryThread implements Runnable {
+    public void dialogCheck() {
+        PersistentData.threadify(MainActivity.DialogCheckThread.class);
+    }
+    public void colorSet(int id, int color) {
+        findViewById(id).setBackgroundColor(getResources().getColor(color));
+    }
+    public void checkSpace() {
+        PersistentData.threadify(MainActivity.CheckSpaceThread.class);
+    }
+    public void checkData() {
+        PersistentData.threadify(MainActivity.CheckDataThread.class);
+    }
+
+    // threads
+
+    class DialogCheckThread implements Runnable {
         @Override
         public void run() {
-            if (!getData().perSubData.isEmpty()) {
-                if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0)))) {
-                    makeADialog("Please give the tablet to " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
-                }
+            if (!getData().perSubData.isEmpty() && getData().getSheet().getSheetPage() != null) {
                 int x = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(2).toString()); //current match number
                 int y = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(2).toString()); //last match number
-                if (y != x - 1){
-                    makeADialog("Please give the tablet to the scouting coordinator!", "handoff");
+                if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0))) && (x - 1 == y)) {
+                    makeADialog("Please go find the next scouter, " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
                 }
             }
         }
     }
-    public void dialogCheck() {
-        HenryThread thread = new HenryThread();
-        Thread threadStart = new Thread(thread);
-        threadStart.start();
+    class CheckSpaceThread implements Runnable {
+        public void run() {
+            if (getIntent().hasExtra("game5")) {
+                setSpace((DeepSpace) getIntent().getSerializableExtra("game5"));
+            }
+            else if (getIntent().hasExtra("game6")) {
+                setSpace((DeepSpace) getIntent().getSerializableExtra("game6"));
+            }
+            else {
+                setSpace(new DeepSpace());
+            }
+        }
     }
-    public void colorSet(int id, int color) {
-        findViewById(id).setBackgroundColor(getResources().getColor(color));
+    class CheckDataThread implements Runnable {
+        public void run() {
+            if (getIntent().hasExtra("data5")) {
+                setData((PersistentData) getIntent().getSerializableExtra("data5"));
+            }
+            else if (getIntent().hasExtra("data4")) {
+                setData((PersistentData) getIntent().getSerializableExtra("data4"));
+            }
+            else if (getIntent().hasExtra("data6")) {
+                setData((PersistentData) getIntent().getSerializableExtra("data6"));
+            }
+            else {
+                setData(new PersistentData());
+            }
+        }
+    }
+    class SettingsButtonThread implements Runnable {
+        @Override
+        public void run() {
+            setFinSettingsIntent();
+            DialogFragment newFragment = new Dialogs3();
+            newFragment.show(getSupportFragmentManager(), "settingsPassword");
+        }
+    }
+    class SubmitButtonThread implements Runnable {
+        @Override
+        public void run() {
+            Intent psPage = new Intent(getApplicationContext(), PostSubmit.class);
+            psPage.putExtra("Game2", getSpace());
+            psPage.putExtra("data2", getData());
+            startActivity(psPage);
+        }
+    }
+    class AddInfoButtonThread implements Runnable {
+        @Override
+        public void run() {
+            Intent addInfo = new Intent(getApplicationContext(), AdditionalInfo.class);
+            addInfo.putExtra("Game4", getSpace());
+            addInfo.putExtra("data4", getData());
+            startActivity(addInfo);
+        }
+    }
+    class BlockedScoreThread implements Runnable {
+        @Override
+        public void run() {
+            if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
+            else getSpace().setMainBlockedScores(getSpace().getMainBlockedScores() + 1);
+        }
     }
 
     // button methods
 
     public void settingsButton(View view){
-        setFinSettingsIntent();
-        DialogFragment newFragment = new Dialogs3();
-        newFragment.show(getSupportFragmentManager(), "settingsPassword");
+        PersistentData.threadify(MainActivity.SettingsButtonThread.class);
     }
     public void addInfoButton(View view){
-        Intent addInfo = new Intent(this, AdditionalInfo.class);
-        addInfo.putExtra("Game4", getSpace());
-        addInfo.putExtra("data4", getData());
-        startActivity(addInfo);
+        PersistentData.threadify(MainActivity.AddInfoButtonThread.class);
     }
     public void helpButton(View view) {makeADialog(getSpace().getMainHelpInfo(), "help"); }
     public void startButton(View view) {
@@ -321,10 +383,7 @@ public class MainActivity extends AppCompatActivity {
         else { makeADialog("You need to press choose a start location!", "startLoc"); }
     }
     public void submitButton(View view) {
-        Intent psPage = new Intent(this, PostSubmit.class);
-        psPage.putExtra("Game2", getSpace());
-        psPage.putExtra("data2", getData());
-        startActivity(psPage);
+        PersistentData.threadify(MainActivity.SubmitButtonThread.class);
     }
     public void rc(View view) {
         rocketSet(getSpace(), getRocketLevel(), DeepSpace.CARGO);
@@ -396,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void defense(View view) {
         if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");
-        ((CheckBox)view).setChecked(false);}
+        ((Switch)view).setChecked(getSpace().isMainDefense());}
         else {
             if (!getSpace().isMainDefense()) {
                     getSpace().setMainDefense(true);
@@ -444,38 +503,9 @@ public class MainActivity extends AppCompatActivity {
         else { makeADialog("You need to press start!", "setscore"); }
     }
     public void blockedScore(View view){
-        if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
-        else getSpace().setMainBlockedScores(getSpace().getMainBlockedScores() + 1);
+        PersistentData.threadify(MainActivity.BlockedScoreThread.class);
     }
     public void timerCheck(View view) {updateTextView(Integer.toString(getTimerPause()), R.id.timer);}
-
-    // method for setting object value (called on create)
-
-    public void checkSpace() {
-        if (getIntent().hasExtra("game5")) {
-            setSpace((DeepSpace) getIntent().getSerializableExtra("game5"));
-        }
-        else if (getIntent().hasExtra("game6")) {
-            setSpace((DeepSpace) getIntent().getSerializableExtra("game6"));
-        }
-        else {
-            setSpace(new DeepSpace());
-        }
-    }
-    public void checkData() {
-        if (getIntent().hasExtra("data5")) {
-            setData((PersistentData) getIntent().getSerializableExtra("data5"));
-        }
-        else if (getIntent().hasExtra("data4")) {
-            setData((PersistentData) getIntent().getSerializableExtra("data4"));
-        }
-        else if (getIntent().hasExtra("data6")) {
-            setData((PersistentData) getIntent().getSerializableExtra("data6"));
-        }
-        else {
-            setData(new PersistentData());
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

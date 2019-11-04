@@ -26,6 +26,16 @@ class PersistentData implements Serializable {
     void setRowNumber(int rowNumber) {
         this.rowNumber = rowNumber;
     }
+    static void threadify(Class<? extends Runnable> c) {
+        Runnable thread = null;
+        try {
+            thread = c.newInstance();
+        } catch (IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
+        Thread threadStart = new Thread(thread);
+        threadStart.start();
+    }
 
     private String setSubRange() { return "dataFromApp!" + (rowNumber + 2) + ":" + (rowNumber + 2);}
 
