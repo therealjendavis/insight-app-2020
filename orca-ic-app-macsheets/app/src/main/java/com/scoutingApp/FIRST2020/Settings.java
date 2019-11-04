@@ -37,6 +37,8 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class Settings extends AppCompatActivity {
+    //variables and objects
+
     GoogleSignInClient googleClient;
     public DeepSpace getSpace() {
         return (DeepSpace) getIntent().getSerializableExtra("Game");
@@ -50,6 +52,10 @@ public class Settings extends AppCompatActivity {
     public static String allianceColor;
     public static String dialogMessage;
     public static int tabletNumber = 0;
+    String lineBreak = System.lineSeparator();
+
+    //getters and setters
+
     public boolean isCache() {
         return cache;
     }
@@ -68,6 +74,8 @@ public class Settings extends AppCompatActivity {
     public void setHelp(boolean help) {
         this.help = help;
     }
+
+    // non-button methods
 
     public void clickedMe() {
         setCache(false);
@@ -129,7 +137,6 @@ public class Settings extends AppCompatActivity {
         DialogFragment newFragment = new Settings.Dialogs2();
         newFragment.show(getSupportFragmentManager(), tag);
     }
-    String lineBreak = System.lineSeparator();
     public String stringMe(Info obj) {
         return obj.getName() + lineBreak +
         obj.getTeam() + lineBreak +
@@ -137,6 +144,40 @@ public class Settings extends AppCompatActivity {
         obj.getAlliance() + lineBreak +
         obj.getNotes();
     }
+    private void getConnected() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestScopes(new Scope(SheetsScopes.SPREADSHEETS_READONLY))
+                .requestScopes(new Scope(SheetsScopes.SPREADSHEETS))
+                .requestIdToken("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
+                .requestServerAuthCode("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+        googleClient = GoogleSignIn.getClient(this, gso);
+        Intent signInIntent = googleClient.getSignInIntent();
+        startActivityForResult(signInIntent, 1);
+    }
+
+    // threads
+    class HomeThread implements Runnable {
+        @Override
+        public void run() {
+            Intent back2 = new Intent(getApplicationContext(), MainActivity.class);
+            back2.putExtra("game6", getSpace());
+            back2.putExtra("data6", getData());
+            if ((tabletNumber != 0) && (getData().getSheet().getSheetPage() == null)){
+                getData().setPerAlliance(allianceColor);
+                getData().getSheet().setSheetID("tab" + tabletNumber);
+                try {
+                    getData().getSheet().setSheetPage();
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            startActivity(back2);
+        }
+    }
+
+    // button methods
 
     public void allianceChoose(View view) {
         makeADialog2("Choose this tablet's number!", "tabNumber");
@@ -154,6 +195,7 @@ public class Settings extends AppCompatActivity {
         if (!getData().perSubData.isEmpty()) {
             displaySet("Submit? Match number " + getData().perSubData.get(getSpace().getSettingsDisplayNum()).getMatchNumber());
         }
+        else {displaySet("Empty!");}
         clickedMe();
         setLocal(true);
     }
@@ -188,24 +230,18 @@ public class Settings extends AppCompatActivity {
         else if (!getData().perSubData.isEmpty()){
             getData().getSheet().setValues(getData().perSubData.get(getSpace().getSettingsDisplayNum()).setValues());
             getConnected();
-            getSpace().setSettingsDisplay("");
+            if (getSpace().getSettingsDisplayNum() < getData().perSubData.size()) {
+                displaySet("Submit? Match number " + getData().perSubData.get(getSpace().getSettingsDisplayNum()).getMatchNumber());
+            }
+            else {displaySet("Empty!");}
+        }
+        else {
+            getSpace().setSettingsDisplay("Empty!");
             updateTextView(getSpace().getSettingsDisplay(), R.id.settingsDisplay);
         }
     }
     public void backHome2(View view){
-        Intent back2 = new Intent(this, MainActivity.class);
-        back2.putExtra("game6", getSpace());
-        back2.putExtra("data6", getData());
-        if ((tabletNumber != 0) && (getData().getSheet().getSheetPage() == null)){
-            getData().setPerAlliance(allianceColor);
-            getData().getSheet().setSheetID("tab" + tabletNumber);
-            try {
-                getData().getSheet().setSheetPage();
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        startActivity(back2);
+        PersistentData.threadify(Settings.HomeThread.class);
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,18 +249,7 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.settings);
     }
 
-    private void getConnected() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestScopes(new Scope(SheetsScopes.SPREADSHEETS_READONLY))
-                .requestScopes(new Scope(SheetsScopes.SPREADSHEETS))
-                .requestIdToken("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
-                .requestServerAuthCode("782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
-        googleClient = GoogleSignIn.getClient(this, gso);
-        Intent signInIntent = googleClient.getSignInIntent();
-        startActivityForResult(signInIntent, 1);
-    }
+    // google and submission methods
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -239,23 +264,17 @@ public class Settings extends AppCompatActivity {
             }
         }
     }
-
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            //         getData().getSheet().setGoogleUser(account);
-
-            // Signed in successfully, show authenticated UI.
             if (account != null) {
                 getAuthCode(account);
             }
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            makeADialog("no connection!", "noConnect");
+            if (e.getStatusCode() == 7) {makeADialog("no connection! check your connection status!", "noNet");}
+            else makeADialog("no connection! status code " + e.getStatusCode(), "noConnect");
         }
     }
-
     private void getAuthCode(GoogleSignInAccount acct) {
 
         OkHttpClient client = new OkHttpClient();
