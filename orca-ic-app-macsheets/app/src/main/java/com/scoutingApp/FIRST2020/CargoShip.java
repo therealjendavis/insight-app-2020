@@ -62,4 +62,29 @@ class CargoShip implements Serializable {
     void setMainCSSCSS(int mainCSSCSS) {
             this.mainCSSCSS = mainCSSCSS;
         }
+
+    // Bradley's code
+    void scoreGamePiece(char location, int type, boolean sandstorm) {
+        // iterate over possible levels and game piece scores
+        switch(location) {
+            // Front
+            case 'f':
+                // TeleOp
+                if (type == DeepSpace.CARGO && !sandstorm) mainCSFC++;
+                else if (type == DeepSpace.HATCH && !sandstorm) mainCSFH++;
+                // Sandstorm
+                else if (type == DeepSpace.CARGO) mainCSFCSS++;
+                else if (type == DeepSpace.HATCH) mainCSFHSS++;
+                break;
+            // Sides
+            case 'c':
+                // TeleOp
+                if (type == DeepSpace.CARGO && !sandstorm) mainCSSC++;
+                else if (type == DeepSpace.HATCH && !sandstorm) mainCSSH++;
+                    // Sandstorm
+                else if (type == DeepSpace.CARGO) mainCSSCSS++;
+                else if (type == DeepSpace.HATCH) mainCSSHSS++;
+                break;
+        }
+    }
 }

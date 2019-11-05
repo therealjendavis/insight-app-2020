@@ -144,59 +144,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void rocketSet(DeepSpace game, int level, int type) {
-        if (!game.isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
-        else if (level == 1) {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR1HSS(game.getRocket().getMainR1HSS() + 1);
-                }
-                else game.getRocket().setMainR1H(game.getRocket().getMainR1H() + 1);
-            }
-            else {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR1CSS(game.getRocket().getMainR1CSS() + 1);
-                }
-                else {
-                    game.getRocket().setMainR1C(game.getRocket().getMainR1C() + 1);
-                }
-            }
+        if (!game.isMainStart()) makeADialog("you need to press start!", "rocketfalse");
+        // Start Bradley's code
+        else if (level > 0 && level <= 3) {
+            game.getRocket().scoreGamePiece(level, type, game.isSandStorm());
             setRocketLevel(0);
         }
-        else if (level == 2) {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR2HSS(game.getRocket().getMainR2HSS() + 1);
-                }
-                else game.getRocket().setMainR2H(game.getRocket().getMainR2H() + 1);
-            }
-            else {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR2CSS(game.getRocket().getMainR2CSS() + 1);
-                }
-                else {
-                    game.getRocket().setMainR2C(game.getRocket().getMainR2C() + 1);
-                }
-            }
-            setRocketLevel(0);
-        }
-        else if (level == 3) {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR3HSS(game.getRocket().getMainR3HSS() + 1);
-                }
-                else game.getRocket().setMainR3H(game.getRocket().getMainR3H() + 1);
-            }
-            else {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR3CSS(game.getRocket().getMainR3CSS() + 1);
-                }
-                else {
-                    game.getRocket().setMainR3C(game.getRocket().getMainR3C() + 1);
-                }
-            }
-            setRocketLevel(0);
-        }
-        else {makeADialog("You need to pick a level!", "level");}
+        // End Bradley's code
+        else makeADialog("You need to pick a level!", "level");
+
         if (type == DeepSpace.HATCH && game.isMainStart() &&  rockHatArr <= 12 && (level != 0)) {
             scores(R.id.RH, rockHatArr, R.array.RocketHatch);
             rockHatArr = rockHatArr + 1;
@@ -207,38 +163,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void cargoShipSet(DeepSpace game, char location, int type) {
-        if (!game.isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
-        else if (location == 'f') {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getCargo().setMainCSFHSS(game.getCargo().getMainCSFHSS() + 1);
-                }
-                else game.getCargo().setMainCSFH(game.getCargo().getMainCSFH() + 1);
-            }
-            else {
-                if (game.isSandStorm()) {
-                    game.getCargo().setMainCSFCSS(game.getCargo().getMainCSFCSS() + 1);
-                }
-                else game.getCargo().setMainCSFC(game.getCargo().getMainCSFC() + 1);
-            }
+        if (!game.isMainStart()) makeADialog("you need to press start!", "rocketfalse");
+        // Start Bradley's Code
+        else if (location == 'f' || location == 'c') {
+            game.getCargo().scoreGamePiece(location, type, game.isSandStorm());
             setCargoLoc(' ');
         }
-        else if (location == 'c') {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getCargo().setMainCSSHSS(game.getCargo().getMainCSSHSS() + 1);
-                }
-                else game.getCargo().setMainCSSH(game.getCargo().getMainCSSH() + 1);
-            }
-            else {
-                if (game.isSandStorm()) {
-                    game.getCargo().setMainCSSCSS(game.getCargo().getMainCSSCSS() + 1);
-                }
-                else game.getCargo().setMainCSSC(game.getCargo().getMainCSSC() + 1);
-            }
-            setCargoLoc(' ');
-        }
-        else {makeADialog("You need to pick front or side!", "cargoship");}
+        // End Bradley's Code
+        else makeADialog("You need to pick front or side!", "cargoship");
+
         if (type == DeepSpace.HATCH && game.isMainStart() && cargoHatArr < 8 && (location != ' ')) {
             scores(R.id.Hatchcsf, cargoHatArr, R.array.CargoHatch);
             cargoHatArr = cargoHatArr + 1;
@@ -407,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
             colorSet(R.id.cargoshipfront, R.color.coolWhite);
             colorSet(R.id.cargoshipfront3, R.color.colorAccent);
         }
-        else { makeADialog("You need to press start!", "setscore"); }
+        else makeADialog("You need to press start!", "setscore");
     }
     public void css(View view) {
         if (getSpace().isMainStart()) {
@@ -415,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
             colorSet(R.id.cargoshipfront3, R.color.coolWhite);
             colorSet(R.id.cargoshipfront, R.color.colorAccent);
         }
-        else { makeADialog("You need to press start!", "setscore"); }
+        else makeADialog("You need to press start!", "setscore");
     }
     public void rl1(View view) {
         if (getSpace().isMainStart()) {
@@ -425,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
             colorSet(R.id.rl3, R.color.colorAccent);
             colorSet(R.id.rl1, R.color.coolWhite);
         }
-        else { makeADialog("You need to press start!", "setscore"); }
+        else makeADialog("You need to press start!", "setscore");
     }
     public void rl2(View view) {
         if (getSpace().isMainStart()) {
@@ -435,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
             colorSet(R.id.rl3, R.color.colorAccent);
             colorSet(R.id.rl2, R.color.coolWhite);
         }
-        else { makeADialog("You need to press start!", "setscore"); }
+        else makeADialog("You need to press start!", "setscore");
     }
     public void rl3(View view) {
         if (getSpace().isMainStart()) {
@@ -445,19 +378,17 @@ public class MainActivity extends AppCompatActivity {
             colorSet(R.id.rl3, R.color.coolWhite);
             setRocketLevel(3);
         }
-        else { makeADialog("You need to press start!", "setscore"); }
+        else makeADialog("You need to press start!", "setscore");
     }
+    // Start Bradley's cleaned up code
     public void defense(View view) {
-        if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");
-        ((Switch)view).setChecked(getSpace().isMainDefense());}
-        else {
-            if (!getSpace().isMainDefense()) {
-                    getSpace().setMainDefense(true);
-                }
-            else {getSpace().setMainDefense(false);}
+        if (!getSpace().isMainStart()) {
+            makeADialog("you need to press start!", "rocketfalse");
+            ((Switch) view).setChecked(getSpace().isMainDefense());
         }
-
+        else getSpace().setMainDefense(!getSpace().isMainDefense());
     }
+    // End Bradley's Cleaned Up Code
     public void start1(View view) {
         getSpace().setMainStartPosition(1);
         colorSet(R.id.start2, R.color.colorPrimaryDark);
@@ -494,14 +425,16 @@ public class MainActivity extends AppCompatActivity {
             colorSet(R.id.hab2, R.color.colorPrimary);
             colorSet(R.id.hab3, R.color.colorPrimary);
             colorSet(R.id.hab3, R.color.colorPrimaryDark);}
-        else { makeADialog("You need to press start!", "setscore"); }
+        else makeADialog("You need to press start!", "setscore");
     }
     public void blockedScore(View view){
         BlockedScoreThread thread = new BlockedScoreThread();
         Thread threadStart = new Thread(thread);
         threadStart.start();
     }
-    public void timerCheck(View view) {updateTextView(Integer.toString(getTimerPause()), R.id.timer);}
+    public void timerCheck(View view) {
+        updateTextView(Integer.toString(getTimerPause()), R.id.timer);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

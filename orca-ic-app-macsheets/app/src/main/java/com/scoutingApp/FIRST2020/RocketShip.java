@@ -91,4 +91,38 @@ class RocketShip implements Serializable {
         this.mainR3CSS = mainR3CSS;
     }
 
+    // Bradley's code
+    void scoreGamePiece(int level, int type, boolean sandstorm) {
+        // iterate over possible levels and game piece scores
+        switch(level) {
+            // Level 1
+            case 1:
+                // TeleOp
+                if (type == DeepSpace.CARGO && !sandstorm) mainR1C++;
+                else if (type == DeepSpace.HATCH && !sandstorm) mainR1H++;
+                // Sandstorm
+                else if (type == DeepSpace.CARGO) mainR1CSS++;
+                else if (type == DeepSpace.HATCH) mainR1HSS++;
+                break;
+            // Level 2
+            case 2:
+                // TeleOp
+                if (type == DeepSpace.CARGO && !sandstorm) mainR2C++;
+                else if (type == DeepSpace.HATCH && !sandstorm) mainR2H++;
+                // Sandstorm
+                else if (type == DeepSpace.CARGO) mainR2CSS++;
+                else if (type == DeepSpace.HATCH) mainR2HSS++;
+                break;
+            // Level 3
+            case 3:
+                // TeleOp
+                if (type == DeepSpace.CARGO && !sandstorm) mainR3C++;
+                else if (type == DeepSpace.HATCH && !sandstorm) mainR3H++;
+                // Sandstorm
+                else if (type == DeepSpace.CARGO) mainR3CSS++;
+                else if (type == DeepSpace.HATCH) mainR3HSS++;
+                break;
+        }
+    }
+
 }
