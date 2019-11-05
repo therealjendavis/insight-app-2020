@@ -1,7 +1,6 @@
 package com.scoutingApp.FIRST2020;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -264,16 +263,35 @@ public class MainActivity extends AppCompatActivity {
         updateTextView(getSpace().getInfo().getMatch(), R.id.infoMatch);
     }
     public void dialogCheck() {
-        PersistentData.threadify(MainActivity.DialogCheckThread.class);
+        DialogCheckThread thread = new DialogCheckThread();
+        Thread threadStart = new Thread(thread);
+        threadStart.start();
     }
     public void colorSet(int id, int color) {
         findViewById(id).setBackgroundColor(getResources().getColor(color));
     }
-    public void checkSpace() {
-        PersistentData.threadify(MainActivity.CheckSpaceThread.class);
-    }
-    public void checkData() {
-        PersistentData.threadify(MainActivity.CheckDataThread.class);
+    public void checkDataSpace() {
+        if (getIntent().hasExtra("game5")) {
+            setSpace((DeepSpace) getIntent().getSerializableExtra("game5"));
+        }
+        else if (getIntent().hasExtra("game6")) {
+            setSpace((DeepSpace) getIntent().getSerializableExtra("game6"));
+        }
+        else {
+            setSpace(new DeepSpace());
+        }
+        if (getIntent().hasExtra("data5")) {
+            setData((PersistentData) getIntent().getSerializableExtra("data5"));
+        }
+        else if (getIntent().hasExtra("data4")) {
+            setData((PersistentData) getIntent().getSerializableExtra("data4"));
+        }
+        else if (getIntent().hasExtra("data6")) {
+            setData((PersistentData) getIntent().getSerializableExtra("data6"));
+        }
+        else {
+            setData(new PersistentData());
+        }
     }
 
     // threads
@@ -287,35 +305,6 @@ public class MainActivity extends AppCompatActivity {
                 if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0))) && (x - 1 == y)) {
                     makeADialog("Please go find the next scouter, " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
                 }
-            }
-        }
-    }
-    class CheckSpaceThread implements Runnable {
-        public void run() {
-            if (getIntent().hasExtra("game5")) {
-                setSpace((DeepSpace) getIntent().getSerializableExtra("game5"));
-            }
-            else if (getIntent().hasExtra("game6")) {
-                setSpace((DeepSpace) getIntent().getSerializableExtra("game6"));
-            }
-            else {
-                setSpace(new DeepSpace());
-            }
-        }
-    }
-    class CheckDataThread implements Runnable {
-        public void run() {
-            if (getIntent().hasExtra("data5")) {
-                setData((PersistentData) getIntent().getSerializableExtra("data5"));
-            }
-            else if (getIntent().hasExtra("data4")) {
-                setData((PersistentData) getIntent().getSerializableExtra("data4"));
-            }
-            else if (getIntent().hasExtra("data6")) {
-                setData((PersistentData) getIntent().getSerializableExtra("data6"));
-            }
-            else {
-                setData(new PersistentData());
             }
         }
     }
@@ -356,10 +345,14 @@ public class MainActivity extends AppCompatActivity {
     // button methods
 
     public void settingsButton(View view){
-        PersistentData.threadify(MainActivity.SettingsButtonThread.class);
+        SettingsButtonThread thread = new SettingsButtonThread();
+        Thread threadStart = new Thread(thread);
+        threadStart.start();
     }
     public void addInfoButton(View view){
-        PersistentData.threadify(MainActivity.AddInfoButtonThread.class);
+        AddInfoButtonThread thread = new AddInfoButtonThread();
+        Thread threadStart = new Thread(thread);
+        threadStart.start();
     }
     public void helpButton(View view) {makeADialog(getSpace().getMainHelpInfo(), "help"); }
     public void startButton(View view) {
@@ -383,7 +376,9 @@ public class MainActivity extends AppCompatActivity {
         else { makeADialog("You need to press choose a start location!", "startLoc"); }
     }
     public void submitButton(View view) {
-        PersistentData.threadify(MainActivity.SubmitButtonThread.class);
+        SubmitButtonThread thread = new SubmitButtonThread();
+        Thread threadStart = new Thread(thread);
+        threadStart.start();
     }
     public void rc(View view) {
         rocketSet(getSpace(), getRocketLevel(), DeepSpace.CARGO);
@@ -503,7 +498,9 @@ public class MainActivity extends AppCompatActivity {
         else { makeADialog("You need to press start!", "setscore"); }
     }
     public void blockedScore(View view){
-        PersistentData.threadify(MainActivity.BlockedScoreThread.class);
+        BlockedScoreThread thread = new BlockedScoreThread();
+        Thread threadStart = new Thread(thread);
+        threadStart.start();
     }
     public void timerCheck(View view) {updateTextView(Integer.toString(getTimerPause()), R.id.timer);}
 
@@ -511,18 +508,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkData();
-        checkSpace();
+        checkDataSpace();
         if (!getData().getSheet().getSheetID().equals("default")) {
             getSpace().infoSet(
-                getData().getSheet().matchValue(getData().getRowNumber()),
-                Integer.parseInt(getData().getSheet().teamValue(getData().getRowNumber())),
-                getData().getSheet().nameValue(getData().getRowNumber()),
-                getData().getPerAlliance()
+                    getData().getSheet().matchValue(getData().getRowNumber()),
+                    Integer.parseInt(getData().getSheet().teamValue(getData().getRowNumber())),
+                    getData().getSheet().nameValue(getData().getRowNumber()),
+                    getData().getPerAlliance()
             );
-        }
-        else {
-            getSpace().infoSet(" ", 0, " ", " ");
+        } else {
+            getSpace().infoSet("0", 0, "0", "0");
         }
         infoTop();
     }

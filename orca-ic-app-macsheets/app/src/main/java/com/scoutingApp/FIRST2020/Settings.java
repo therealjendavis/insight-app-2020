@@ -241,7 +241,9 @@ public class Settings extends AppCompatActivity {
         }
     }
     public void backHome2(View view){
-        PersistentData.threadify(Settings.HomeThread.class);
+        HomeThread thread = new HomeThread();
+        Thread threadStart = new Thread(thread);
+        threadStart.start();
     }
 
     protected void onCreate(Bundle savedInstanceState) {
