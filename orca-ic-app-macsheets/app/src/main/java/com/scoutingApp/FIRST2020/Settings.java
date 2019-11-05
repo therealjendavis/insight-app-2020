@@ -158,6 +158,7 @@ public class Settings extends AppCompatActivity {
     }
 
     // threads
+
     class HomeThread implements Runnable {
         @Override
         public void run() {

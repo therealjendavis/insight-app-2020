@@ -20,7 +20,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-
     //class-specific variables
 
     private int rocketLevel = 0;
@@ -198,11 +197,11 @@ public class MainActivity extends AppCompatActivity {
             setRocketLevel(0);
         }
         else {makeADialog("You need to pick a level!", "level");}
-        if (type == DeepSpace.HATCH && game.isMainStart() &&  rockHatArr <= 8 && (level != 0)) {
+        if (type == DeepSpace.HATCH && game.isMainStart() &&  rockHatArr <= 12 && (level != 0)) {
             scores(R.id.RH, rockHatArr, R.array.RocketHatch);
             rockHatArr = rockHatArr + 1;
         }
-        else if (type == DeepSpace.CARGO && game.isMainStart() &&  rockCarArr <= 8 && (level != 0)) {
+        else if (type == DeepSpace.CARGO && game.isMainStart() &&  rockCarArr <= 12 && (level != 0)) {
             scores(R.id.RC, rockCarArr, R.array.CargoRocket);
             rockCarArr = rockCarArr + 1;
         }

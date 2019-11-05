@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SubmittedData implements Serializable {
+    //each instance of this class is a final submission object
     
     private int mainStartPosition;
     private boolean mainDefense;

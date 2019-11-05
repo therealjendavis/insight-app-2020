@@ -3,6 +3,7 @@ package com.scoutingApp.FIRST2020;
 import java.io.Serializable;
 
 class RocketShip implements Serializable {
+    //this class represents a rocket ship
 
     private int mainR1H = 0;
     private int mainR1C = 0;
@@ -16,8 +17,6 @@ class RocketShip implements Serializable {
     private int mainR2CSS = 0;
     private int mainR3HSS = 0;
     private int mainR3CSS = 0;
-
-
 
     int getMainR1H() {
         return mainR1H;

@@ -15,6 +15,8 @@ import androidx.fragment.app.DialogFragment;
 import java.util.Objects;
 
 public class PostSubmit extends AppCompatActivity {
+    // inherited class objects
+
     public DeepSpace getSpace() {
         return (DeepSpace) getIntent().getSerializableExtra("Game2");
     }
@@ -23,17 +25,22 @@ public class PostSubmit extends AppCompatActivity {
     }
     public SubmittedData sub = new SubmittedData();
     public SubmittedData getSub() { return this.sub; }
+
+    // methods to update the content of the UI
+
     private void updateTextView(String content, int id){
         TextView nametext = findViewById(id);
         nametext.setText(content);
     }
-
     private void info() {
         updateTextView(getSpace().getInfo().getName(), R.id.name);
         updateTextView(getSpace().getInfo().getAlliance(), R.id.alliance);
         updateTextView(Integer.toString(getSpace().getInfo().getTeam()), R.id.team);
         updateTextView((getSpace().getInfo().getMatch()), R.id.match);
     }
+
+    // various methods called on submit
+
     public static class Dialogs4 extends DialogFragment {
         @NonNull
         @Override
@@ -52,7 +59,6 @@ public class PostSubmit extends AppCompatActivity {
         TextView text = findViewById(id);
         return text.getText().toString();
     }
-
     public void goHome() {
         Intent main = new Intent(this, MainActivity.class);
         main.putExtra("data4", getData());
@@ -94,6 +100,9 @@ public class PostSubmit extends AppCompatActivity {
         getSub().setR3HSS(getSpace().getRocket().getMainR3HSS());
         getSub().setR3CSS(getSpace().getRocket().getMainR3CSS());
     }
+
+    //button method
+
     public void submitButtonPageTwo(View view) {
         if (!newString(R.id.typescorehere).equals("")) {
             getSpace().setMainName(newString(R.id.name));

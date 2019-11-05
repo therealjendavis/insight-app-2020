@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 class SheetsAccess implements Serializable {
+    //this class handles all sheet access and such
 
     private String sheetID = "default";
     private List<List<Object>> sheetPage = null;
@@ -49,8 +50,6 @@ class SheetsAccess implements Serializable {
     String nameValue(int row) { return getSheetPage().get(row).get(0).toString();}
     String teamValue(int row) { return getSheetPage().get(row).get(1).toString();}
     String matchValue(int row) { return getSheetPage().get(row).get(2).toString();}
-
-
 
     protected static class fetchSheet extends AsyncTask<String, Void, List<List<Object>>> {
         @Override

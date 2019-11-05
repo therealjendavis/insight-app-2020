@@ -3,6 +3,8 @@ package com.scoutingApp.FIRST2020;
 import java.io.Serializable;
 
 class DeepSpace implements Serializable {
+    //this class represents a "game"
+
     private CargoShip cargo = new CargoShip();
     private RocketShip rocket = new RocketShip();
     private Info info = new Info();
@@ -18,20 +20,18 @@ class DeepSpace implements Serializable {
     private boolean mainDefense = false;
     private int mainBlockedScores = 0;
     private int mainEndgame = 0;
-
     private boolean extrasRedCard = false;
     private boolean extrasYellowCard = false;
     private boolean noShow = false;
     private boolean movement = true;
     private int extrasFinalScore = 0;
-
     private  String settingsDisplay = " ";
     private  int settingsDisplayNum = 0;
-    private  String settingsHelpInfo = "Press the 'cache' button to view all data since last offload" +
+    private  String settingsHelpInfo = ("Press the 'cache' button to view all data since last offload" +
             System.lineSeparator() + "Press the 'local' button to view all unsent data." +
             System.lineSeparator() + "Press the 'next' button to view the next submission in that category." +
             System.lineSeparator() + "Press the 'clear' button to clear the screen." +
-            System.lineSeparator() + "Press the 'submit' button to send in the local data on display.";
+            System.lineSeparator() + "Press the 'submit' button to send in the local data on display.");
     static final int HATCH = 0;
     static final int CARGO = 1;
 

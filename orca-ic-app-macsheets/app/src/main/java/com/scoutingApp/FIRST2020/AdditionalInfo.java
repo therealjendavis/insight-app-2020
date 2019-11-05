@@ -7,12 +7,16 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AdditionalInfo extends AppCompatActivity {
+    // inherited class objects
+
     public DeepSpace getSpace() {
         return (DeepSpace) getIntent().getSerializableExtra("Game4");
     }
     public PersistentData getData() {
         return (PersistentData) getIntent().getSerializableExtra("data4");
     }
+
+    // button and switch methods
 
     public void redSwitch(View view) {
                 if (!getSpace().isExtrasRedCard()) {
@@ -33,7 +37,6 @@ public class AdditionalInfo extends AppCompatActivity {
         if (getSpace().isMovement()) { getSpace().setMovement(false); }
         else {getSpace().setMovement(true);}
     }
-
     public void backButton(View view) {
         EditText notes = findViewById(R.id.notes);
         getSpace().setExtrasNotes(notes.getText().toString());

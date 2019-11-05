@@ -3,6 +3,8 @@ package com.scoutingApp.FIRST2020;
 import java.io.Serializable;
 
 public class Info implements Serializable {
+    //this class represents the match-specific scouter info
+
     String name;
     Integer team;
     String match;
@@ -36,11 +38,4 @@ public class Info implements Serializable {
     String getNotes() {
         return notes;
     }
-    void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-
-
-
 }

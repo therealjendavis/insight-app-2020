@@ -5,15 +5,22 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 class PersistentData implements Serializable {
+    //local/cached data arrays
+
     ArrayList<SubmittedData> perSubData = new ArrayList<>();
     ArrayList<Info> perCacheData = new ArrayList<>();
-    //load data sheet here?
+
+    //variables that remain consistent
+
+    private String perAlliance;
+    private int rowNumber = 0;
     private SheetsAccess sheet = new SheetsAccess();
+
+    //getters and setters
+
     SheetsAccess getSheet() {
         return sheet;
     }
-    private String perAlliance;
-    private int rowNumber = 0;
     String getPerAlliance() {
         return perAlliance;
     }
@@ -26,8 +33,9 @@ class PersistentData implements Serializable {
     void setRowNumber(int rowNumber) {
         this.rowNumber = rowNumber;
     }
-
     private String setSubRange() { return "dataFromApp!" + (rowNumber + 2) + ":" + (rowNumber + 2);}
+
+    // method to send data to the sheet (requires auth code)
 
     boolean sender(String key) {
         try {
