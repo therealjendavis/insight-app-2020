@@ -1,128 +1,57 @@
 package com.scoutingApp.FIRST2020;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 class RocketShip implements Serializable {
     //this class represents a rocket ship
 
-    private int mainR1H = 0;
-    private int mainR1C = 0;
-    private int mainR2H = 0;
-    private int mainR2C = 0;
-    private int mainR3H = 0;
-    private int mainR3C = 0;
-    private int mainR1HSS = 0;
-    private int mainR1CSS = 0;
-    private int mainR2HSS = 0;
-    private int mainR2CSS = 0;
-    private int mainR3HSS = 0;
-    private int mainR3CSS = 0;
+    private Map<String, Integer> dataMap = Collections.synchronizedMap(new HashMap<String, Integer>(12));
 
-    int getMainR1H() {
-        return mainR1H;
-    }
-    void setMainR1H(int mainR1H) {
-        this.mainR1H = mainR1H;
-    }
-    int getMainR1C() {
-        return mainR1C;
-    }
-    void setMainR1C(int mainR1C) {
-        this.mainR1C = mainR1C;
-    }
-    int getMainR2H() {
-        return mainR2H;
-    }
-    void setMainR2H(int mainR2H) {
-        this.mainR2H = mainR2H;
-    }
-    int getMainR2C() {
-        return mainR2C;
-    }
-    void setMainR2C(int mainR2C) {
-        this.mainR2C = mainR2C;
-    }
-    int getMainR3H() {
-        return mainR3H;
-    }
-    void setMainR3H(int mainR3H) {
-        this.mainR3H = mainR3H;
-    }
-    int getMainR3C() {
-        return mainR3C;
-    }
-    void setMainR3C(int mainR3C) {
-        this.mainR3C = mainR3C;
-    }
-    int getMainR1HSS() {
-        return mainR1HSS;
-    }
-    void setMainR1HSS(int mainR1HSS) {
-        this.mainR1HSS = mainR1HSS;
-    }
-    int getMainR1CSS() {
-        return mainR1CSS;
-    }
-    void setMainR1CSS(int mainR1CSS) {
-        this.mainR1CSS = mainR1CSS;
-    }
-    int getMainR2HSS() {
-        return mainR2HSS;
-    }
-    void setMainR2HSS(int mainR2HSS) {
-        this.mainR2HSS = mainR2HSS;
-    }
-    int getMainR2CSS() {
-        return mainR2CSS;
-    }
-    void setMainR2CSS(int mainR2CSS) {
-        this.mainR2CSS = mainR2CSS;
-    }
-    int getMainR3HSS() {
-        return mainR3HSS;
-    }
-    void setMainR3HSS(int mainR3HSS) {
-        this.mainR3HSS = mainR3HSS;
-    }
-    int getMainR3CSS() {
-        return mainR3CSS;
-    }
-    void setMainR3CSS(int mainR3CSS) {
-        this.mainR3CSS = mainR3CSS;
+    RocketShip() {
+        dataMap.put("r1h", 0);
+        dataMap.put("r1c", 0);
+        dataMap.put("r2h", 0);
+        dataMap.put("r2c", 0);
+        dataMap.put("r3h", 0);
+        dataMap.put("r3c", 0);
+        dataMap.put("r1hss", 0);
+        dataMap.put("r1css", 0);
+        dataMap.put("r2hss", 0);
+        dataMap.put("r2css", 0);
+        dataMap.put("r3hss", 0);
+        dataMap.put("r3css", 0);
     }
 
     // Bradley's code
     void scoreGamePiece(int level, int type, boolean sandstorm) {
-        // iterate over possible levels and game piece scores
-        switch(level) {
-            // Level 1
-            case 1:
-                // TeleOp
-                if (type == DeepSpace.CARGO && !sandstorm) mainR1C++;
-                else if (type == DeepSpace.HATCH && !sandstorm) mainR1H++;
-                // Sandstorm
-                else if (type == DeepSpace.CARGO) mainR1CSS++;
-                else if (type == DeepSpace.HATCH) mainR1HSS++;
-                break;
-            // Level 2
-            case 2:
-                // TeleOp
-                if (type == DeepSpace.CARGO && !sandstorm) mainR2C++;
-                else if (type == DeepSpace.HATCH && !sandstorm) mainR2H++;
-                // Sandstorm
-                else if (type == DeepSpace.CARGO) mainR2CSS++;
-                else if (type == DeepSpace.HATCH) mainR2HSS++;
-                break;
-            // Level 3
-            case 3:
-                // TeleOp
-                if (type == DeepSpace.CARGO && !sandstorm) mainR3C++;
-                else if (type == DeepSpace.HATCH && !sandstorm) mainR3H++;
-                // Sandstorm
-                else if (type == DeepSpace.CARGO) mainR3CSS++;
-                else if (type == DeepSpace.HATCH) mainR3HSS++;
-                break;
-        }
+        String piece = type == DeepSpace.CARGO ? "c" : "h";
+        String ss = sandstorm ? "ss" : "";
+        String key = "r" + level + piece + ss;
+        int currentValue;
+        if (dataMap.get(key) != null) currentValue = dataMap.get(key);
+        else currentValue = 0;
+        dataMap.put(key, currentValue + 1);
     }
 
+    int getScore(int level, int type, boolean sandstorm) {
+        String piece = type == DeepSpace.CARGO ? "c" : "h";
+        String ss = sandstorm ? "ss" : "";
+        String key = "r" + level + piece + ss;
+        if (dataMap.get(key) != null) return dataMap.get(key);
+        return 0;
+    }
+
+    int getTotalScore(int type) {
+        int totalScore = 0;
+        String piece = type == DeepSpace.CARGO ? "c" : "h";
+        for (Map.Entry<String, Integer> score : dataMap.entrySet()) {
+            System.out.println(score.getKey().substring(2,3));
+            if (score.getKey().substring(2,3).equals(piece)) totalScore += score.getValue();
+        }
+        return totalScore;
+    }
 }

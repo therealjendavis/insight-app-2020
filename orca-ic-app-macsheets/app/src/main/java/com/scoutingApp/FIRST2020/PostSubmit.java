@@ -87,18 +87,18 @@ public class PostSubmit extends AppCompatActivity {
         getSub().setCSFCSS(getSpace().getCargo().getMainCSFCSS());
         getSub().setCSSHSS(getSpace().getCargo().getMainCSSHSS());
         getSub().setCSSCSS(getSpace().getCargo().getMainCSSCSS());
-        getSub().setR1H(getSpace().getRocket().getMainR1H());
-        getSub().setR1C(getSpace().getRocket().getMainR1C());
-        getSub().setR2H(getSpace().getRocket().getMainR2H());
-        getSub().setR2C(getSpace().getRocket().getMainR2C());
-        getSub().setR3H(getSpace().getRocket().getMainR3H());
-        getSub().setR3C(getSpace().getRocket().getMainR3C());
-        getSub().setR1HSS(getSpace().getRocket().getMainR1HSS());
-        getSub().setR1CSS(getSpace().getRocket().getMainR1CSS());
-        getSub().setR2HSS(getSpace().getRocket().getMainR2HSS());
-        getSub().setR2CSS(getSpace().getRocket().getMainR2CSS());
-        getSub().setR3HSS(getSpace().getRocket().getMainR3HSS());
-        getSub().setR3CSS(getSpace().getRocket().getMainR3CSS());
+        getSub().setR1H(getSpace().getRocket().getScore(1, DeepSpace.HATCH, false));
+        getSub().setR1C(getSpace().getRocket().getScore(1, DeepSpace.CARGO, false));
+        getSub().setR2H(getSpace().getRocket().getScore(2, DeepSpace.HATCH, false));
+        getSub().setR2C(getSpace().getRocket().getScore(2, DeepSpace.CARGO, false));
+        getSub().setR3H(getSpace().getRocket().getScore(3, DeepSpace.HATCH, false));
+        getSub().setR3C(getSpace().getRocket().getScore(3, DeepSpace.CARGO, false));
+        getSub().setR1HSS(getSpace().getRocket().getScore(1, DeepSpace.HATCH, true));
+        getSub().setR1CSS(getSpace().getRocket().getScore(1, DeepSpace.CARGO, true));
+        getSub().setR2HSS(getSpace().getRocket().getScore(2, DeepSpace.HATCH, true));
+        getSub().setR2CSS(getSpace().getRocket().getScore(2, DeepSpace.CARGO, true));
+        getSub().setR3HSS(getSpace().getRocket().getScore(3, DeepSpace.HATCH, true));
+        getSub().setR3CSS(getSpace().getRocket().getScore(3, DeepSpace.CARGO, true));
     }
 
     //button method
