@@ -1,5 +1,7 @@
 package com.scoutingApp.FIRST2020;
 
+import android.graphics.Color;
+
 import java.io.Serializable;
 
 class DeepSpace implements Serializable {
@@ -34,6 +36,8 @@ class DeepSpace implements Serializable {
             System.lineSeparator() + "Press the 'submit' button to send in the local data on display.");
     static final int HATCH = 0;
     static final int CARGO = 1;
+    static final int ACTIVE_COLOR = R.color.coolWhite;
+    static final int INACTIVE_COLOR = R.color.colorAccent;
 
     //getters & setters
 
