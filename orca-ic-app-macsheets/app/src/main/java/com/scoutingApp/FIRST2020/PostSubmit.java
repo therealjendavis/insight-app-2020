@@ -20,18 +20,24 @@ public class PostSubmit extends AppCompatActivity {
     public DeepSpace getSpace() {
         return (DeepSpace) getIntent().getSerializableExtra("Game2");
     }
+
     public PersistentData getData() {
         return (PersistentData) getIntent().getSerializableExtra("data2");
     }
+
     public SubmittedData sub = new SubmittedData();
-    public SubmittedData getSub() { return this.sub; }
+
+    public SubmittedData getSub() {
+        return this.sub;
+    }
 
     // methods to update the content of the UI
 
-    private void updateTextView(String content, int id){
+    private void updateTextView(String content, int id) {
         TextView nametext = findViewById(id);
         nametext.setText(content);
     }
+
     private void info() {
         updateTextView(getSpace().getInfo().getName(), R.id.name);
         updateTextView(getSpace().getInfo().getAlliance(), R.id.alliance);
@@ -55,15 +61,18 @@ public class PostSubmit extends AppCompatActivity {
             return name.create();
         }
     }
+
     public String newString(int id) {
         TextView text = findViewById(id);
         return text.getText().toString();
     }
+
     public void goHome() {
         Intent main = new Intent(this, MainActivity.class);
         main.putExtra("data4", getData());
         startActivity(main);
     }
+
     public void toSubmission() {
         getSub().setMainStartPosition(getSpace().getMainStartPosition());
         getSub().setMainDefense(getSpace().isMainDefense());
@@ -115,9 +124,10 @@ public class PostSubmit extends AppCompatActivity {
             getData().perCacheData.add(getSpace().getInfo());
             getData().setRowNumber(getData().getRowNumber() + 1);
             goHome();
+        } else {
+            DialogFragment newFragment = new Dialogs4();
+            newFragment.show(getSupportFragmentManager(), "STOP");
         }
-        else {DialogFragment newFragment = new Dialogs4();
-            newFragment.show(getSupportFragmentManager(), "STOP");}
     }
 
     @Override

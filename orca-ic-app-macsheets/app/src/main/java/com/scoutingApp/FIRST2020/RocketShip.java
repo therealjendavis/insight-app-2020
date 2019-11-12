@@ -39,7 +39,7 @@ class RocketShip implements Serializable {
         int totalScore = 0;
         String piece = type == DeepSpace.CARGO ? "c" : "h";
         for (Map.Entry<String, Integer> score : dataMap.entrySet()) {
-            if (score.getKey().substring(1,2).equals(piece)) totalScore += score.getValue();
+            if (score.getKey().substring(1, 2).equals(piece)) totalScore += score.getValue();
         }
         return totalScore;
     }
