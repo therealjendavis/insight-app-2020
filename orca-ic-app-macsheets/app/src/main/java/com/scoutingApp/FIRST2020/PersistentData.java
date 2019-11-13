@@ -46,7 +46,7 @@ class PersistentData implements Serializable {
 
     boolean sender(String key) {
         try {
-            String x = new SheetsAccess.sendToSheet().execute("1IrT8fskl1MCdMyxous8OO5YRCJo3Y4AoXHS_zusYrYc", setSubRange(), key).get();
+            String x = new SheetsAccess.sendToSheet().execute(BuildConfig.SHEETS_DATA_SHEET_ID, setSubRange(), key).get();
             return x.equals("yup");
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
