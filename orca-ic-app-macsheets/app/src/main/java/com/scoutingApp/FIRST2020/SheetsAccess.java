@@ -38,8 +38,8 @@ class SheetsAccess implements Serializable {
     }
 
     private List<List<Object>> sheetValue(String range) throws ExecutionException, InterruptedException {
-        if ((new fetchSheet().execute("1gz3ZkNAZ0rtq6hBiLIRO6hiUAkN3Dhu_UQ-Nc11aW0E", range)).get() != null) {
-            return (new fetchSheet().execute("1gz3ZkNAZ0rtq6hBiLIRO6hiUAkN3Dhu_UQ-Nc11aW0E", range)).get();
+        if ((new fetchSheet().execute(BuildConfig.SHEETS_SCHEDULE_SHEET_ID, range)).get() != null) {
+            return (new fetchSheet().execute(BuildConfig.SHEETS_SCHEDULE_SHEET_ID, range)).get();
         }
         else {
             setSheetID("default");
@@ -59,15 +59,14 @@ class SheetsAccess implements Serializable {
             JsonFactory factory = JacksonFactory.getDefaultInstance();
 
             Sheets service = new Sheets.Builder(transport, factory, null)
-                    .setApplicationName("scouting-app-2020")
+                    .setApplicationName(BuildConfig.SHEETS_APP_NAME)
                     .build();
 
             ValueRange response = null;
             try {
-                String API_KEY = "AIzaSyAAwkxoRODxyIyMpJv-ss7fPOdmyv8KfQI";
                 response = service.spreadsheets().values()
                         .get(strings[0], strings[1])
-                        .setKey(API_KEY)
+                        .setKey(BuildConfig.SHEETS_API_KEY)
                         .execute();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -88,7 +87,7 @@ class SheetsAccess implements Serializable {
             JsonFactory factory = JacksonFactory.getDefaultInstance();
 
             Sheets service = new Sheets.Builder(transport, factory, null)
-                        .setApplicationName("scouting-app-2020")
+                        .setApplicationName(BuildConfig.SHEETS_APP_NAME)
                         .build();
 
             ValueRange body = new ValueRange()

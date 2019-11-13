@@ -1,65 +1,45 @@
 package com.scoutingApp.FIRST2020;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 class CargoShip implements Serializable {
     //this class represents a cargo ship
-    
-    private int mainCSFH = 0;
-    private int mainCSFC = 0;
-    private int mainCSSH = 0;
-    private int mainCSSC = 0;
-    private int mainCSFHSS = 0;
-    private int mainCSFCSS = 0;
-    private int mainCSSHSS = 0;
-    private int mainCSSCSS = 0;
 
-    int getMainCSFH() {
-        return mainCSFH;
+    /*
+        Explanation of HashMap constructor -
+            Synchronized map needed because asynchronous access could mean non-synchronized data, we don't want that
+            HashMap stores location as key (String) and score as value (Integer)
+            initial capacity = total game pieces possible = 6 hatches + 6 cargo
+     */
+    private Map<String, Integer> dataMap = Collections.synchronizedMap(new HashMap<String, Integer>(16));
+
+    void scoreGamePiece(char location, int type, boolean sandstorm) {
+        String piece = type == DeepSpace.CARGO ? "c" : "h";
+        String ss = sandstorm ? "ss" : "";
+        String key = "" + location + piece + ss;
+        int currentValue;
+        if (dataMap.get(key) != null) currentValue = dataMap.get(key);
+        else currentValue = 0;
+        dataMap.put(key, currentValue + 1);
     }
-    void setMainCSFH(int mainCSFH) {
-        this.mainCSFH = mainCSFH;
+
+    int getScore(char location, int type, boolean sandstorm) {
+        String piece = type == DeepSpace.CARGO ? "c" : "h";
+        String ss = sandstorm ? "ss" : "";
+        String key = "" + location + piece + ss;
+        if (dataMap.get(key) != null) return dataMap.get(key);
+        return 0;
     }
-    int getMainCSFC() {
-        return mainCSFC;
+
+    int getTotalScore(int type) {
+        int totalScore = 0;
+        String piece = type == DeepSpace.CARGO ? "c" : "h";
+        for (Map.Entry<String, Integer> score : dataMap.entrySet()) {
+            if (score.getKey().substring(1, 2).equals(piece)) totalScore += score.getValue();
+        }
+        return totalScore;
     }
-    void setMainCSFC(int mainCSFC) {
-        this.mainCSFC = mainCSFC;
-    }
-    int getMainCSSH() {
-            return mainCSSH;
-        }
-    void setMainCSSH(int mainCSSH) {
-            this.mainCSSH = mainCSSH;
-        }
-    int getMainCSSC() {
-            return mainCSSC;
-        }
-    void setMainCSSC(int mainCSSC) {
-            this.mainCSSC = mainCSSC;
-        }
-    int getMainCSFHSS() {
-            return mainCSFHSS;
-        }
-    void setMainCSFHSS(int mainCSFHSS) {
-            this.mainCSFHSS = mainCSFHSS;
-        }
-    int getMainCSFCSS() {
-            return mainCSFCSS;
-        }
-    void setMainCSFCSS(int mainCSFCSS) {
-            this.mainCSFCSS = mainCSFCSS;
-        }
-    int getMainCSSHSS() {
-            return mainCSSHSS;
-        }
-    void setMainCSSHSS(int mainCSSHSS) {
-            this.mainCSSHSS = mainCSSHSS;
-        }
-    int getMainCSSCSS() {
-            return mainCSSCSS;
-        }
-    void setMainCSSCSS(int mainCSSCSS) {
-            this.mainCSSCSS = mainCSSCSS;
-        }
 }

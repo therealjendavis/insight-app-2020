@@ -20,18 +20,24 @@ public class PostSubmit extends AppCompatActivity {
     public DeepSpace getSpace() {
         return (DeepSpace) getIntent().getSerializableExtra("Game2");
     }
+
     public PersistentData getData() {
         return (PersistentData) getIntent().getSerializableExtra("data2");
     }
+
     public SubmittedData sub = new SubmittedData();
-    public SubmittedData getSub() { return this.sub; }
+
+    public SubmittedData getSub() {
+        return this.sub;
+    }
 
     // methods to update the content of the UI
 
-    private void updateTextView(String content, int id){
+    private void updateTextView(String content, int id) {
         TextView nametext = findViewById(id);
         nametext.setText(content);
     }
+
     private void info() {
         updateTextView(getSpace().getInfo().getName(), R.id.name);
         updateTextView(getSpace().getInfo().getAlliance(), R.id.alliance);
@@ -55,15 +61,18 @@ public class PostSubmit extends AppCompatActivity {
             return name.create();
         }
     }
+
     public String newString(int id) {
         TextView text = findViewById(id);
         return text.getText().toString();
     }
+
     public void goHome() {
         Intent main = new Intent(this, MainActivity.class);
         main.putExtra("data4", getData());
         startActivity(main);
     }
+
     public void toSubmission() {
         getSub().setMainStartPosition(getSpace().getMainStartPosition());
         getSub().setMainDefense(getSpace().isMainDefense());
@@ -79,26 +88,26 @@ public class PostSubmit extends AppCompatActivity {
         getSub().setName(getSpace().getMainName());
         getSub().setNotes(getSpace().getExtrasNotes());
         getSub().setAlliance(getSpace().getMainAlliance());
-        getSub().setCSFH(getSpace().getCargo().getMainCSFH());
-        getSub().setCSFC(getSpace().getCargo().getMainCSFC());
-        getSub().setCSSH(getSpace().getCargo().getMainCSSH());
-        getSub().setCSSC(getSpace().getCargo().getMainCSSC());
-        getSub().setCSFHSS(getSpace().getCargo().getMainCSFHSS());
-        getSub().setCSFCSS(getSpace().getCargo().getMainCSFCSS());
-        getSub().setCSSHSS(getSpace().getCargo().getMainCSSHSS());
-        getSub().setCSSCSS(getSpace().getCargo().getMainCSSCSS());
-        getSub().setR1H(getSpace().getRocket().getMainR1H());
-        getSub().setR1C(getSpace().getRocket().getMainR1C());
-        getSub().setR2H(getSpace().getRocket().getMainR2H());
-        getSub().setR2C(getSpace().getRocket().getMainR2C());
-        getSub().setR3H(getSpace().getRocket().getMainR3H());
-        getSub().setR3C(getSpace().getRocket().getMainR3C());
-        getSub().setR1HSS(getSpace().getRocket().getMainR1HSS());
-        getSub().setR1CSS(getSpace().getRocket().getMainR1CSS());
-        getSub().setR2HSS(getSpace().getRocket().getMainR2HSS());
-        getSub().setR2CSS(getSpace().getRocket().getMainR2CSS());
-        getSub().setR3HSS(getSpace().getRocket().getMainR3HSS());
-        getSub().setR3CSS(getSpace().getRocket().getMainR3CSS());
+        getSub().setCSFH(getSpace().getCargo().getScore('f', DeepSpace.HATCH, false));
+        getSub().setCSFC(getSpace().getCargo().getScore('f', DeepSpace.CARGO, false));
+        getSub().setCSSH(getSpace().getCargo().getScore('c', DeepSpace.HATCH, false));
+        getSub().setCSSC(getSpace().getCargo().getScore('c', DeepSpace.CARGO, false));
+        getSub().setCSFHSS(getSpace().getCargo().getScore('f', DeepSpace.HATCH, true));
+        getSub().setCSFCSS(getSpace().getCargo().getScore('f', DeepSpace.CARGO, true));
+        getSub().setCSSHSS(getSpace().getCargo().getScore('c', DeepSpace.HATCH, true));
+        getSub().setCSSCSS(getSpace().getCargo().getScore('c', DeepSpace.CARGO, true));
+        getSub().setR1H(getSpace().getRocket().getScore(1, DeepSpace.HATCH, false));
+        getSub().setR1C(getSpace().getRocket().getScore(1, DeepSpace.CARGO, false));
+        getSub().setR2H(getSpace().getRocket().getScore(2, DeepSpace.HATCH, false));
+        getSub().setR2C(getSpace().getRocket().getScore(2, DeepSpace.CARGO, false));
+        getSub().setR3H(getSpace().getRocket().getScore(3, DeepSpace.HATCH, false));
+        getSub().setR3C(getSpace().getRocket().getScore(3, DeepSpace.CARGO, false));
+        getSub().setR1HSS(getSpace().getRocket().getScore(1, DeepSpace.HATCH, true));
+        getSub().setR1CSS(getSpace().getRocket().getScore(1, DeepSpace.CARGO, true));
+        getSub().setR2HSS(getSpace().getRocket().getScore(2, DeepSpace.HATCH, true));
+        getSub().setR2CSS(getSpace().getRocket().getScore(2, DeepSpace.CARGO, true));
+        getSub().setR3HSS(getSpace().getRocket().getScore(3, DeepSpace.HATCH, true));
+        getSub().setR3CSS(getSpace().getRocket().getScore(3, DeepSpace.CARGO, true));
     }
 
     //button method
@@ -115,9 +124,10 @@ public class PostSubmit extends AppCompatActivity {
             getData().perCacheData.add(getSpace().getInfo());
             getData().setRowNumber(getData().getRowNumber() + 1);
             goHome();
+        } else {
+            DialogFragment newFragment = new Dialogs4();
+            newFragment.show(getSupportFragmentManager(), "STOP");
         }
-        else {DialogFragment newFragment = new Dialogs4();
-            newFragment.show(getSupportFragmentManager(), "STOP");}
     }
 
     @Override

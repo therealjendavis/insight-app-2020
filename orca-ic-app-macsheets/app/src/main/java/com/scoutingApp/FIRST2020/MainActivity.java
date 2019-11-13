@@ -29,54 +29,73 @@ public class MainActivity extends AppCompatActivity {
     private char cargoLoc = ' ';
     private int timerPause = 0;
     static Intent settings;
-    private int cargoCarArr = 0;
-    private int cargoHatArr = 0;
-    private int rockCarArr = 0;
-    private int rockHatArr = 0;
 
     // getters and setters
 
-    public PersistentData getData() { return data; }
-    public void setData(PersistentData data) { this.data = data; }
+    public PersistentData getData() {
+        return data;
+    }
+
+    public void setData(PersistentData data) {
+        this.data = data;
+    }
+
     public int getTimerPause() {
         return timerPause;
     }
+
     public void setTimerPause(int timerPause) {
         this.timerPause = timerPause;
     }
+
     public DeepSpace getSpace() {
         return space;
     }
+
     public void setSpace(DeepSpace space) {
         this.space = space;
     }
+
     public int getRocketLevel() {
         return rocketLevel;
     }
+
     public void setRocketLevel(int rocketLevel) {
         this.rocketLevel = rocketLevel;
     }
+
     public char getCargoLoc() {
         return cargoLoc;
     }
+
     public void setCargoLoc(char cargoLoc) {
         this.cargoLoc = cargoLoc;
     }
+
     public Intent getSettings() {
         Intent settings = new Intent(this, Settings.class);
         settings.putExtra("Game", getSpace());
         settings.putExtra("data", getData());
         return settings;
     }
-    public void setFinSettingsIntent() {MainActivity.settings = getSettings();}
+
+    public void setFinSettingsIntent() {
+        MainActivity.settings = getSettings();
+    }
 
     // methods to set or change variables, set ss timer, etc
 
-    public void scores(int id, int score, int array) {
+    //    public void updateScoreText(int id, int score, int array) {
+//        TextView text = findViewById(id);
+//        String[] res = getResources().getStringArray(array);
+//        text.setText(res[score]);
+//    }
+    public void updateScoreText(int id, int score, int type) {
         TextView text = findViewById(id);
-        String[] res = getResources().getStringArray(array);
-        text.setText(res[score]);
+        String label = (type == DeepSpace.CARGO ? "Cargo (" : "Hatch (") + score + ")";
+        text.setText(label);
     }
+
     public static class Dialogs extends DialogFragment {
         @NonNull
         @Override
@@ -91,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             return name.create();
         }
     }
+
     public static class Dialogs3 extends DialogFragment {
         @NonNull
         @Override
@@ -115,11 +135,13 @@ public class MainActivity extends AppCompatActivity {
             return builder.create();
         }
     }
+
     public void makeADialog(final String message, final String tag) {
         dialogMessage = message;
         DialogFragment newFragment = new Dialogs();
         newFragment.show(getSupportFragmentManager(), tag);
     }
+
     public void stormDelay(int seconds) {
         Timer timer = new Timer();
         timer.schedule(new RemindTask(), seconds * 1000);
@@ -128,167 +150,104 @@ public class MainActivity extends AppCompatActivity {
             pauser.scheduleAtFixedRate(new RemindTask2(), 1000, 1000);
         }
     }
+
     class RemindTask extends TimerTask {
         public void run() {
             getSpace().setSandStorm(false);
         }
     }
+
     class RemindTask2 extends TimerTask {
         public void run() {
             if (getSpace().isMainStart()) {
                 setTimerPause(timerPause + 1);
+                updateTextView(Integer.toString(getTimerPause()), R.id.timer);
                 if (getTimerPause() == 155) {
                     getSpace().setMainStart(false);
                 }
             }
         }
     }
+
     public void rocketSet(DeepSpace game, int level, int type) {
-        if (!game.isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
-        else if (level == 1) {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR1HSS(game.getRocket().getMainR1HSS() + 1);
-                }
-                else game.getRocket().setMainR1H(game.getRocket().getMainR1H() + 1);
+        // If game started
+        if (!game.isMainStart()) makeADialog("you need to press start!", "rocketfalse");
+            // If level is valid
+        else if (level > 0 && level <= 3) {
+            // If score is at maximum
+            if (game.getRocket().getTotalScore(type) >= 12) {
+                makeADialog("Can't score more than 12 hatches/cargo on the rocket!", "scoreSizeRocket");
+            } else {
+                // Actually add one to the score
+                game.getRocket().scoreGamePiece(level, type, game.isSandStorm());
+                setRocketLevel(0);
+                int id = type == DeepSpace.HATCH ? R.id.RH : R.id.RC;
+                updateScoreText(id, game.getRocket().getTotalScore(type), type);
             }
-            else {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR1CSS(game.getRocket().getMainR1CSS() + 1);
-                }
-                else {
-                    game.getRocket().setMainR1C(game.getRocket().getMainR1C() + 1);
-                }
-            }
-            setRocketLevel(0);
         }
-        else if (level == 2) {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR2HSS(game.getRocket().getMainR2HSS() + 1);
-                }
-                else game.getRocket().setMainR2H(game.getRocket().getMainR2H() + 1);
-            }
-            else {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR2CSS(game.getRocket().getMainR2CSS() + 1);
-                }
-                else {
-                    game.getRocket().setMainR2C(game.getRocket().getMainR2C() + 1);
-                }
-            }
-            setRocketLevel(0);
-        }
-        else if (level == 3) {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR3HSS(game.getRocket().getMainR3HSS() + 1);
-                }
-                else game.getRocket().setMainR3H(game.getRocket().getMainR3H() + 1);
-            }
-            else {
-                if (game.isSandStorm()) {
-                    game.getRocket().setMainR3CSS(game.getRocket().getMainR3CSS() + 1);
-                }
-                else {
-                    game.getRocket().setMainR3C(game.getRocket().getMainR3C() + 1);
-                }
-            }
-            setRocketLevel(0);
-        }
-        else {makeADialog("You need to pick a level!", "level");}
-        if (type == DeepSpace.HATCH && game.isMainStart() &&  rockHatArr <= 12 && (level != 0)) {
-            scores(R.id.RH, rockHatArr, R.array.RocketHatch);
-            rockHatArr = rockHatArr + 1;
-        }
-        else if (type == DeepSpace.CARGO && game.isMainStart() &&  rockCarArr <= 12 && (level != 0)) {
-            scores(R.id.RC, rockCarArr, R.array.CargoRocket);
-            rockCarArr = rockCarArr + 1;
-        }
+        // If level isn't valid
+        else makeADialog("You need to pick a level!", "level");
     }
+
     public void cargoShipSet(DeepSpace game, char location, int type) {
-        if (!game.isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
-        else if (location == 'f') {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getCargo().setMainCSFHSS(game.getCargo().getMainCSFHSS() + 1);
-                }
-                else game.getCargo().setMainCSFH(game.getCargo().getMainCSFH() + 1);
+        // If game started
+        if (!game.isMainStart()) makeADialog("you need to press start!", "rocketfalse");
+            // If location is valid
+        else if (location == 'f' || location == 'c') {
+            // If score is at maximum
+            if (game.getCargo().getTotalScore(type) >= 16) {
+                makeADialog("Can't score more than 16 hatches/cargo on the rocket!", "scoreSizeCargo");
+            } else {
+                // Actually add one to the score
+                game.getCargo().scoreGamePiece(location, type, game.isSandStorm());
+                setCargoLoc(' ');
+                int id = type == DeepSpace.HATCH ? R.id.Hatchcsf : R.id.button11;
+                updateScoreText(id, game.getCargo().getTotalScore(type), type);
             }
-            else {
-                if (game.isSandStorm()) {
-                    game.getCargo().setMainCSFCSS(game.getCargo().getMainCSFCSS() + 1);
-                }
-                else game.getCargo().setMainCSFC(game.getCargo().getMainCSFC() + 1);
-            }
-            setCargoLoc(' ');
         }
-        else if (location == 'c') {
-            if (type == DeepSpace.HATCH) {
-                if (game.isSandStorm()) {
-                    game.getCargo().setMainCSSHSS(game.getCargo().getMainCSSHSS() + 1);
-                }
-                else game.getCargo().setMainCSSH(game.getCargo().getMainCSSH() + 1);
-            }
-            else {
-                if (game.isSandStorm()) {
-                    game.getCargo().setMainCSSCSS(game.getCargo().getMainCSSCSS() + 1);
-                }
-                else game.getCargo().setMainCSSC(game.getCargo().getMainCSSC() + 1);
-            }
-            setCargoLoc(' ');
-        }
-        else {makeADialog("You need to pick front or side!", "cargoship");}
-        if (type == DeepSpace.HATCH && game.isMainStart() && cargoHatArr < 8 && (location != ' ')) {
-            scores(R.id.Hatchcsf, cargoHatArr, R.array.CargoHatch);
-            cargoHatArr = cargoHatArr + 1;
-        }
-        else if (type == DeepSpace.CARGO && game.isMainStart() &&  cargoCarArr < 8 && (location != ' ')) {
-            scores(R.id.button11, cargoCarArr, R.array.CargoCargo);
-            cargoCarArr = cargoCarArr + 1;
-        }
+        // If location invalid
+        else makeADialog("You need to pick front or side!", "cargoship");
     }
-    public void updateTextView(String content, int id){
+
+    public void updateTextView(String content, int id) {
         TextView nametext = findViewById(id);
         nametext.setText(content);
     }
 
     // methods called on create
 
-    public void infoTop() {
+    public void updateDisplayInfo() {
         updateTextView(getSpace().getInfo().getName(), R.id.infoName);
         updateTextView(getSpace().getInfo().getAlliance(), R.id.infoAlliance);
         updateTextView(getSpace().getInfo().getTeam().toString(), R.id.infoTeam);
         updateTextView(getSpace().getInfo().getMatch(), R.id.infoMatch);
     }
+
     public void dialogCheck() {
         DialogCheckThread thread = new DialogCheckThread();
         Thread threadStart = new Thread(thread);
         threadStart.start();
     }
+
     public void colorSet(int id, int color) {
         findViewById(id).setBackgroundColor(getResources().getColor(color));
     }
+
     public void checkDataSpace() {
         if (getIntent().hasExtra("game5")) {
             setSpace((DeepSpace) getIntent().getSerializableExtra("game5"));
-        }
-        else if (getIntent().hasExtra("game6")) {
+        } else if (getIntent().hasExtra("game6")) {
             setSpace((DeepSpace) getIntent().getSerializableExtra("game6"));
-        }
-        else {
+        } else {
             setSpace(new DeepSpace());
         }
         if (getIntent().hasExtra("data5")) {
             setData((PersistentData) getIntent().getSerializableExtra("data5"));
-        }
-        else if (getIntent().hasExtra("data4")) {
+        } else if (getIntent().hasExtra("data4")) {
             setData((PersistentData) getIntent().getSerializableExtra("data4"));
-        }
-        else if (getIntent().hasExtra("data6")) {
+        } else if (getIntent().hasExtra("data6")) {
             setData((PersistentData) getIntent().getSerializableExtra("data6"));
-        }
-        else {
+        } else {
             setData(new PersistentData());
         }
     }
@@ -307,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     class SettingsButtonThread implements Runnable {
         @Override
         public void run() {
@@ -315,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
             newFragment.show(getSupportFragmentManager(), "settingsPassword");
         }
     }
+
     class SubmitButtonThread implements Runnable {
         @Override
         public void run() {
@@ -324,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(psPage);
         }
     }
+
     class AddInfoButtonThread implements Runnable {
         @Override
         public void run() {
@@ -333,175 +295,193 @@ public class MainActivity extends AppCompatActivity {
             startActivity(addInfo);
         }
     }
+
     class BlockedScoreThread implements Runnable {
         @Override
         public void run() {
-            if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");}
-            else getSpace().setMainBlockedScores(getSpace().getMainBlockedScores() + 1);
+            if (!getSpace().isMainStart()) {
+                makeADialog("you need to press start!", "rocketfalse");
+            } else getSpace().setMainBlockedScores(getSpace().getMainBlockedScores() + 1);
         }
     }
 
     // button methods
 
-    public void settingsButton(View view){
+    public void settingsButton(View view) {
         SettingsButtonThread thread = new SettingsButtonThread();
         Thread threadStart = new Thread(thread);
         threadStart.start();
     }
-    public void addInfoButton(View view){
+
+    public void addInfoButton(View view) {
         AddInfoButtonThread thread = new AddInfoButtonThread();
         Thread threadStart = new Thread(thread);
         threadStart.start();
     }
-    public void helpButton(View view) {makeADialog(getSpace().getMainHelpInfo(), "help"); }
+
+    public void helpButton(View view) {
+        makeADialog(getSpace().getMainHelpInfo(), "help");
+    }
+
     public void startButton(View view) {
-        if (getSpace().getMainStartPosition() != 0){
-            if(!getSpace().isMainStart()) {
+        if (getSpace().getMainStartPosition() != 0) {
+            if (!getSpace().isMainStart()) {
                 getSpace().setMainStart(true);
                 findViewById(R.id.start3).setBackgroundColor(getResources().getColor(R.color.coolRed));
                 ((Button) findViewById(R.id.start3)).setText(R.string.stop);
-                if (getTimerPause() == 0) { stormDelay(15);}
-                else if (getTimerPause() <= 14) {
+                if (getTimerPause() == 0) {
+                    stormDelay(15);
+                } else if (getTimerPause() <= 14) {
                     getSpace().setSandStorm(true);
-                    stormDelay(15 - getTimerPause());}
-            }
-            else {
+                    stormDelay(15 - getTimerPause());
+                }
+            } else {
                 getSpace().setMainStart(false);
                 findViewById(R.id.start3).setBackgroundColor(getResources().getColor(R.color.coolGreen));
                 ((Button) findViewById(R.id.start3)).setText(R.string.start);
                 getSpace().setSandStorm(false);
             }
+        } else {
+            makeADialog("You need to press choose a start location!", "startLoc");
         }
-        else { makeADialog("You need to press choose a start location!", "startLoc"); }
     }
+
     public void submitButton(View view) {
         SubmitButtonThread thread = new SubmitButtonThread();
         Thread threadStart = new Thread(thread);
         threadStart.start();
     }
+
     public void rc(View view) {
         rocketSet(getSpace(), getRocketLevel(), DeepSpace.CARGO);
-        colorSet(R.id.rl1, R.color.colorAccent);
-        colorSet(R.id.rl2, R.color.colorAccent);
-        colorSet(R.id.rl3, R.color.colorAccent);
+        colorSet(R.id.rl1, DeepSpace.INACTIVE_LEVEL_COLOR);
+        colorSet(R.id.rl2, DeepSpace.INACTIVE_LEVEL_COLOR);
+        colorSet(R.id.rl3, DeepSpace.INACTIVE_LEVEL_COLOR);
     }
+
     public void rh(View view) {
         rocketSet(getSpace(), getRocketLevel(), DeepSpace.HATCH);
-        colorSet(R.id.rl1, R.color.colorAccent);
-        colorSet(R.id.rl2, R.color.colorAccent);
-        colorSet(R.id.rl3, R.color.colorAccent);
+        colorSet(R.id.rl1, DeepSpace.INACTIVE_LEVEL_COLOR);
+        colorSet(R.id.rl2, DeepSpace.INACTIVE_LEVEL_COLOR);
+        colorSet(R.id.rl3, DeepSpace.INACTIVE_LEVEL_COLOR);
     }
+
     public void csc(View view) {
         cargoShipSet(getSpace(), getCargoLoc(), DeepSpace.CARGO);
-        colorSet(R.id.cargoshipfront, R.color.colorAccent);
-        colorSet(R.id.cargoshipfront3, R.color.colorAccent);
+        colorSet(R.id.cargoshipfront, DeepSpace.INACTIVE_LEVEL_COLOR);
+        colorSet(R.id.cargoshipfront3, DeepSpace.INACTIVE_LEVEL_COLOR);
     }
+
     public void csh(View view) {
         cargoShipSet(getSpace(), getCargoLoc(), DeepSpace.HATCH);
-        colorSet(R.id.cargoshipfront, R.color.colorAccent);
-        colorSet(R.id.cargoshipfront3, R.color.colorAccent);
+        colorSet(R.id.cargoshipfront, DeepSpace.INACTIVE_LEVEL_COLOR);
+        colorSet(R.id.cargoshipfront3, DeepSpace.INACTIVE_LEVEL_COLOR);
     }
+
     public void csf(View view) {
         if (getSpace().isMainStart()) {
             setCargoLoc('f');
-            colorSet(R.id.cargoshipfront, R.color.coolWhite);
-            colorSet(R.id.cargoshipfront3, R.color.colorAccent);
-        }
-        else { makeADialog("You need to press start!", "setscore"); }
+            colorSet(R.id.cargoshipfront, DeepSpace.ACTIVE_LEVEL_COLOR);
+            colorSet(R.id.cargoshipfront3, DeepSpace.INACTIVE_LEVEL_COLOR);
+        } else makeADialog("You need to press start!", "setscore");
     }
+
     public void css(View view) {
         if (getSpace().isMainStart()) {
             setCargoLoc('c');
-            colorSet(R.id.cargoshipfront3, R.color.coolWhite);
-            colorSet(R.id.cargoshipfront, R.color.colorAccent);
-        }
-        else { makeADialog("You need to press start!", "setscore"); }
+            colorSet(R.id.cargoshipfront3, DeepSpace.ACTIVE_LEVEL_COLOR);
+            colorSet(R.id.cargoshipfront, DeepSpace.INACTIVE_LEVEL_COLOR);
+        } else makeADialog("You need to press start!", "setscore");
     }
+
     public void rl1(View view) {
         if (getSpace().isMainStart()) {
             setRocketLevel(1);
-            colorSet(R.id.rl1, R.color.colorAccent);
-            colorSet(R.id.rl2, R.color.colorAccent);
-            colorSet(R.id.rl3, R.color.colorAccent);
-            colorSet(R.id.rl1, R.color.coolWhite);
-        }
-        else { makeADialog("You need to press start!", "setscore"); }
+            colorSet(R.id.rl1, DeepSpace.INACTIVE_LEVEL_COLOR);
+            colorSet(R.id.rl2, DeepSpace.INACTIVE_LEVEL_COLOR);
+            colorSet(R.id.rl3, DeepSpace.INACTIVE_LEVEL_COLOR);
+            colorSet(R.id.rl1, DeepSpace.ACTIVE_LEVEL_COLOR);
+        } else makeADialog("You need to press start!", "setscore");
     }
+
     public void rl2(View view) {
         if (getSpace().isMainStart()) {
             setRocketLevel(2);
-            colorSet(R.id.rl1, R.color.colorAccent);
-            colorSet(R.id.rl2, R.color.colorAccent);
-            colorSet(R.id.rl3, R.color.colorAccent);
-            colorSet(R.id.rl2, R.color.coolWhite);
-        }
-        else { makeADialog("You need to press start!", "setscore"); }
+            colorSet(R.id.rl1, DeepSpace.INACTIVE_LEVEL_COLOR);
+            colorSet(R.id.rl2, DeepSpace.INACTIVE_LEVEL_COLOR);
+            colorSet(R.id.rl3, DeepSpace.INACTIVE_LEVEL_COLOR);
+            colorSet(R.id.rl2, DeepSpace.ACTIVE_LEVEL_COLOR);
+        } else makeADialog("You need to press start!", "setscore");
     }
+
     public void rl3(View view) {
         if (getSpace().isMainStart()) {
-            colorSet(R.id.rl1, R.color.colorAccent);
-            colorSet(R.id.rl2, R.color.colorAccent);
-            colorSet(R.id.rl3, R.color.colorAccent);
-            colorSet(R.id.rl3, R.color.coolWhite);
+            colorSet(R.id.rl1, DeepSpace.INACTIVE_LEVEL_COLOR);
+            colorSet(R.id.rl2, DeepSpace.INACTIVE_LEVEL_COLOR);
+            colorSet(R.id.rl3, DeepSpace.INACTIVE_LEVEL_COLOR);
+            colorSet(R.id.rl3, DeepSpace.ACTIVE_LEVEL_COLOR);
             setRocketLevel(3);
-        }
-        else { makeADialog("You need to press start!", "setscore"); }
+        } else makeADialog("You need to press start!", "setscore");
     }
-    public void defense(View view) {
-        if (!getSpace().isMainStart()) {makeADialog("you need to press start!", "rocketfalse");
-        ((Switch)view).setChecked(getSpace().isMainDefense());}
-        else {
-            if (!getSpace().isMainDefense()) {
-                    getSpace().setMainDefense(true);
-                }
-            else {getSpace().setMainDefense(false);}
-        }
 
+    public void defense(View view) {
+        if (!getSpace().isMainStart()) {
+            makeADialog("you need to press start!", "rocketfalse");
+            ((Switch) view).setChecked(getSpace().isMainDefense());
+        } else getSpace().setMainDefense(!getSpace().isMainDefense());
     }
+
     public void start1(View view) {
         getSpace().setMainStartPosition(1);
-        colorSet(R.id.start2, R.color.colorPrimaryDark);
-        colorSet(R.id.start1, R.color.colorPrimary);
+        colorSet(R.id.start2, DeepSpace.ACTIVE_START_COLOR);
+        colorSet(R.id.start1, DeepSpace.INACTIVE_START_COLOR);
     }
+
     public void start2(View view) {
         getSpace().setMainStartPosition(2);
-        colorSet(R.id.start1, R.color.colorPrimaryDark);
-        colorSet(R.id.start2, R.color.colorPrimary);}
+        colorSet(R.id.start1, DeepSpace.ACTIVE_START_COLOR);
+        colorSet(R.id.start2, DeepSpace.INACTIVE_START_COLOR);
+    }
+
     public void end1(View view) {
         if (getSpace().isMainStart()) {
             getSpace().setMainEndgame(1);
-            colorSet(R.id.hab1, R.color.colorPrimary);
-            colorSet(R.id.hab2, R.color.colorPrimary);
-            colorSet(R.id.hab3, R.color.colorPrimary);
-            colorSet(R.id.hab1, R.color.colorPrimaryDark);
-        }
-        else makeADialog("You need to press start!", "setscore");
+            colorSet(R.id.hab1, DeepSpace.INACTIVE_START_COLOR);
+            colorSet(R.id.hab2, DeepSpace.INACTIVE_START_COLOR);
+            colorSet(R.id.hab3, DeepSpace.INACTIVE_START_COLOR);
+            colorSet(R.id.hab1, DeepSpace.ACTIVE_START_COLOR);
+        } else makeADialog("You need to press start!", "setscore");
     }
+
     public void end2(View view) {
         if (getSpace().isMainStart()) {
             getSpace().setMainEndgame(2);
-            colorSet(R.id.hab1, R.color.colorPrimary);
-            colorSet(R.id.hab2, R.color.colorPrimary);
-            colorSet(R.id.hab3, R.color.colorPrimary);
-            colorSet(R.id.hab2, R.color.colorPrimaryDark);
-        }
-        else makeADialog("You need to press start!", "setscore");
+            colorSet(R.id.hab1, DeepSpace.INACTIVE_START_COLOR);
+            colorSet(R.id.hab2, DeepSpace.INACTIVE_START_COLOR);
+            colorSet(R.id.hab3, DeepSpace.INACTIVE_START_COLOR);
+            colorSet(R.id.hab2, DeepSpace.ACTIVE_START_COLOR);
+        } else makeADialog("You need to press start!", "setscore");
     }
+
     public void end3(View view) {
         if (getSpace().isMainStart()) {
             getSpace().setMainEndgame(3);
-            colorSet(R.id.hab1, R.color.colorPrimary);
-            colorSet(R.id.hab2, R.color.colorPrimary);
-            colorSet(R.id.hab3, R.color.colorPrimary);
-            colorSet(R.id.hab3, R.color.colorPrimaryDark);}
-        else { makeADialog("You need to press start!", "setscore"); }
+            colorSet(R.id.hab1, DeepSpace.INACTIVE_START_COLOR);
+            colorSet(R.id.hab2, DeepSpace.INACTIVE_START_COLOR);
+            colorSet(R.id.hab3, DeepSpace.INACTIVE_START_COLOR);
+            colorSet(R.id.hab3, DeepSpace.ACTIVE_START_COLOR);
+        } else makeADialog("You need to press start!", "setscore");
     }
-    public void blockedScore(View view){
+
+    public void blockedScore(View view) {
         BlockedScoreThread thread = new BlockedScoreThread();
         Thread threadStart = new Thread(thread);
         threadStart.start();
     }
-    public void timerCheck(View view) {updateTextView(Integer.toString(getTimerPause()), R.id.timer);}
+
+    public void timerCheck(View view) {
+        updateTextView(Integer.toString(getTimerPause()), R.id.timer);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -509,16 +489,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         checkDataSpace();
         if (!getData().getSheet().getSheetID().equals("default")) {
+            int rowNum = getData().getRowNumber();
             getSpace().infoSet(
-                    getData().getSheet().matchValue(getData().getRowNumber()),
-                    Integer.parseInt(getData().getSheet().teamValue(getData().getRowNumber())),
-                    getData().getSheet().nameValue(getData().getRowNumber()),
+                    getData().getSheet().matchValue(rowNum),
+                    Integer.parseInt(getData().getSheet().teamValue(rowNum)),
+                    getData().getSheet().nameValue(rowNum),
                     getData().getPerAlliance()
             );
         } else {
             getSpace().infoSet("0", 0, "0", "0");
         }
-        infoTop();
+        updateDisplayInfo();
     }
 
     @Override

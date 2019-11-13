@@ -21,25 +21,32 @@ class PersistentData implements Serializable {
     SheetsAccess getSheet() {
         return sheet;
     }
+
     String getPerAlliance() {
         return perAlliance;
     }
+
     void setPerAlliance(String perAlliance) {
         this.perAlliance = perAlliance;
     }
+
     int getRowNumber() {
         return rowNumber;
     }
+
     void setRowNumber(int rowNumber) {
         this.rowNumber = rowNumber;
     }
-    private String setSubRange() { return "dataFromApp!" + (rowNumber + 2) + ":" + (rowNumber + 2);}
+
+    private String setSubRange() {
+        return "dataFromApp!" + (rowNumber + 2) + ":" + (rowNumber + 2);
+    }
 
     // method to send data to the sheet (requires auth code)
 
     boolean sender(String key) {
         try {
-            String x = new SheetsAccess.sendToSheet().execute("1IrT8fskl1MCdMyxous8OO5YRCJo3Y4AoXHS_zusYrYc", setSubRange(), key).get();
+            String x = new SheetsAccess.sendToSheet().execute(BuildConfig.SHEETS_DATA_SHEET_ID, setSubRange(), key).get();
             return x.equals("yup");
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
