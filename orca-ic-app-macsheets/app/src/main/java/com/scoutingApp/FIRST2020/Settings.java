@@ -3,6 +3,7 @@ package com.scoutingApp.FIRST2020;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -283,8 +284,8 @@ public class Settings extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormEncodingBuilder()
                 .add("grant_type", "authorization_code")
-                .add("client_id", "782050499682-o0e2ebf3q5fdh34pti8o5a9t0a5llnvp.apps.googleusercontent.com")
-                .add("client_secret", "vlGO8-L2b8-of6b7wXkPkMWT")
+                .add("client_id", BuildConfig.FIREBASE_CLIENT_ID)
+                .add("client_secret", BuildConfig.FIREBASE_CLIENT_SECRET)
                 .add("redirect_uri","")
                 .add("code", Objects.requireNonNull(acct.getServerAuthCode()))
                 .add("access_type", "offline")

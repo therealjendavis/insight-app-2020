@@ -38,6 +38,12 @@ class DeepSpace implements Serializable {
             System.lineSeparator() + "Press the 'submit' button to send in the local data on display.");
     static final int HATCH = 0;
     static final int CARGO = 1;
+    static final int MAX_ROCKET_HATCHES = 12;
+    static final int MAX_ROCKET_CARGO = 12;
+    static final int MAX_ROCKET_GP = MAX_ROCKET_CARGO + MAX_ROCKET_HATCHES;
+    static final int MAX_CARGO_SHIP_HATCHES = 8;
+    static final int MAX_CARGO_SHIP_CARGO = 8;
+    static final int MAX_CARGO_SHIP_GP = MAX_CARGO_SHIP_CARGO + MAX_CARGO_SHIP_HATCHES;
     static final int ACTIVE_LEVEL_COLOR = R.color.coolWhite;
     static final int INACTIVE_LEVEL_COLOR = R.color.colorAccent;
     static final int ACTIVE_START_COLOR = R.color.colorPrimaryDark;

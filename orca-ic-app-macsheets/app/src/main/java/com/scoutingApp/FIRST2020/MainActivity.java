@@ -175,14 +175,14 @@ public class MainActivity extends AppCompatActivity {
             // If level is valid
         else if (level > 0 && level <= 3) {
             // If score is at maximum
-            if (game.getRocket().getTotalScore(type) >= 12) {
+            if (game.getRocket().getGamePieceScore(type) >= 12) {
                 makeADialog("Can't score more than 12 hatches/cargo on the rocket!", "scoreSizeRocket");
             } else {
                 // Actually add one to the score
                 game.getRocket().scoreGamePiece(level, type, game.isSandStorm());
                 setRocketLevel(0);
                 int id = type == DeepSpace.HATCH ? R.id.RH : R.id.RC;
-                updateScoreText(id, game.getRocket().getTotalScore(type), type);
+                updateScoreText(id, game.getRocket().getGamePieceScore(type), type);
             }
         }
         // If level isn't valid
@@ -195,14 +195,14 @@ public class MainActivity extends AppCompatActivity {
             // If location is valid
         else if (location == 'f' || location == 'c') {
             // If score is at maximum
-            if (game.getCargo().getTotalScore(type) >= 16) {
+            if (game.getCargo().getGamePieceScore(type) >= 16) {
                 makeADialog("Can't score more than 16 hatches/cargo on the rocket!", "scoreSizeCargo");
             } else {
                 // Actually add one to the score
                 game.getCargo().scoreGamePiece(location, type, game.isSandStorm());
                 setCargoLoc(' ');
                 int id = type == DeepSpace.HATCH ? R.id.Hatchcsf : R.id.button11;
-                updateScoreText(id, game.getCargo().getTotalScore(type), type);
+                updateScoreText(id, game.getCargo().getGamePieceScore(type), type);
             }
         }
         // If location invalid

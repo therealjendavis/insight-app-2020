@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def secretsPropertiesFile = rootProject.file("secrets.properties")
+def secretsProperties = new Properties()
+secretsProperties.load(new FileInputStream(secretsPropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -15,16 +19,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SHEETS_API_KEY", SheetsApiKey
-            buildConfigField "String", "SHEETS_APP_NAME", SheetsApplicationName
-            buildConfigField "String", "SHEETS_DATA_SHEET_ID", SheetsDataSheetId
-            buildConfigField "String", "SHEETS_SCHEDULE_SHEET_ID", SheetsScheduleSheetId
+            buildConfigField "String", "SHEETS_API_KEY", secretsProperties['SheetsApiKey']
+            buildConfigField "String", "SHEETS_APP_NAME", secretsProperties['SheetsApplicationName']
+            buildConfigField "String", "SHEETS_DATA_SHEET_ID", secretsProperties['SheetsDataSheetId']
+            buildConfigField "String", "SHEETS_SCHEDULE_SHEET_ID", secretsProperties['SheetsScheduleSheetId']
         }
         debug {
-            buildConfigField "String", "SHEETS_API_KEY", SheetsApiKey
-            buildConfigField "String", "SHEETS_APP_NAME", SheetsApplicationName
-            buildConfigField "String", "SHEETS_DATA_SHEET_ID", SheetsDataSheetId
-            buildConfigField "String", "SHEETS_SCHEDULE_SHEET_ID", SheetsScheduleSheetId
+            buildConfigField "String", "SHEETS_API_KEY", secretsProperties['SheetsApiKey']
+            buildConfigField "String", "SHEETS_APP_NAME", secretsProperties['SheetsApplicationName']
+            buildConfigField "String", "SHEETS_DATA_SHEET_ID", secretsProperties['SheetsDataSheetId']
+            buildConfigField "String", "SHEETS_SCHEDULE_SHEET_ID", secretsProperties['SheetsScheduleSheetId']
+            buildConfigField "String", "FIREBASE_CLIENT_ID", secretsProperties['FirebaseClientId']
+            buildConfigField "String", "FIREBASE_CLIENT_SECRET", secretsProperties['FirebaseClientSecret']
         }
     }
     packagingOptions {
