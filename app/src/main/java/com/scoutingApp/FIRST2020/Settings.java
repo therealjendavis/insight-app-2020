@@ -145,7 +145,7 @@ public class Settings extends AppCompatActivity {
         obj.getNotes();
     }
     private void getConnected() {
-        getData().getSheet().sender(getData().getSheet().mapTheSubmission(getData().perSubData.get(0).setValues()), getData().perSubData.get(0).getMatchNumber(), "tab" + tabletNumber);
+        getData().getSheet().sender(getData().getSheet().mapTheSubmission(getData().perSubData.get(getSpace().getSettingsDisplayNum()).setValues()), getData().perSubData.get(0).getMatchNumber(), "tab" + tabletNumber);
     }
 
     // threads
