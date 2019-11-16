@@ -1,8 +1,9 @@
 package com.scoutingApp.FIRST2020;
 
+
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 
 public class SubmittedData implements Serializable {

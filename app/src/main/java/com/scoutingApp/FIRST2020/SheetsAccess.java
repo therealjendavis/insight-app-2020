@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -87,7 +88,9 @@ class SheetsAccess implements Serializable {
         }
     }
     void sender(HashMap<String, Object> map, String... strings) {
+        Date now = new Date();
+        long x = now.getTime();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("all-data").child("match"+strings[0]+strings[1]).setValue(map);
+        mDatabase.child("all-data").child("time"+x+"match"+strings[0]+strings[1]).setValue(map);
     }
 }
