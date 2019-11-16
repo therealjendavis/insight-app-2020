@@ -88,6 +88,6 @@ class SheetsAccess implements Serializable {
     }
     void sender(HashMap<String, Object> map, String... strings) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("all-data").child(strings[1]).child(strings[0]).setValue(map);
+        mDatabase.child("all-data").child("match"+strings[0]+strings[1]).setValue(map);
     }
 }

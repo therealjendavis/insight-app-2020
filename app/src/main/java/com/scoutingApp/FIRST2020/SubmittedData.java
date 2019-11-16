@@ -22,7 +22,7 @@ public class SubmittedData implements Serializable {
     private String match;
     private String name;
     private String alliance;
-    private String notes;
+    private String notes = "";
 
     private int CSFH;
     private int CSFC;
