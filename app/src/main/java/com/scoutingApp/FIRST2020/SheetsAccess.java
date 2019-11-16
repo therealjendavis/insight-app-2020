@@ -90,6 +90,7 @@ class SheetsAccess implements Serializable {
     void sender(HashMap<String, Object> map, String... strings) {
         Date now = new Date();
         long x = now.getTime();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("all-data").child("time"+x+"match"+strings[0]+strings[1]).setValue(map);
     }
