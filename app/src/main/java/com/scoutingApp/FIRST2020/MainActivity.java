@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Lifecycle;
 
 import java.util.Objects;
 import java.util.Timer;
@@ -161,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             if (getSpace().isMainStart()) {
                 setTimerPause(timerPause + 1);
+                updateTextView("" + getTimerPause(), R.id.timer);
                 if (getTimerPause() == 155) {
                     getSpace().setMainStart(false);
                 }
@@ -486,6 +488,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         checkDataSpace();
         if (!getData().getSheet().getSheetID().equals("default")) {
             int rowNum = getData().getRowNumber();
@@ -499,11 +506,20 @@ public class MainActivity extends AppCompatActivity {
             getSpace().infoSet("0", 0, "0", "0");
         }
         updateDisplayInfo();
+        dialogCheck();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        dialogCheck();
+    protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        savedInstanceState.putSerializable("DATA", getData());
+        savedInstanceState.putSerializable("SPACE", getSpace());
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        setData((PersistentData) savedInstanceState.getSerializable("DATA"));
+        setSpace((DeepSpace) savedInstanceState.getSerializable("SPACE"));
     }
 }
