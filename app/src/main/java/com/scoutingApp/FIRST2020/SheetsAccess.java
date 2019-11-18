@@ -22,6 +22,16 @@ class SheetsAccess implements Serializable {
     private String sheetID = "default";
     private List<List<Object>> sheetPage = null;
 
+    private int subNum = -1;
+
+    public int getSubNum() {
+        return subNum;
+    }
+
+    public void setSubNum(int subNum) {
+        this.subNum = subNum;
+    }
+
     String getSheetID() {
         return sheetID;
     }

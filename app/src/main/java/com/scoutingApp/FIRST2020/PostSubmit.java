@@ -110,6 +110,10 @@ public class PostSubmit extends AppCompatActivity {
         getSub().setR3CSS(getSpace().getRocket().getScore(3, DeepSpace.CARGO, true));
     }
 
+    private void getConnected() {
+        getData().getSheet().sender(getData().getSheet().mapTheSubmission(getData().perSubData.get(getData().getSheet().getSubNum()).setValues()), getData().perSubData.get(getData().getSheet().getSubNum()).getMatchNumber(), "tab" + PersistentData.getTabNum());
+    }
+
     //button method
 
     public void submitButtonPageTwo(View view) {
@@ -123,6 +127,8 @@ public class PostSubmit extends AppCompatActivity {
             getData().perSubData.add(getSub());
             getData().perCacheData.add(getSpace().getInfo());
             getData().setRowNumber(getData().getRowNumber() + 1);
+            getData().getSheet().setSubNum(getData().getSheet().getSubNum() + 1);
+            getConnected();
             goHome();
         } else {
             DialogFragment newFragment = new Dialogs4();

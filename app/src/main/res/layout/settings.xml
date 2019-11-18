@@ -77,21 +77,6 @@
         app:layout_constraintVertical_bias="0.3">
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:backgroundTint="#94E28B"
-            android:onClick="localButton"
-            android:text="@string/local_data"
-            android:textSize="20sp" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25" />
-
-        <Button
             android:id="@+id/start1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,6 +99,16 @@
             android:backgroundTint="#C398DD"
             android:onClick="helpButtonTwo"
             android:text="@string/help"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:backgroundTint="#FFFFFF"
+            android:onClick="clearButton"
+            android:text="@string/clear"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -148,45 +143,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8">
 
-        <Button
-            android:id="@+id/clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:backgroundTint="#FFFFFF"
-            android:onClick="clearButton"
-            android:text="@string/clear"
-            android:textSize="20sp" />
-
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.2" />
 
-        <Button
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:backgroundTint="#8BA5DD"
-            android:onClick="nextButton"
-            android:text="@string/next"
-            android:textSize="20sp" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2" />
-
-        <Button
-            android:id="@+id/submitme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:backgroundTint="#DF76D4"
-            android:onClick="submitButtonThree"
-            android:text="@string/submit"
-            android:textSize="20sp" />
     </LinearLayout>
 
     <ScrollView

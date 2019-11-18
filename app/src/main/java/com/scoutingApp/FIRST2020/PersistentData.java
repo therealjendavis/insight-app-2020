@@ -2,7 +2,6 @@ package com.scoutingApp.FIRST2020;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 class PersistentData implements Serializable {
     //local/cached data arrays
@@ -15,7 +14,15 @@ class PersistentData implements Serializable {
     private String perAlliance;
     private int rowNumber = 0;
     private SheetsAccess sheet = new SheetsAccess();
+    private static int tabNum;
 
+    static int getTabNum() {
+        return tabNum;
+    }
+
+    static void setTabNum(int tabNum) {
+        PersistentData.tabNum = tabNum;
+    }
     //getters and setters
 
     SheetsAccess getSheet() {

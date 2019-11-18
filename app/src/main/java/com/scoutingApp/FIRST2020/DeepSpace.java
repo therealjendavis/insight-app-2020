@@ -1,6 +1,5 @@
 package com.scoutingApp.FIRST2020;
 
-import android.graphics.Color;
 
 import java.io.Serializable;
 
@@ -30,12 +29,9 @@ class DeepSpace implements Serializable {
     private boolean movement = true;
     private int extrasFinalScore = 0;
     private String settingsDisplay = " ";
-    private int settingsDisplayNum = 0;
-    private String settingsHelpInfo = ("Press the 'cache' button to view all data since last offload" +
-            System.lineSeparator() + "Press the 'local' button to view all unsent data." +
-            System.lineSeparator() + "Press the 'next' button to view the next submission in that category." +
+    private String settingsHelpInfo = ("Press the 'cache' button to view all data." +
             System.lineSeparator() + "Press the 'clear' button to clear the screen." +
-            System.lineSeparator() + "Press the 'submit' button to send in the local data on display.");
+            System.lineSeparator() + "Press the '?' to set the tablet's number.");
     static final int HATCH = 0;
     static final int CARGO = 1;
     static final int ACTIVE_LEVEL_COLOR = R.color.coolWhite;
@@ -135,6 +131,7 @@ class DeepSpace implements Serializable {
                 "            Cassidy Schiller" + System.lineSeparator() +
                 "            Mac Fraser" + System.lineSeparator() +
                 "            Henry Morris" + System.lineSeparator() +
+                "            Bradley Harker" + System.lineSeparator() +
                 "      Layout and Design:" + System.lineSeparator() +
                 "            Cassidy Schiller" + System.lineSeparator() +
                 "            Sam Slopey" + System.lineSeparator() +
@@ -198,14 +195,6 @@ class DeepSpace implements Serializable {
 
     void setSettingsDisplay(String settingsDisplay) {
         this.settingsDisplay = settingsDisplay;
-    }
-
-    int getSettingsDisplayNum() {
-        return settingsDisplayNum;
-    }
-
-    void setSettingsDisplayNum(int settingsDisplayNum) {
-        this.settingsDisplayNum = settingsDisplayNum;
     }
 
     String getSettingsHelpInfo() {
