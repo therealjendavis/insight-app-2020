@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
     class DialogCheckThread implements Runnable {
         @Override
         public void run() {
-            if (!getData().perSubData.isEmpty() && getData().getSheet().getSheetPage() != null) {
+            if (getData().perSubData != null && getData().getSheet().getSheetPage() != null) {
                 int x = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(2).toString()); //current match number
                 int y = Integer.parseInt(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(2).toString()); //last match number
                 if (!(getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0).equals(getData().getSheet().getSheetPage().get(getData().getRowNumber() - 1).get(0))) && (x - 1 == y)) {
