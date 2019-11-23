@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 
 import java.util.Objects;
@@ -162,11 +164,21 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             if (getSpace().isMainStart()) {
                 setTimerPause(timerPause + 1);
-                updateTextView("" + getTimerPause(), R.id.timer);
+                timerFragment timerText = (timerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+                ((TextView) timerText.getView().findViewById(R.id.timer)).setText(String.valueOf(getTimerPause()));
                 if (getTimerPause() == 155) {
                     getSpace().setMainStart(false);
                 }
             }
+        }
+    }
+
+    public static class timerFragment extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            // Inflate the layout for this fragment
+            return inflater.inflate(R.layout.timer, container, false);
         }
     }
 
@@ -478,10 +490,6 @@ public class MainActivity extends AppCompatActivity {
         BlockedScoreThread thread = new BlockedScoreThread();
         Thread threadStart = new Thread(thread);
         threadStart.start();
-    }
-
-    public void timerCheck(View view) {
-        updateTextView(Integer.toString(getTimerPause()), R.id.timer);
     }
 
     @Override

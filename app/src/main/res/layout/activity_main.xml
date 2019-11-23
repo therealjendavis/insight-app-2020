@@ -157,18 +157,6 @@
         app:layout_constraintTop_toBottomOf="@+id/RC" />
 
     <Button
-        android:id="@+id/timer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#00FFFFFF"
-        android:onClick="timerCheck"
-        android:text="@string/check_timer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/start2"
-        app:layout_constraintTop_toBottomOf="@+id/start3" />
-
-    <Button
         android:id="@+id/start1"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
@@ -459,5 +447,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <fragment
+        android:name="com.scoutingApp.FIRST2020.MainActivity$timerFragment"
+        android:id="@+id/fragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/start2"
+        app:layout_constraintTop_toBottomOf="@+id/start3"
+        app:layout_constraintBottom_toBottomOf="@+id/start2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
