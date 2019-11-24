@@ -57,6 +57,7 @@
     <string name="cargo_ship">Cargo Ship</string>
     <string name="rocket_ship">Rocket Ship</string>
     <string name="timer">0</string>
+    <string name="_0">0</string>
     <string-array name="CargoCargo">
         <item>Cargo (1)</item>
         <item>Cargo (2)</item>

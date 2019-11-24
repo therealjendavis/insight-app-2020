@@ -164,21 +164,13 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             if (getSpace().isMainStart()) {
                 setTimerPause(timerPause + 1);
-                timerFragment timerText = (timerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-                ((TextView) timerText.getView().findViewById(R.id.timer)).setText(String.valueOf(getTimerPause()));
+                TimerCheckThread thread = new TimerCheckThread();
+                Thread threadStart = new Thread(thread);
+                runOnUiThread(threadStart);
                 if (getTimerPause() == 155) {
                     getSpace().setMainStart(false);
                 }
             }
-        }
-    }
-
-    public static class timerFragment extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.timer, container, false);
         }
     }
 
@@ -277,6 +269,14 @@ public class MainActivity extends AppCompatActivity {
                     makeADialog("Please go find the next scouter, " + getData().getSheet().getSheetPage().get(getData().getRowNumber()).get(0), "handoff");
                 }
             }
+        }
+    }
+
+    class TimerCheckThread implements Runnable {
+        @Override
+        public void run() {
+            TextView timerText = findViewById(R.id.timer);
+            timerText.setText(String.valueOf(getTimerPause()));
         }
     }
 
