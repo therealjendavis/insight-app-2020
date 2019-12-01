@@ -58,6 +58,18 @@
     <string name="rocket_ship">Rocket Ship</string>
     <string name="timer">0</string>
     <string name="_0">0</string>
+    <string name="_1">1</string>
+    <string name="_10">10</string>
+    <string name="_9">9</string>
+    <string name="_8">8</string>
+    <string name="_7">7</string>
+    <string name="_11">11</string>
+    <string name="_12">12</string>
+    <string name="_6">6</string>
+    <string name="_5">5</string>
+    <string name="_4">4</string>
+    <string name="BLUE">BLUE</string>
+    <string name="RED">RED</string>
     <string-array name="CargoCargo">
         <item>Cargo (1)</item>
         <item>Cargo (2)</item>

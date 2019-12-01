@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.view.View;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -40,9 +41,12 @@ public class PostSubmit extends AppCompatActivity {
 
     private void info() {
         updateTextView(getSpace().getInfo().getName(), R.id.name);
-        updateTextView(getSpace().getInfo().getAlliance(), R.id.alliance);
         updateTextView(Integer.toString(getSpace().getInfo().getTeam()), R.id.team);
         updateTextView((getSpace().getInfo().getMatch()), R.id.match);
+        if (getSpace().getInfo().getAlliance().equalsIgnoreCase("red")) {
+            ((ToggleButton) findViewById(R.id.toggleButton)).setChecked(true);
+        }
+
     }
 
     // various methods called on submit
@@ -121,7 +125,7 @@ public class PostSubmit extends AppCompatActivity {
             getSpace().setMainName(newString(R.id.name));
             getSpace().setMainTeam(Integer.valueOf(newString(R.id.team)));
             getSpace().setMainMatch(newString(R.id.match));
-            getSpace().setMainAlliance(newString(R.id.alliance));
+            getSpace().setMainAlliance(((ToggleButton) findViewById(R.id.toggleButton)).getText().toString());
             getSpace().setExtrasFinalScore(Integer.valueOf(newString(R.id.typescorehere)));
             toSubmission();
             getData().perSubData.add(getSub());

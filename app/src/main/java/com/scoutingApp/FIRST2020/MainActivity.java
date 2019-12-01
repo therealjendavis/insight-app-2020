@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
         else if (level > 0 && level <= 3) {
             // If score is at maximum
             if (game.getRocket().getTotalScore(type) >= 12) {
-                makeADialog("Can't score more than 12 hatches/cargo on the rocket!", "scoreSizeRocket");
+                makeADialog("can't score more than 12" + (type == DeepSpace.CARGO ? "cargo" : "hatches") + " on the rockets!", "scoreSizeRocket");
             } else {
                 // Actually add one to the score
                 game.getRocket().scoreGamePiece(level, type, game.isSandStorm());
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         else if (location == 'f' || location == 'c') {
             // If score is at maximum
             if (game.getCargo().getTotalScore(type) >= 16) {
-                makeADialog("Can't score more than 16 hatches/cargo on the rocket!", "scoreSizeCargo");
+                makeADialog("Can't score more than 8" + (type == DeepSpace.CARGO ? "cargo" : "hatches") + "on the cargo ship!", "scoreSizeCargo");
             } else {
                 // Actually add one to the score
                 game.getCargo().scoreGamePiece(location, type, game.isSandStorm());
@@ -350,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else {
                 getSpace().setMainStart(false);
-                findViewById(R.id.start3).setBackgroundColor(getResources().getColor(R.color.coolGreen));
+                findViewById(R.id.start3).setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 ((Button) findViewById(R.id.start3)).setText(R.string.start);
                 getSpace().setSandStorm(false);
             }

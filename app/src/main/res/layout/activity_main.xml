@@ -216,8 +216,7 @@
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:thumbTint="@color/coolPurple" />
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="wrap_content"

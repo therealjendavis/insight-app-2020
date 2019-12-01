@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,12 +48,29 @@ public class Settings extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
             LayoutInflater inflater = requireActivity().getLayoutInflater();
-            builder.setView(inflater.inflate(R.layout.password_dialog2, null));
+            try {
+                builder.setView(inflater.inflate(R.layout.password_dialog2, (ViewGroup.class.newInstance())));
+            } catch (IllegalAccessException | java.lang.InstantiationException e) {
+                e.printStackTrace();
+            }
             builder.setMessage(dialogMessage)
                 .setPositiveButton("yup!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        try {Settings.tabletNumber = Integer.parseInt(((TextView) Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById(R.id.tabnum)).getText().toString());}
-                        catch (Exception e) {Settings.tabletNumber = 0;}
+                        try {Settings.tabletNumber = (((RadioGroup) Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById(R.id.RadioGroup)).indexOfChild(
+                                Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById((
+                                        (RadioGroup) Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById(R.id.RadioGroup)).getCheckedRadioButtonId()
+                                )
+                            ));
+                        }
+                        catch (Exception e) {
+                            try {Settings.tabletNumber = (((RadioGroup) Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById(R.id.RadioGroup2)).indexOfChild(
+                                        Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById((
+                                                (RadioGroup) Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById(R.id.RadioGroup2)).getCheckedRadioButtonId()
+                                        )
+                                ));
+                            }
+                            catch (Exception e2) {Settings.tabletNumber = 0;}
+                        }
                         PersistentData.setTabNum(Settings.tabletNumber);
                         if (tabletNumber <= 3) {
                             allianceColor = "Red";
@@ -69,6 +88,7 @@ public class Settings extends AppCompatActivity {
         DialogFragment newFragment = new Settings.Dialogs2();
         newFragment.show(getSupportFragmentManager(), tag);
     }
+
     public String stringMe(Info obj) {
         return obj.getName() + " " +
         obj.getTeam() + " " +

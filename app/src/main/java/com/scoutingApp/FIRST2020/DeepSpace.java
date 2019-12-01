@@ -34,7 +34,7 @@ class DeepSpace implements Serializable {
             System.lineSeparator() + "Press the '?' to set the tablet's number.");
     static final int HATCH = 0;
     static final int CARGO = 1;
-    static final int ACTIVE_LEVEL_COLOR = R.color.coolWhite;
+    static final int ACTIVE_LEVEL_COLOR = R.color.colorPrimary;
     static final int INACTIVE_LEVEL_COLOR = R.color.colorAccent;
     static final int ACTIVE_START_COLOR = R.color.colorPrimaryDark;
     static final int INACTIVE_START_COLOR = R.color.colorPrimary;
