@@ -114,31 +114,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static class Dialogs3 extends DialogFragment {
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-            LayoutInflater inflater = requireActivity().getLayoutInflater();
-            builder.setView(inflater.inflate(R.layout.password_dialog, null))
-                    .setPositiveButton("yup!", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            boolean passwordCorrect = ((TextView) Objects.requireNonNull(getDialog()).findViewById(R.id.password)).getText().toString().equalsIgnoreCase("rocknroll");
-                            if (passwordCorrect) {
-                                startActivity(settings);
-                            }
-                            Objects.requireNonNull(Dialogs3.this.getDialog()).cancel();
-                        }
-                    })
-                    .setNegativeButton("nope!", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Objects.requireNonNull(Dialogs3.this.getDialog()).cancel();
-                        }
-                    });
-            return builder.create();
-        }
-    }
-
     public void makeADialog(final String message, final String tag) {
         dialogMessage = message;
         DialogFragment newFragment = new Dialogs();
@@ -284,8 +259,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             setFinSettingsIntent();
-            DialogFragment newFragment = new Dialogs3();
-            newFragment.show(getSupportFragmentManager(), "settingsPassword");
+            startActivity(settings);
         }
     }
 

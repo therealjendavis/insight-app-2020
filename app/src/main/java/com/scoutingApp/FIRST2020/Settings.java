@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -28,7 +27,6 @@ public class Settings extends AppCompatActivity {
         return (PersistentData) getIntent().getSerializableExtra("data");
     }
     public static String allianceColor;
-    public static String dialogMessage;
     public static int tabletNumber = 0;
     String lineBreak = System.lineSeparator();
 
@@ -48,13 +46,8 @@ public class Settings extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
             LayoutInflater inflater = requireActivity().getLayoutInflater();
-            try {
-                builder.setView(inflater.inflate(R.layout.password_dialog2, (ViewGroup.class.newInstance())));
-            } catch (IllegalAccessException | java.lang.InstantiationException e) {
-                e.printStackTrace();
-            }
-            builder.setMessage(dialogMessage)
-                .setPositiveButton("yup!", new DialogInterface.OnClickListener() {
+                builder.setView(inflater.inflate(R.layout.password_dialog2, null));
+                builder.setPositiveButton("yup!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {Settings.tabletNumber = (((RadioGroup) Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById(R.id.RadioGroup)).indexOfChild(
                                 Objects.requireNonNull(Dialogs2.this.getDialog()).findViewById((
@@ -83,10 +76,37 @@ public class Settings extends AppCompatActivity {
             return builder.create();
         }
     }
-    public void makeADialog2(final String message, final String tag) {
-        dialogMessage = message;
-        DialogFragment newFragment = new Settings.Dialogs2();
-        newFragment.show(getSupportFragmentManager(), tag);
+
+    public static class Dialogs3 extends DialogFragment {
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+            LayoutInflater inflater = requireActivity().getLayoutInflater();
+            builder.setView(inflater.inflate(R.layout.password_dialog, null))
+                    .setMessage("What's the password?")
+                    .setPositiveButton("yup!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            boolean passwordCorrect = ((TextView) Objects.requireNonNull(getDialog()).findViewById(R.id.password)).getText().toString().equalsIgnoreCase("rocknroll");
+                            if (passwordCorrect) {
+                                DialogFragment newFragment = new Settings.Dialogs2();
+                                newFragment.show(Objects.requireNonNull(getFragmentManager()), "tabnumber");
+                            }
+                            Objects.requireNonNull(Dialogs3.this.getDialog()).cancel();
+                        }
+                    })
+                    .setNegativeButton("nope!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Objects.requireNonNull(Dialogs3.this.getDialog()).cancel();
+                        }
+                    });
+            return builder.create();
+        }
+    }
+
+    public void makeADialog3() {
+        DialogFragment newFragment = new Settings.Dialogs3();
+        newFragment.show(getSupportFragmentManager(), "password");
     }
 
     public String stringMe(Info obj) {
@@ -120,7 +140,7 @@ public class Settings extends AppCompatActivity {
     // button methods
 
     public void allianceChoose(View view) {
-        makeADialog2("Choose this tablet's number!", "tabNumber");
+        makeADialog3();
     }
     public void cacheButton(View view) {
         String cache = "Cached Data:";
